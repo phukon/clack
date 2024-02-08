@@ -31,3 +31,55 @@ body {
     text-wrap: balance;
   }
 } */
+
+.--local-ebgaramond {
+  font-family: var(--local-ebgaramond);
+}
+
+.squiggly-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* Adjust as needed */
+  width: 100%;
+  height: 4px; /* Adjust thickness of the squiggly line */
+  background-image: linear-gradient(90deg, transparent, #000, transparent);
+  background-size: 10px 2px; /* Adjust size and frequency of the waves */
+}
+
+.card {
+  font-size: 14px;
+  width: 500px;
+  height: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075),
+    0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
+    0 0 16px hsl(0deg 0% 0% / 0.075);
+  transform-origin: 10% 60%;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.card-container {
+  overflow: hidden;
+  display: flex;
+  /* gap: 50px; */
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 30px;
+  margin-top: 60px;
+  margin-bottom: -120px;
+}
+
+.splash {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+}
