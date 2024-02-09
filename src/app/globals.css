@@ -49,7 +49,7 @@ body {
 
 .card {
   font-size: 14px;
-  width: 500px;
+  max-width:450px;
   height: 330px;
   display: flex;
   align-items: center;
