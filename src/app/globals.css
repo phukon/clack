@@ -50,7 +50,7 @@ body {
 .card {
   font-size: 14px;
   max-width:450px;
-  height: 330px;
+  height: 230px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +61,8 @@ body {
     0 0 16px hsl(0deg 0% 0% / 0.075);
   transform-origin: 10% 60%;
   margin-top: 2rem;
-  padding: 1rem;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .card-container {
@@ -73,7 +74,7 @@ body {
   position: relative;
   padding: 30px;
   margin-top: 60px;
-  margin-bottom: -120px;
+  margin-bottom: -60px;
 }
 
 .splash {

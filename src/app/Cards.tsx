@@ -1,5 +1,6 @@
 'use client';
 import { motion, Variants } from 'framer-motion';
+import Image from 'next/image';
 
 interface Props {
   emoji: string;
@@ -7,8 +8,8 @@ interface Props {
 
 const cardVariants: Variants = {
   offscreen: {
-    y: 300,
-    rotate: 120,
+    y: 100,
+    rotate: 0,
   },
   onscreen: {
     y: -20,
@@ -24,19 +25,27 @@ const cardVariants: Variants = {
 function Card({ emoji }: Props) {
   return (
     <motion.div
-      className="card-container"
+      className="card-container rounded-2xl mx-5 lg:mx-28 min-[1280px]:mx-52"
       initial="offscreen"
       whileInView="onscreen"
-      viewport={{ once: true, amount: 0.9 }}
+      viewport={{ once: true, amount: 0.8 }}
     >
       <div className="splash" />
-      <div className=" flex flex-col md:flex-row justify-evenly w-full items-center">
-        <p>ededed</p>
+      <div className=" flex flex-col md:flex-row justify-between w-full items-center">
+        <div className=" max-w-[550px]">
+          <span className=" text-2xl md:text-2xl font-extrabold --local-ebgaramond">Build your portfolio</span>
+          <p className=' text-gray-600 text-base max-w-80 md:max-w-60 mt-2'>{emoji}</p>
+        </div>
         <motion.div className="card" variants={cardVariants}>
-        {emoji}
-      </motion.div>
+          <Image
+            className=" max-h-full object-cover max-w-full rounded-md"
+            src="/showcase/a.jpg"
+            alt="ded"
+            height={920}
+            width={920}
+          />
+        </motion.div>
       </div>
-
     </motion.div>
   );
 }

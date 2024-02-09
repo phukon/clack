@@ -6,7 +6,7 @@ import Cards from '@/app/Cards';
 
 const Body: React.FC = (): JSX.Element => {
   return (
-    <div className="flex flex-col gap-2 md:gap-0">
+    <div className="flex flex-col gap-2 pt-5 md:pt-0 md:gap-0">
       <div className="max-w-screen-2xl mx-auto mt-4 mb-8 md:mb-16 md:my-16 px-4 z-10 relative">
         <h1 className="m-0 text-center text-5xl md:text-7xl font-medium overflow-hidden pb-3 --local-ebgaramond">
           <span className=" ml-4 first:ml-0 inline-block">Track</span>
@@ -22,11 +22,11 @@ const Body: React.FC = (): JSX.Element => {
             effortlessly
           </span>
         </h1>
-        <h2 className="m-0 text-center text-xl xl:text-2xl leading-tight font-normal mt-2 md:mt-3 text-gray-500 mb-6">
-          Tangerine automatically syncs your writing activity from your Google
-          Doc and shows your progress on a calendar
+        <h2 className="m-0 text-center text-xl xl:text-2xl leading-tight font-normal mt-2 px-5 md:mt-3 text-gray-500 mb-6">
+          Automatically sync your writing activity from your Google
+          Doc and view your progress on a calendar
         </h2>
-        <div className="flex justify-center items-center gap-5">
+        <div className="flex justify-center items-center mt-11 -mb-11 md:-mb-6 gap-5">
           <motion.a
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
