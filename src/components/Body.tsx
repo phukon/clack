@@ -8,7 +8,7 @@ const Body: React.FC = (): JSX.Element => {
   return (
     <div className="flex flex-col gap-2 pt-5 md:pt-0 md:gap-0">
       <div className="max-w-screen-2xl mx-auto mt-4 mb-8 md:mb-16 md:my-16 px-4 z-10 relative">
-        <h1 className="m-0 text-center text-5xl md:text-7xl font-medium overflow-hidden pb-3 --local-ebgaramond">
+        <h1 className="m-0 text-center text-5xl md:text-[80px] font-normal overflow-hidden pb-3 --local-ebgaramond">
           <span className=" ml-4 first:ml-0 inline-block">Track</span>
           <span className=" ml-4 first:ml-0 inline-block">your</span>          <br/>
           <span className="text-blue-400 dark:text-yellow ml-4 first:ml-0 inline-block">
@@ -22,7 +22,7 @@ const Body: React.FC = (): JSX.Element => {
             effortlessly
           </span>
         </h1>
-        <h2 className="m-0 text-center text-xl xl:text-2xl leading-tight font-normal mt-2 px-5 md:mt-3 text-gray-500 mb-6">
+        <h2 className="m-0 text-center text-xl xl:text-2xl leading-tight font-normal mt-2 md:px-28 xl:px-96 md:mt-3 text-gray-500 mb-6">
           Automatically sync your writing activity from your Google
           Doc and view your progress on a calendar
         </h2>
