@@ -36,6 +36,10 @@ body {
   font-family: var(--local-ebgaramond);
 }
 
+.--local-comfortaa {
+  font-family: var(--local-comfortaa);
+}
+
 .squiggly-text::after {
   content: '';
   position: absolute;

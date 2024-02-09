@@ -31,7 +31,7 @@ const Body: React.FC = (): JSX.Element => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             rel="noopener noreferrer"
-            href="#"
+            href="/"
             className="bg-black border-[1.5px] relative top-[2px] rounded-[8px] w-auto text-primary inline-block border-button text-center group disabled:opacity-50 disabled:cursor-not-allowed  group"
             target=""
           >

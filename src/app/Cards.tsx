@@ -28,7 +28,7 @@ function Card({ emoji }: Props) {
       className="card-container rounded-2xl mx-5 lg:mx-28 min-[1280px]:mx-52"
       initial="offscreen"
       whileInView="onscreen"
-      viewport={{ once: true, amount: 0.8 }}
+      viewport={{ once: false, amount: 0.8 }}
     >
       <div className="splash" />
       <div className=" flex flex-col md:flex-row justify-between w-full items-center">

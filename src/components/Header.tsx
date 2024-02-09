@@ -1,90 +1,60 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Header: React.FC = (): JSX.Element => {
   return (
     <header className="relative z-[999999] md:sticky md:top-0 bg-white">
       <div className="border-b border-light dark:border-dark bg-accent dark:bg-accent-dark mb-1">
-        <div className="flex mx-auto px-2 md:px-0 mdlg:px-5 justify-between transition-all max-w-screen-3xl box-content">
+        <div className="flex mx-auto px-2 md:px-0 mdlg:px-5 justify-items-center transition-all max-w-screen-3xl box-content">
           <div className="flex-1 flex">
-            <a
-              aria-current="page"
-              className="py-4 grow-0 shrink-0 basis-[auto] dark:text-primary-dark relative"
+            <div className="max-w-[60px] max-h-[60px] flex flex-row align-middle">
+              <Image
+                src="/logo1.png"
+                height={740}
+                width={740}
+                alt="=logo"
+                priority
+              />
+            </div>
+            <Link
+              className="flex h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100"
               href="/"
             >
-              <span
-                className="bg-white absolute w-full h-[calc(100%+1px)] left-0 inset-0
-                before:absolute before:border-r before:top-0 before:h-full before:border-light dark:before:border-dark before:w-[10px] before:left-0 before:bg-accent dark:before:bg-accent-dark before:z-10
-                after:absolute after:border-l after:top-0 after:h-full after:border-light dark:after:border-dark after:w-[10px] after:right-0 after:bg-accent dark:after:bg-accent-dark before:rounded-br-lg after:rounded-bl-lg before:border-b after:border-b"
-              >
-                <span className="absolute bottom-0 left-0 border-b border-bg-light dark:border-bg-dark w-full"></span>
+              <span className="relative text-3xl font-extrabold --local-comfortaa">
+                clack
               </span>
-            </a>
-            <div className="max-w-[60px] max-h-[60px] flex flex-row align-middle">
-              <Image src="/logo.png" height={740} width={740} alt="=logo" priority />
-            </div>
-            <a
-              className="text-[13.5px] font-bold flex h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100"
-              href="/product-analytics"
-            >
-              <span className="relative">Tangerine</span>
-            </a>
+            </Link>
           </div>
           <ul className="md:flex hidden list-none m-0 p-0">
             <li className="h-full">
-              <a
-                className="text-[13.5px] font-medium flex h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100"
-                href="/product-analytics"
-              >
-                <span className="relative">Products</span>
-              </a>
-            </li>
-            <li className="h-full">
-              <a
-                className="text-[13.5px] font-medium flex h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100"
-                href="/pricing"
-              >
-                <span className="relative">Pricing</span>
-              </a>
-            </li>
-            <li className="h-full">
-              <a
-                className="text-[13.5px] font-medium flex h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100"
+              <Link
+                className=" text-base font-medium flex h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100"
                 href="/docs"
               >
                 <span className="relative">Docs</span>
-              </a>
+              </Link>
             </li>
             <li className="h-full">
-              <a
+              <Link
                 rel="noopener noreferrer"
-                href="https://posthog.com/posts"
-                className="text-[13.5px] font-medium flex h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100 group"
+                href="/blog"
+                className="text-base font-medium flex h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100 group"
                 target=""
               >
-                <span className="relative">Community</span>
-              </a>
+                <span className="relative">Blog</span>
+              </Link>
             </li>
             <li className="h-full">
-              <a
-                className="text-[13.5px] font-medium flex h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100"
+              <Link
+                className="text-base font-medium flex h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100"
                 href="/about"
               >
-                <span className="relative">Company</span>
-              </a>
+                <span className="relative">About</span>
+              </Link>
             </li>
           </ul>
           <div className="flex items-center justify-end flex-1">
-            <a
-              rel="noopener noreferrer"
-              href="https://app.posthog.com/signup"
-              className="bg-yellow-500 border-[1.5px] relative top-[1px] rounded-[6px] w-auto text-primary border-button text-center group disabled:opacity-50 disabled:cursor-not-allowed hidden sm:flex mr-2 group"
-              target=""
-            >
-              <span className="relative text-center w-auto border-yellow bg-white text-primary hover:text-primary dark:bg-dark dark:text-primary-dark dark:hover:text-primary-dark rounded-[6px] text-[13px] font-bold px-3.5 py-1.5 translate-y-[-2px] hover:translate-y-[-3px] active:translate-y-[-1px] border-[1.5px] mx-[-1.5px] group-disabled:hover:!translate-y-[-2px] block active:transition-all active:duration-100 select-none ">
-                Get started
-              </span>
-            </a>
             {/* <span className="">
               <button className="group my-1mr-[1px] p-2 hover:bg-border dark:hover:bg-border-dark rounded">
                 <svg
@@ -102,7 +72,13 @@ const Header: React.FC = (): JSX.Element => {
                 </svg>
               </button>
             </span> */}
-            <span className="group/parent relative text-primary dark:text-primary-dark">
+            <span className="group/parent relative text-primary dark:text-primary-dark flex flex-row gap-4">
+              <Link
+                className="text-base font-medium md:hidden h-full items-center relative px-3 py-4 mdlg:p-4 opacity-70 hover:opacity-100"
+                href="/about"
+              >
+                <span className="relative">About</span>
+              </Link>
               <button className="my-1 p-2 rounded hover:bg-border dark:hover:bg-border-dark ">
                 <svg
                   className="LemonIcon opacity-50 inline-block w-6 group-hover/parent:opacity-75"
