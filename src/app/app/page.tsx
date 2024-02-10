@@ -126,7 +126,7 @@ function Onboard() {
             </div>
           </form>
           <p className="text-sm text-gray-600 mt-4">
-            By clicking "{isLoginMode ? 'Log in' : 'Create Account'}," you agree to our{' '}
+            By clicking &quot;{isLoginMode ? 'Log in' : 'Create Account'},&quot; you agree to our{' '}
             <Link href="/terms" className="text-primary">
               Terms of Service
             </Link>{' '}

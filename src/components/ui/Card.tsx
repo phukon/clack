@@ -43,7 +43,7 @@ const Card: React.FC = (): JSX.Element => {
           }}
         >
           <p className="text-[#71717A] md:text-[16px] text-base leading-[1.4em]">
-            Autocomplete will write alongside you to beat writer's block
+            Autocomplete will write alongside you to beat writer&apos;s block
             whenever you need a helping hand
           </p>
         </div>
