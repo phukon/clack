@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-const Card: React.FC = (): JSX.Element => {
+const Card1: React.FC = (): JSX.Element => {
   return (
     <div className="flex flex-col items-center align-middle mb-8"> {/* Reduced mb-8 from mb-16 */}
 
@@ -52,4 +52,4 @@ const Card: React.FC = (): JSX.Element => {
   );
 };
 
-export default Card;
+export default Card1;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './Card';
+import Card1 from './Card1';
 
 const Features = () => {
   return (
@@ -76,10 +76,10 @@ const Features = () => {
       </div>
       <div className="flex flex-col items-center text-center mt-20 lg:grid lg:grid-cols-2 gap-4 lg:mx-64"> {/* Adjusted gap-4 */}
 
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <Card1 />
+        <Card1 />
+        <Card1 />
+        <Card1 />
       </div>
     </>
   );
