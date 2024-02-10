@@ -74,7 +74,11 @@ const Features = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center text-center mt-10">
+      <div className="flex flex-col items-center text-center mt-20 lg:grid lg:grid-cols-2 gap-4 lg:mx-64"> {/* Adjusted gap-4 */}
+
+        <Card />
+        <Card />
+        <Card />
         <Card />
       </div>
     </>

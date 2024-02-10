@@ -3,25 +3,21 @@ import React from 'react';
 
 const Card: React.FC = (): JSX.Element => {
   return (
-    <div className="flex flex-col items-center align-middle">
+    <div className="flex flex-col items-center align-middle mb-8"> {/* Reduced mb-8 from mb-16 */}
+
       <div className="relative h-full">
-        <div
-          style={{
-            borderRadius: 'inherit',
-          }}
-        >
+        <div className=" ">
           <Image
             alt="yo"
             height={1100}
             width={1100}
             src="/showcase/a.jpg"
             objectFit="cover"
-            objectPosition="center"
-            className="max-w-[390px] max-h-[235px] md:max-w-[500px] md:max-h-[302px] rounded-xl"
+            className="max-w-96 max-h-60 md:max-w-[728px] md:max-h-[440px] lg:max-w-[500px] lg:max-h-[302px] px-4"
           />
         </div>
       </div>
-      <div className="flex flex-col items-start mt-4 max-w-[390px] max-h-[235px] md:max-w-[500px] md:max-h-[302px] text-left">
+      <div className="flex flex-col items-start mt-4 max-w-96 max-h-60 px-5 md:max-w-[728px] md:max-h-[440px] lg:max-w-[500px] lg:max-h-[302px] text-left">
         <div
           style={{
             outline: 'none',
@@ -32,7 +28,7 @@ const Card: React.FC = (): JSX.Element => {
             transform: 'none',
           }}
         >
-          <h3 className="--local-ebgaramond text-[26px] text-[#27272A]">
+          <h3 className="--local-ebgaramond text-[26px] md:text-[26px] text-[#27272A]">
             AI Autocomplete
           </h3>
         </div>
@@ -46,9 +42,7 @@ const Card: React.FC = (): JSX.Element => {
             transform: 'none',
           }}
         >
-          <p
-            className="text-[#71717A] text-base"
-          >
+          <p className="text-[#71717A] md:text-[16px] text-base leading-[1.4em]">
             Autocomplete will write alongside you to beat writer's block
             whenever you need a helping hand
           </p>
