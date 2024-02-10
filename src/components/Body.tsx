@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Gallery, { GallerySmall } from './Gallery';
 import Cards from '@/app/Cards';
 import Link from 'next/link';
+import { BentoGridDemo } from './Bento';
 
 const Body: React.FC = (): JSX.Element => {
   return (
@@ -57,8 +58,9 @@ const Body: React.FC = (): JSX.Element => {
       <div className="md:block lg:hidden relative max-w-screen hidden z-20 mb-16">
         <GallerySmall />
       </div>
-      <span className="hidden md:block md:h-96" />
-      <Cards />
+      <span className="hidden md:block md:h-[500px]" />
+      {/* <Cards /> */}
+      <BentoGridDemo/>
     </div>
   );
 };

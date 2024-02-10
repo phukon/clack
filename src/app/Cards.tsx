@@ -1,4 +1,5 @@
 'use client';
+import { BackgroundGradientDemo } from '@/components/BackgroundGradient';
 import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 
@@ -25,25 +26,26 @@ const cardVariants: Variants = {
 function Card({ emoji }: Props) {
   return (
     <motion.div
-      className="card-container rounded-2xl mx-5 lg:mx-28 min-[1280px]:mx-52"
+      className="card-container rounded-2xl mx-0 lg:mx-28 min-[1280px]:mx-52"
       initial="offscreen"
       whileInView="onscreen"
-      viewport={{ once: false, amount: 0.8 }}
+      viewport={{ once: true, amount: 0.8 }}
     >
       <div className="splash" />
-      <div className=" flex flex-col md:flex-row justify-between w-full items-center">
-        <div className=" max-w-[550px]">
+      <div className=" flex flex-col md:flex-roww-full items-center">
+        {/* <div className=" max-w-[550px]">
           <span className=" text-2xl md:text-2xl font-extrabold --local-ebgaramond">Build your portfolio</span>
           <p className=' text-gray-600 text-base max-w-80 md:max-w-60 mt-2'>{emoji}</p>
-        </div>
+        </div> */}
         <motion.div className="card" variants={cardVariants}>
-          <Image
+          {/* <Image
             className=" max-h-full object-cover max-w-full rounded-md"
             src="/showcase/a.jpg"
             alt="ded"
             height={920}
             width={920}
-          />
+          /> */}
+          <BackgroundGradientDemo />
         </motion.div>
       </div>
     </motion.div>
@@ -60,5 +62,11 @@ const food: [string][] = [
 ];
 
 export default function Cards() {
-  return food.map(([emoji], index) => <Card emoji={emoji} key={index} />);
+  return (
+    <div className="grid grid-cols-2">
+      {food.map(([emoji], index) => (
+        <Card emoji={emoji} key={index} />
+      ))}
+    </div>
+  );
 }
