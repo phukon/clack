@@ -8,10 +8,10 @@ function Onboard() {
     <div className="min-h-screen flex flex-col lg:flex-row bg-gray-100">
       {/* Left Black Box */}
       <div className="lg:w-1/2 bg-gray-900 text-white p-10 hidden lg:flex flex-col justify-between">
-        <div>
-          <img src='logo1.png' alt="Clack" className=" mr-2 h-20 w-20" />
+        <Link href='/'>
+          <img src='logo-white.png' alt="Clack" className=" mr-2 h-20 w-20" />
           {/* <div className="text-lg font-medium">Clack </div> */}
-        </div>
+        </Link>
 
         <div className="text-sm text-gray-400 mt-4">
           <blockquote className="space">
