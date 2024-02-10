@@ -10,7 +10,7 @@ const Header: React.FC = (): JSX.Element => {
           <div className="flex-1 flex">
             <div className="max-w-[60px] max-h-[60px] flex flex-row align-middle">
               <Image
-                src="/logo1.png"
+                src="/logo.png"
                 height={740}
                 width={740}
                 alt="=logo"
