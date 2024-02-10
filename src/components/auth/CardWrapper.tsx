@@ -1,6 +1,7 @@
 'use client';
 
 import { Card, CardContent, CardFooter, CardHeader } from '../ui/card';
+import BackButton from './BackButton';
 import { Social } from './Social';
 import { Header } from './header';
 
@@ -27,9 +28,12 @@ const CardWrapper = ({
       <CardContent>{children}</CardContent>
       {showSocial && (
         <CardFooter>
-          <Social/>
+          <Social />
         </CardFooter>
       )}
+      <CardFooter>
+        <BackButton label={backButtonLabel} href={backButtonHref}/>
+      </CardFooter>
     </Card>
   );
 };
