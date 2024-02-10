@@ -1,55 +1,79 @@
-import Image from 'next/image';
-import React from 'react';
+import * as React from "react"
 
-const Card: React.FC = (): JSX.Element => {
-  return (
-    <div className="flex flex-col items-center align-middle mb-8"> {/* Reduced mb-8 from mb-16 */}
+import { cn } from "@/lib/utils"
 
-      <div className="relative h-full">
-        <div className=" ">
-          <Image
-            alt="yo"
-            height={1100}
-            width={1100}
-            src="/showcase/a.jpg"
-            objectFit="cover"
-            className="max-w-96 max-h-60 md:max-w-[728px] md:max-h-[440px] lg:max-w-[500px] lg:max-h-[302px] px-4"
-          />
-        </div>
-      </div>
-      <div className="flex flex-col items-start mt-4 max-w-96 max-h-60 px-5 md:max-w-[728px] md:max-h-[440px] lg:max-w-[500px] lg:max-h-[302px] text-left">
-        <div
-          style={{
-            outline: 'none',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            flexShrink: 0,
-            transform: 'none',
-          }}
-        >
-          <h3 className="--local-ebgaramond text-[26px] md:text-[26px] text-[#27272A]">
-            AI Autocomplete
-          </h3>
-        </div>
-        <div
-          style={{
-            outline: 'none',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            flexShrink: 0,
-            transform: 'none',
-          }}
-        >
-          <p className="text-[#71717A] md:text-[16px] text-base leading-[1.4em]">
-            Autocomplete will write alongside you to beat writer&apos;s block
-            whenever you need a helping hand
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "rounded-lg border bg-card text-card-foreground shadow-sm",
+      className
+    )}
+    {...props}
+  />
+))
+Card.displayName = "Card"
 
-export default Card;
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    {...props}
+  />
+))
+CardHeader.displayName = "CardHeader"
+
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h3
+    ref={ref}
+    className={cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className
+    )}
+    {...props}
+  />
+))
+CardTitle.displayName = "CardTitle"
+
+const CardDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+))
+CardDescription.displayName = "CardDescription"
+
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+))
+CardContent.displayName = "CardContent"
+
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center p-6 pt-0", className)}
+    {...props}
+  />
+))
+CardFooter.displayName = "CardFooter"
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
