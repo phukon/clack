@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-const Card = () => {
+const Card: React.FC = (): JSX.Element => {
   return (
     <div className="flex flex-col items-center align-middle">
       <div className="relative h-full">
@@ -17,11 +17,11 @@ const Card = () => {
             src="/showcase/a.jpg"
             objectFit="cover"
             objectPosition="center"
-            className="md:max-w-[500px] md:max-h-[302px] rounded-md"
+            className="max-w-[390px] max-h-[235px] md:max-w-[500px] md:max-h-[302px] rounded-xl"
           />
         </div>
       </div>
-      <div className="flex flex-col items-start md:max-w-[500px] md:max-h-[302px] text-left">
+      <div className="flex flex-col items-start mt-4 max-w-[390px] max-h-[235px] md:max-w-[500px] md:max-h-[302px] text-left">
         <div
           style={{
             outline: 'none',
@@ -48,7 +48,6 @@ const Card = () => {
         >
           <p
             className="text-[#71717A] text-base"
-            data-styles-preset="mTnUhWLEM"
           >
             Autocomplete will write alongside you to beat writer's block
             whenever you need a helping hand

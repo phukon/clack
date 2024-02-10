@@ -30,7 +30,7 @@ const Features = () => {
                     }}
                     data-framer-component-type="RichTextContainer"
                   >
-                    <div className="text-xs text-[#1722BE] font-semibold">
+                    <div className="text-xs md:text-sm text-[#1722BE] font-semibold">
                       POWERFUL FEATURES
                     </div>
                   </div>
@@ -50,8 +50,7 @@ const Features = () => {
               data-framer-component-type="RichTextContainer"
             >
               <h2
-                className="--local-ebgaramond text-[40px]"
-                data-styles-preset="TSyCQP9UK"
+                className="--local-ebgaramond text-[40px] md:text-[54px]"
               >
                 Write, cite, and edit
               </h2>
@@ -69,7 +68,7 @@ const Features = () => {
             }}
             data-framer-component-type="RichTextContainer"
           >
-            <p className=" text-lg text-[#52525B]">
+            <p className=" text-lg md:text-[22px] text-[#52525B]">
               Features built to enhance your research and writing capabilities
             </p>
           </div>
