@@ -1,9 +1,37 @@
-import React from 'react'
+'use client';
 
-const CardWrapper = () => {
-  return (
-    <div>CardWrapper</div>
-  )
+import { Card, CardContent, CardFooter, CardHeader } from '../ui/card';
+import { Social } from './Social';
+import { Header } from './header';
+
+interface CardWrapperProps {
+  children: React.ReactNode;
+  headerLabel: string;
+  backButtonLabel: string;
+  backButtonHref: string;
+  showSocial?: boolean;
 }
 
-export default CardWrapper
+const CardWrapper = ({
+  children,
+  headerLabel,
+  backButtonHref,
+  backButtonLabel,
+  showSocial,
+}: CardWrapperProps) => {
+  return (
+    <Card className="w-[400px] shadow-md">
+      <CardHeader>
+        <Header label={headerLabel} />
+      </CardHeader>
+      <CardContent>{children}</CardContent>
+      {showSocial && (
+        <CardFooter>
+          <Social/>
+        </CardFooter>
+      )}
+    </Card>
+  );
+};
+
+export default CardWrapper;
