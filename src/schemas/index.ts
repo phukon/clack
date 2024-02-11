@@ -8,3 +8,15 @@ export const LoginSchema = z.object({
     message: "Password is required!"
   }) // min value not set to not block old users due to changes
 })
+
+export const RegisterSchema = z.object({
+  email: z.string().email({
+    message: "Email is required"
+  }),
+  password: z.string().min(1, {
+    message: "Minimum 6 characters required!"
+  }),
+  name: z.string().min(1, {
+    message: "Name is required!"
+  })
+})
