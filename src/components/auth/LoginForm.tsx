@@ -66,6 +66,7 @@ const LoginForm = () => {
                       {...field}
                       disabled={isPending}
                       placeholder="example@mail.com"
+                      autoComplete='email'
                     />
                   </FormControl>
                   <FormMessage />
@@ -84,6 +85,7 @@ const LoginForm = () => {
                       disabled={isPending}
                       placeholder="*******"
                       type="password"
+                      autoComplete='current-password'
                     />
                   </FormControl>
                   <FormMessage />
