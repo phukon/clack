@@ -6,6 +6,7 @@ import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import {AuthError} from 'next-auth'
 import { getUserByEmail } from '@/data/user';
 import { generateVerificationToken } from '@/lib/tokens';
+import { sendVerificationEmail } from '@/lib/mail';
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   // validate again on the backend because client-side validation can be bypassed
@@ -24,6 +25,8 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 
   if(!isExistingUser.emailVerified) {
     const verificationToken = await generateVerificationToken(isExistingUser.email)
+
+    await sendVerificationEmail(verificationToken.email, verificationToken.token)
 
     return {success: "Confirmation Email sent!"}
   }
