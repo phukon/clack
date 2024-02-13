@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import { RegisterSchema } from '@/schemas';
 import { db } from '@/lib/db';
 import { getUserByEmail } from '@/data/user';
+import { generateVerificationToken } from '@/lib/tokens';
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   // validate again on the backend because client-side validation can be bypassed
@@ -31,7 +32,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   })
 
   // TODO: Send verification token
+  const verificationToken = await generateVerificationToken(email)
 
-
-  return { success: 'Email sent!' };
+  return { success: 'Confirmation Email sent!' };
 };

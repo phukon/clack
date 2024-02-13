@@ -1,9 +1,11 @@
 'use server';
 import * as z from 'zod';
 import { LoginSchema } from '@/schemas';
-import { signIn } from '@/auth';
+import { signIn } from '@/auth'; // for server actions
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import {AuthError} from 'next-auth'
+import { getUserByEmail } from '@/data/user';
+import { generateVerificationToken } from '@/lib/tokens';
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   // validate again on the backend because client-side validation can be bypassed
@@ -14,7 +16,19 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   const {email, password} = validatedFields.data
-  try{
+  const isExistingUser = await getUserByEmail(email)
+  
+  if (!isExistingUser || !isExistingUser.email || !isExistingUser.password) {
+    return {error: "Email does not exist!"}
+  }
+
+  if(!isExistingUser.emailVerified) {
+    const verificationToken = await generateVerificationToken(isExistingUser.email)
+
+    return {success: "Confirmation Email sent!"}
+  }
+
+  try{ // ⚠ these are all server actions
     await signIn('credentials', {
       email,
       password,
