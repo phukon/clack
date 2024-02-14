@@ -21,6 +21,7 @@ import FormError from '../form-error';
 import FormSuccess from '../form-success';
 import { login } from '@/actions/login';
 import { useState, useTransition } from 'react';
+import Link from 'next/link';
 
 const LoginForm = () => {
 
@@ -93,6 +94,9 @@ const LoginForm = () => {
                       autoComplete='current-password'
                     />
                   </FormControl>
+                  <Button size='sm' variant='link' asChild className='px-0 font-normal'>
+                    <Link href='/auth/reset'>Forgot password?</Link>
+                  </Button>
                   <FormMessage />
                 </FormItem>
               )}
