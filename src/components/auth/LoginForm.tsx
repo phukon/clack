@@ -24,9 +24,11 @@ import { useState, useTransition } from 'react';
 import Link from 'next/link';
 
 const LoginForm = () => {
-
-  const searchParams = useSearchParams()
-  const urlError = searchParams.get('error') === 'OAuthAccountNotLinked' ? 'Email is already in use with different provider!' : ''
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'Email is already in use with different provider!'
+      : '';
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -36,6 +38,7 @@ const LoginForm = () => {
     },
   });
 
+  const [showTwoFactor, setShowTwoFactor] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
@@ -44,10 +47,25 @@ const LoginForm = () => {
     setError('');
     setSuccess('');
     startTransition(() => {
-      login(values).then((d) => {
-        setError(d.error);
-        setSuccess(d.success);
-      });
+      login(values)
+        .then((d) => {
+          if (d?.error) {
+            form.reset();
+            setError(d.error);
+          }
+
+          if (d?.success) {
+            form.reset();
+            setSuccess(d.success);
+          }
+
+          if (d.twoFactor) {
+            setShowTwoFactor(true);
+          }
+        })
+        .catch(() => {
+          setError('Something went wrong.');
+        });
     });
   };
 
@@ -61,51 +79,80 @@ const LoginForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
           <div className=" space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="example@mail.com"
-                      autoComplete='email'
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="*******"
-                      type="password"
-                      autoComplete='current-password'
-                    />
-                  </FormControl>
-                  <Button size='sm' variant='link' asChild className='px-0 font-normal'>
-                    <Link href='/auth/reset'>Forgot password?</Link>
-                  </Button>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {showTwoFactor && (
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Two Factor Code</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder="123456"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {!showTwoFactor && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          placeholder="example@mail.com"
+                          type='email'
+                          autoComplete="email"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          placeholder="*******"
+                          type="password"
+                          autoComplete="current-password"
+                        />
+                      </FormControl>
+                      <Button
+                        size="sm"
+                        variant="link"
+                        asChild
+                        className="px-0 font-normal"
+                      >
+                        <Link href="/auth/reset">Forgot password?</Link>
+                      </Button>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
           </div>
           <FormSuccess message={success} />
           <FormError message={error || urlError} />
           <Button disabled={isPending} type="submit" className="w-full">
-            Login
+           {showTwoFactor ? "Confirm" : "Login"}
           </Button>
         </form>
       </Form>
