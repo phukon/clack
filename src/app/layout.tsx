@@ -4,7 +4,7 @@ import { auth } from '@/auth';
 import { SessionProvider } from 'next-auth/react';
 import { Inter } from 'next/font/google';
 import { localEbgaramond, localComfortaa } from '@/fonts/fonts';
-
+import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -25,6 +25,7 @@ export default async function RootLayout({
         <body
           className={`${inter.className} ${localComfortaa.variable} ${localEbgaramond.variable}`}
         >
+          <Toaster />
           {children}
         </body>
       </html>
