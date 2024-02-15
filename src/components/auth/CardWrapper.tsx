@@ -8,7 +8,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-} from '@/components/card';
+} from '@/components/ui/card';
 
 interface CardWrapperProps {
   children: React.ReactNode;
