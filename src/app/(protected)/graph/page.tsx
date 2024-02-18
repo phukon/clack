@@ -1,39 +1,106 @@
-'use client'
-import React, { useEffect, useRef } from 'react';
+'use client';
+import React, { useEffect, useRef, useState } from 'react';
 import { drawContributions } from '@/lib/graph';
-import mockData from './mock.json';
 import { seedUserData } from './_addData';
-
+import { getUserData } from './_getData';
 
 const Graph = () => {
   const canvasRef = useRef(null);
+  const [userData, setUserData] = useState<{
+    years: {
+      year: string;
+      total: number;
+      range: { start: string; end: string };
+    }[];
+    contributions: {
+      date: string;
+      count: number;
+      color: string;
+      intensity: number;
+    }[];
+  } | null>(null);
 
   const username = 'random';
-  const userId = 'clsocif2e0000xosmdbht8b00';
+  const userId = 'clsrm4y8j0000f1pd4tqa2cx1';
 
   useEffect(() => {
-    // Ensure the canvas element exists before drawing
-    if (canvasRef.current) {
+    const fetchData = async () => {
+      try {
+        const userData = await getUserData(userId);
+        setUserData(userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
+
+  useEffect(() => {
+    if (userData && canvasRef.current) {
       drawContributions(canvasRef.current, {
-        data: mockData,
+        data: userData,
         username: username,
-        // "sunny" | "__test__" | "standard" | "classic" | "githubDark" | "halloween" | "teal" | "leftPad" | "dracula" | "blue" | "panda" | "pink" | "YlGnBu" | "solarizedDark" | "solarizedLight"
         themeName: 'standard',
         footerText: 'Riki Phukon',
       });
     }
-  }, [mockData, username]);
+  }, [userData, username]);
 
-  const handleClick = () => {
-    seedUserData(userId)
-  }
+  const handlePostClick = () => {
+    seedUserData(userId);
+  };
 
   return (
     <>
-      <button onClick={handleClick}>Click me!</button>
-      <canvas ref={canvasRef}></canvas>;
+      <button onClick={handlePostClick}>POST Data</button>
+      <canvas ref={canvasRef}></canvas>
     </>
   );
 };
 
 export default Graph;
+
+// import React, { useEffect, useRef } from 'react';
+// import { drawContributions } from '@/lib/graph';
+// import mockData from './mock.json';
+// import { seedUserData } from './_addData';
+// import { getUserData } from './_getData';
+
+// const Graph = () => {
+//   const canvasRef = useRef(null);
+
+//   const username = 'random';
+//   const userId = 'clsrm4y8j0000f1pd4tqa2cx1';
+
+//   useEffect(() => {
+//     // Ensure the canvas element exists before drawing
+//     if (canvasRef.current) {
+//       drawContributions(canvasRef.current, {
+//         data: mockData,
+//         username: username,
+//         // "sunny" | "__test__" | "standard" | "classic" | "githubDark" | "halloween" | "teal" | "leftPad" | "dracula" | "blue" | "panda" | "pink" | "YlGnBu" | "solarizedDark" | "solarizedLight"
+//         themeName: 'standard',
+//         footerText: 'Riki Phukon',
+//       });
+//     }
+//   }, [mockData, username]);
+
+//   const handlePostClick = () => {
+//     seedUserData(userId)
+//   }
+
+//   const handleGetClick = () => {
+//     console.log(getUserData(userId))
+//   }
+
+//   return (
+//     <>
+//       <button onClick={handleGetClick}>GET DATA</button>
+//       <button onClick={handlePostClick}>POST Data</button>
+//       <canvas ref={canvasRef}></canvas>;
+//     </>
+//   );
+// };
+
+// export default Graph;
