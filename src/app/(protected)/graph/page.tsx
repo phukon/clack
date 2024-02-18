@@ -1,24 +1,13 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { drawContributions } from '@/lib/graph';
 import { seedUserData } from './_addData';
 import { getUserData } from './_getData';
+import { DataStruct } from '@/types';
 
 const Graph = () => {
   const canvasRef = useRef(null);
-  const [userData, setUserData] = useState<{
-    years: {
-      year: string;
-      total: number;
-      range: { start: string; end: string };
-    }[];
-    contributions: {
-      date: string;
-      count: number;
-      color: string;
-      intensity: number;
-    }[];
-  } | null>(null);
+  const [userData, setUserData] = useState<DataStruct>();
 
   const username = 'random';
   const userId = 'clsrm4y8j0000f1pd4tqa2cx1';
