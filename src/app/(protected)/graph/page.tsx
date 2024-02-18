@@ -12,7 +12,8 @@ const Graph = () => {
       drawContributions(canvasRef.current, {
         data: mockData,
         username: username,
-        themeName: "standard",
+        // "sunny" | "__test__" | "standard" | "classic" | "githubDark" | "halloween" | "teal" | "leftPad" | "dracula" | "blue" | "panda" | "pink" | "YlGnBu" | "solarizedDark" | "solarizedLight" 
+        themeName: "standard", 
         footerText: "Riki Phukon"
       });
     }

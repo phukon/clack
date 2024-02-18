@@ -44,6 +44,7 @@ model User {
   accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  years                 Year[]
 }
 
 // Not resusing the verification token. It's simply safer to keep tokens separate.
@@ -82,4 +83,26 @@ model TwoFactorConfirmation {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
+}
+
+// Graph
+model Year {
+  id            Int            @id @default(autoincrement())
+  user          User           @relation(fields: [userId], references: [id])
+  userId        String
+  year          String
+  total         Int
+  start_date    DateTime
+  end_date      DateTime
+  contributions Contribution[]
+}
+
+model Contribution {
+  id                Int      @id @default(autoincrement())
+  year              Year     @relation(fields: [yearId], references: [id])
+  yearId            Int
+  contribution_date DateTime
+  count             Int
+  color             String
+  intensity         String
 }
