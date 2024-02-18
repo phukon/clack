@@ -11,7 +11,7 @@ async function populateContributionsAndYears(data: any) {
     for (const yearData of years) {
       const year = await db.year.create({
         data: {
-          userId: '1', // Assuming user ID is 1, replace with the actual user ID
+          userId: 'clsocif2e0000xosmdbht8b00', // Assuming user ID is 1, replace with the actual user ID
           year: yearData.year,
           total: yearData.total,
           start_date: new Date(yearData.range.start),
@@ -46,6 +46,6 @@ async function populateContributionsAndYears(data: any) {
   // }
 }
 
-const jsonData = require('./data.json');
+import mockData from "./mock.json";
 // Call the function with the provided data
-populateContributionsAndYears(jsonData);
+populateContributionsAndYears(mockData);

@@ -1,10 +1,12 @@
+'use server'
 import { db } from '@/lib/db';
 
-const jsonData = require('./data.json');
+import jsonData from './mock.json';
 
 
-async function seedUserData(userId: string) {
+export async function seedUserData(userId: string) {
   try {
+    console.log('starting seeds')
     const existingUser = await db.user.findUnique({
       where: { id: userId },
       include: { years: true }, // Include years associated with the user
@@ -47,7 +49,7 @@ async function seedUserData(userId: string) {
 
 // Usage example
 const userId = 'clsocif2e0000xosmdbht8b00'; // Replace 'USER_ID_HERE' with the actual user ID
-seedUserData(userId);
+// seedUserData(userId);
 
 
 // async function seedUserData(userId: string) {
