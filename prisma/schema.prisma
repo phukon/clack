@@ -107,5 +107,5 @@ model Contribution {
   contribution_date DateTime
   count             Int
   color             String
-  intensity         String
+  intensity         Int
 }

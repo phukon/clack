@@ -52,7 +52,7 @@ export async function seedUserData(userId: string) {
               contribution_date: new Date(contributionData.date),
               count: contributionData.count,
               color: contributionData.color,
-              intensity: contributionData.intensity.toString(),
+              intensity: contributionData.intensity,
             },
           });
         }

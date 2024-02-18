@@ -29,7 +29,7 @@ export async function getUserData(userId: string) {
       date: contribution.contribution_date.toISOString().slice(0, 10),
       count: contribution.count,
       color: contribution.color,
-      intensity: parseInt(contribution.intensity),
+      intensity: contribution.intensity,
     })));
 
     const userData = {

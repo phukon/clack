@@ -10,7 +10,7 @@ const Graph = () => {
   const [userData, setUserData] = useState<DataStruct>();
 
   const username = 'random';
-  const userId = 'clsrm4y8j0000f1pd4tqa2cx1';
+  const userId = 'clsrqhsf80000ysi845gabfp7';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +30,7 @@ const Graph = () => {
       drawContributions(canvasRef.current, {
         data: userData,
         username: username,
-        themeName: 'standard',
+        themeName: 'githubDark',
         footerText: 'Riki Phukon',
       });
     }
