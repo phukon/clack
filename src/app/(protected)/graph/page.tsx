@@ -10,7 +10,7 @@ const Graph = () => {
   const [userData, setUserData] = useState<DataStruct>();
 
   const username = 'random';
-  const userId = 'clsrqhsf80000ysi845gabfp7';
+  const userId = 'clssm42080002nmjsm56tyrmq';
 
   useEffect(() => {
     const fetchData = async () => {

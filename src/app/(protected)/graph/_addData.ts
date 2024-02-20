@@ -1,6 +1,6 @@
 'use server';
 import { db } from '@/lib/db';
-import jsonData from './mock.json';
+import jsonData from './mock3.json';
 
 export async function seedUserData(userId: string) {
   try {
