@@ -1,0 +1,15 @@
+{
+  "name": "notionintegration",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Riki Phukon",
+  "license": "mit",
+  "dependencies": {
+    "@notionhq/client": "^2.2.14"
+  }
+}
