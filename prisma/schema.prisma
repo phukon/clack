@@ -33,21 +33,6 @@ enum UserRole {
   USER
 }
 
-model User {
-  id                    String                 @id @default(cuid())
-  name                  String?
-  email                 String?                @unique
-  emailVerified         DateTime?
-  image                 String?
-  password              String?
-  role                  UserRole               @default(USER)
-  accounts              Account[]
-  isTwoFactorEnabled    Boolean                @default(false)
-  twoFactorConfirmation TwoFactorConfirmation?
-  years                 Year[]
-  contributions         Contribution[]
-}
-
 // Not resusing the verification token. It's simply safer to keep tokens separate.
 
 model VerificationToken {
@@ -86,9 +71,40 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
+model User {
+  id                    String                 @id @default(cuid())
+  name                  String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  role                  UserRole               @default(USER)
+  accounts              Account[]
+  isTwoFactorEnabled    Boolean                @default(false)
+  twoFactorConfirmation TwoFactorConfirmation?
+  years                 Year[]
+  contributions         Contribution[]
+  documents             Document[]
+}
+
+enum DocumentType {
+  NOTION
+  GOOGLEDOC
+}
+
+model Document {
+  id        String       @id @default(cuid())
+  name      String?
+  type      DocumentType @default(NOTION)
+  wordCount Int
+  userId    String
+  user      User         @relation(fields: [userId], references: [id])
+}
+
 // ----------------- Graph -----------------
+
 model Year {
-   id      String   @id @default(cuid())
+  id            String         @id @default(cuid())
   user          User           @relation(fields: [userId], references: [id])
   userId        String
   year          String

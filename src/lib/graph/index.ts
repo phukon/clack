@@ -293,8 +293,8 @@ export function drawContributions(canvas: HTMLCanvasElement, opts: Options) {
     data.years.length * yearHeight + canvasMargin + headerOffset + 10;
   const width = 53 * (boxWidth + boxMargin) + canvasMargin * 2;
 
-  canvas.width = width * scaleFactor;
-  canvas.height = height * scaleFactor;
+  canvas.width = width * scaleFactor; // width = 676
+  canvas.height = height * scaleFactor; // height = 614
 
   const ctx = canvas.getContext('2d');
 

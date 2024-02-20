@@ -4,13 +4,14 @@ import { drawContributions } from '@/lib/graph';
 import { seedUserData } from './_addData';
 import { getUserData } from './_getData';
 import { DataStruct } from '@/types';
+// import jsonData from './mock.json';
 
 const Graph = () => {
   const canvasRef = useRef(null);
   const [userData, setUserData] = useState<DataStruct>();
 
   const username = 'random';
-  const userId = 'clssm42080002nmjsm56tyrmq';
+  const userId = 'clsurlkij0000ipngsjjcqmej';
 
   useEffect(() => {
     const fetchData = async () => {
