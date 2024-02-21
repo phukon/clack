@@ -1,5 +1,5 @@
 'use client'
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import Card from './_components/Card';
 import {
   Drawer,

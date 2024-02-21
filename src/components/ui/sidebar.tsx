@@ -1,5 +1,7 @@
-import { MoreVertical, ChevronLast, ChevronFirst } from 'lucide-react';
-import React, { useContext, createContext, useState } from 'react';
+"use client";
+import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
+import Image from "next/image";
+import React, { useContext, createContext, useState } from "react";
 
 type SidebarContextState = {
   expanded: boolean;
@@ -10,18 +12,24 @@ const SidebarContext = createContext<SidebarContextState | undefined>(
 );
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <aside className="h-screen relative">
-      <nav className="h-full flex flex-col bg-white border-r shadow-sm absolute top-0 left-0 z-10">
+      <nav
+        className={`h-full flex flex-col bg-white border-r shadow-sm fixed top-0 left-0 z-50 ${
+          expanded ? "w-60" : "w-14 md:w-16"
+        }`}
+      >
         <div className="p-4 pb-2 flex justify-between items-center">
-          <img
-            src="https://img.logoipsum.com/243.svg"
+          <Image
+            src="/logo.png"
+            width={100}
+            height={100}
             className={`overflow-hidden transition-all ${
-              expanded ? 'w-32' : 'w-0'
+              expanded ? "w-32" : "w-0"
             }`}
-            alt=""
+            alt="logo"
           />
           <button
             onClick={() => setExpanded((curr) => !curr)}
@@ -34,28 +42,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
-
-        <div className="border-t flex p-3">
-          <img
-            src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
-            alt=""
-            className="w-10 h-10 rounded-md"
-          />
-          <div
-            className={`
-              flex justify-between items-center
-              overflow-hidden transition-all ${expanded ? 'w-52 ml-3' : 'w-0'}
-          `}
-          >
-            <div className="leading-4">
-              <h4 className="font-semibold">John Doe</h4>
-              <span className="text-xs text-gray-600">johndoe@gmail.com</span>
-            </div>
-            <MoreVertical size={20} />
-          </div>
-        </div>
       </nav>
-      <div className="absolute top-0 left-0 w-full h-full bg-gray-900 opacity-25 z-0"></div>
     </aside>
   );
 }
@@ -73,20 +60,20 @@ export function SidebarItem({ icon, text, active, alert }: TSidebarItem) {
   return (
     <li
       className={`
-        relative flex items-center py-2 px-3 my-1
+        relative flex items-center py-1 px-2 my-1
         font-medium rounded-md cursor-pointer
         transition-colors group
         ${
           active
-            ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800'
-            : 'hover:bg-indigo-50 text-gray-600'
+            ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
+            : "hover:bg-indigo-50 text-gray-600"
         }
     `}
     >
       {icon}
       <span
         className={`overflow-hidden transition-all ${
-          expanded ? 'w-52 ml-3' : 'w-0'
+          expanded ? "w-52 ml-3" : "w-0"
         }`}
       >
         {text}
@@ -94,7 +81,7 @@ export function SidebarItem({ icon, text, active, alert }: TSidebarItem) {
       {alert && (
         <div
           className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
-            expanded ? '' : 'top-2'
+            expanded ? "" : "top-2"
           }`}
         />
       )}
