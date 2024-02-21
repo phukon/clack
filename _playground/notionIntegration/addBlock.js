@@ -24,6 +24,39 @@ async function main() {
     block_id: blockId,
     // Pass an array of blocks to append to the page: https://developers.notion.com/reference/block#block-type-objects
     children: [
+       {
+        paragraph: {
+          rich_text: [
+            {
+              text: {
+                content: "Types of kale", // This is the text that will be displayed in Notion
+              },
+            },
+          ],
+        },
+      },
+       {
+        callout: {
+          children: [{
+        paragraph: {
+          rich_text: [
+            {
+              text: {
+                content: "Types of kale", // This is the text that will be displayed in Notion
+              },
+            },
+          ],
+        },
+      }],
+          rich_text: [
+            {
+              text: {
+                content: "Types of kale", // This is the text that will be displayed in Notion
+              },
+            },
+          ],
+        },
+      },
       {
         quote: {
           rich_text: [
