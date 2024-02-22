@@ -17,14 +17,14 @@ const DashLayout = ({ children }: { children: React.ReactNode }) => {
         <SidebarItem
           icon={<User />}
           text="Profile"
-          active={pathname === '/dash/profile' ? true : false}
-          path="/dash/profile"
+          active={pathname === '/dash/server' ? true : false}
+          path="/dash/server"
         />
         <SidebarItem
           icon={<Activity />}
           text="Activity"
-          active={pathname === '/dash/Activity' ? true : false}
-          path="/dash/graph"
+          active={pathname === '/dash/activity' ? true : false}
+          path="/dash/activity"
         />
         <SidebarItem
           icon={<Settings />}
@@ -33,7 +33,9 @@ const DashLayout = ({ children }: { children: React.ReactNode }) => {
           path="/dash/settings"
         />
       </Sidebar>
-      {children}
+      <div className="h-full max-w-screen md:w-full flex gap-y-10 items-center mt-5 justify-center">
+        {children}
+      </div>
     </div>
   );
 };

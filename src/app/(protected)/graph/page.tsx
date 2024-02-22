@@ -6,9 +6,10 @@ import { getUserData } from './_getData';
 import { DataStruct } from '@/types';
 import jsonData from './mock.json';
 
-const Graph = () => {
+const Graph = ({previewData}: {previewData: boolean}) => {
   const canvasRef = useRef(null);
   const [userData, setUserData] = useState<DataStruct>();
+  const currentYear = new Date().getFullYear();
 
   const username = 'random';
   const userId = 'clsurlkij0000ipngsjjcqmej';
@@ -27,9 +28,16 @@ const Graph = () => {
   // }, [userId]);
 
   useEffect(() => {
-    if (canvasRef.current) {
+    if ( canvasRef.current) {
+      const filteredYears:any = jsonData.years.filter(
+        (year) => year.year === currentYear.toString()
+      );
+      const filteredData = {
+        years: filteredYears,
+        contributions: jsonData.contributions,
+      };
       drawContributions(canvasRef.current, {
-        data: jsonData,
+        data: previewData ? filteredData : jsonData,
         username: username,
         themeName: 'standard',
         footerText: 'Clack ©2024',
@@ -43,7 +51,7 @@ const Graph = () => {
 
   return (
     <div
-      className="border-gray-200 border-2 max-w-[320px] md:max-w-full px-1 md:p-10"
+      className="border-gray-200 border-2 max-w-[325px] md:max-w-full px-1 md:p-10"
       style={{ overflowX: 'auto' }}
     >
       {/* <button onClick={handlePostClick}>POST Data</button> */}
