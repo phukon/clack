@@ -84,7 +84,7 @@ const defaultFontFace = 'IBM Plex Mono';
 const headerHeight = 60;
 const canvasMargin = 20;
 const yearHeight = textHeight + (boxWidth + boxMargin) * 8 + canvasMargin;
-const scaleFactor = getPixelRatio();
+const scaleFactor = 1.5; // was getPixelRatio()
 
 function getTheme(opts: Options): Theme {
   const { themeName, customTheme } = opts;
@@ -263,7 +263,7 @@ function drawMetaData(
   ctx.fillStyle = theme.text;
   ctx.textBaseline = 'hanging';
   ctx.font = `20px '${fontFace}'`;
-  ctx.fillText(`@${username} on Clack`, canvasMargin, canvasMargin);
+  ctx.fillText(`@${username}`, canvasMargin, canvasMargin);
 
   let totalContributions = 0;
   for (const year of data.years) {

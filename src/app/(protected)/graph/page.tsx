@@ -4,7 +4,7 @@ import { drawContributions } from '@/lib/graph';
 import { seedUserData } from './_addData';
 import { getUserData } from './_getData';
 import { DataStruct } from '@/types';
-// import jsonData from './mock.json';
+import jsonData from './mock.json';
 
 const Graph = () => {
   const canvasRef = useRef(null);
@@ -13,26 +13,26 @@ const Graph = () => {
   const username = 'random';
   const userId = 'clsurlkij0000ipngsjjcqmej';
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userData = await getUserData(userId);
-        setUserData(userData);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const userData = await getUserData(userId);
+  //       setUserData(userData);
+  //     } catch (error) {
+  //       console.error('Error fetching user data:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [userId]);
+  //   fetchData();
+  // }, [userId]);
 
   useEffect(() => {
-    if (userData && canvasRef.current) {
+    if (canvasRef.current) {
       drawContributions(canvasRef.current, {
-        data: userData,
+        data: jsonData,
         username: username,
-        themeName: 'githubDark',
-        footerText: 'Riki Phukon',
+        themeName: 'standard',
+        footerText: 'Clack ©2024',
       });
     }
   }, [userData, username]);
@@ -42,10 +42,13 @@ const Graph = () => {
   };
 
   return (
-    <>
-      <button onClick={handlePostClick}>POST Data</button>
-      <canvas ref={canvasRef}></canvas>
-    </>
+    <div
+      className="border-gray-200 border-2 max-w-[320px] md:max-w-full px-1 md:p-10"
+      style={{ overflowX: 'auto' }}
+    >
+      {/* <button onClick={handlePostClick}>POST Data</button> */}
+      <canvas className="max-w-none md:w-full h-auto" ref={canvasRef}></canvas>
+    </div>
   );
 };
 
