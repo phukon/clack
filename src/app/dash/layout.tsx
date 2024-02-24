@@ -10,15 +10,15 @@ const DashLayout = ({ children }: { children: React.ReactNode }) => {
       <Sidebar>
         <SidebarItem
           icon={<Layout />}
-          text="Home"
+          text="Dashboard"
           active={pathname === '/dash' ? true : false}
           path="/dash"
         />
         <SidebarItem
           icon={<User />}
           text="Profile"
-          active={pathname === '/dash/server' ? true : false}
-          path="/dash/server"
+          active={pathname === '/dash/s-profile' ? true : false}
+          path="/dash/s-profile"
         />
         <SidebarItem
           icon={<Activity />}

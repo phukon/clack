@@ -8,7 +8,7 @@ const Card = () => {
       <div className="rounded-xl border border-stone-200 bg-white text-stone-950 shadow dark:border-stone-800 dark:bg-stone-950 dark:text-stone-50 group-hover:scale-105 duration-150 ease-out">
         <div className="flex flex-col space-y-1.5 p-6 rounded-t-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
           <h3 className="tracking-tight text-sm font-semibold">
-            Welcome to Notty notes! (OPEN ME)
+            Welcome to Clack! (OPEN ME)
           </h3>
         </div>
         <div className="p-6 pt-0 relative overflow-hidden h-40">
