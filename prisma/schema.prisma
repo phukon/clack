@@ -84,19 +84,19 @@ model User {
   twoFactorConfirmation TwoFactorConfirmation?
   years                 Year[]
   contributions         Contribution[]
-  documents             Document[]
+  notes             Note[]
 }
 
-enum DocumentType {
+enum NoteType {
   NOTION
   GOOGLEDOC
 }
 
-model Document {
+model Note {
   id        String       @id @default(cuid())
   name      String?
-  type      DocumentType @default(NOTION)
-  wordCount Int
+  type      NoteType @default(NOTION)
+  wordCount Int?
   userId    String
   user      User         @relation(fields: [userId], references: [id])
 }
