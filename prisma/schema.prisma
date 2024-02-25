@@ -84,7 +84,7 @@ model User {
   twoFactorConfirmation TwoFactorConfirmation?
   years                 Year[]
   contributions         Contribution[]
-  notes             Note[]
+  notes                 Note[]
 }
 
 enum NoteType {
@@ -93,12 +93,13 @@ enum NoteType {
 }
 
 model Note {
-  id        String       @id @default(cuid())
+  id        String   @id @default(cuid())
   name      String?
   type      NoteType @default(NOTION)
   wordCount Int?
   userId    String
-  user      User         @relation(fields: [userId], references: [id])
+  data      Json? // I may use an edge KV store
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 // ----------------- Graph -----------------

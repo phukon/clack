@@ -101,12 +101,12 @@ function NovelEditor({ id }: { id: string }) {
             // }
 
             // setSaveStatus('Saving...');
-            // const response = await fetch('/api/note', {
-            //   method: 'POST',
-            //   body: JSON.stringify({ id, data: value.getJSON() }),
-            // });
-            // const res = await response.text();
-            // setSaveStatus(res);
+            const response = await fetch('/api/note', {
+              method: 'POST',
+              body: JSON.stringify({ id, data: value.getJSON() }),
+            });
+            const res = await response.text();
+            setSaveStatus(res);
           }}
         />
       </div>
