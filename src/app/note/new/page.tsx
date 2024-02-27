@@ -1,5 +1,4 @@
-'use client';
-
+// 'use server' not making it a server action
 import { currentUser } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';

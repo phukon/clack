@@ -1,7 +1,9 @@
 // import { env } from "@/env";
 import {currentUser } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { exportContentAsText } from "@/lib/extractText";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
   const user = await currentUser();
@@ -25,14 +27,23 @@ export async function POST(req: Request): Promise<Response> {
     });
   }
 
-  const key = `${user.user.email}-${id}`;
+  const key = `${user.email}-${id}`;
+
+  /**
+   * save meta-data to postgress db
+   * Since I receive an array for words grouped together by a type, we have multiple words per elements.
+   * Therefore I transform the array to have one word per element and get the word count.
+   */
+  const wordCount = exportContentAsText(data).join(' ').split(/\s+/).length
+
+  await db.note.update({where: {id: id}, data: {wordCount: wordCount}} )
 
   // save to cloudflare
-  const putResponse = await fetch(`${env.WORKER_BASE_URL}?key=${key}`, {
+  const putResponse = await fetch(`${process.env.WORKER_BASE_URL}?key=${key}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "X-Custom-Auth-Key": env.CLOUDFLARE_R2_TOKEN,
+      "X-Custom-Auth-Key": `${process.env.SECURITY_KEY}`,
     },
     body: JSON.stringify(data),
   });
@@ -50,9 +61,9 @@ export async function POST(req: Request): Promise<Response> {
 
 export async function GET(req: Request): Promise<Response> {
   const id = new URL(req.url).searchParams.get("id");
-  const user = await auth();
+  const user = await currentUser();
 
-  if (!user?.user?.email) {
+  if (!user?.email) {
     return new Response("Saved locally | Login for Cloud Sync", {
       status: 401,
     });
@@ -63,13 +74,13 @@ export async function GET(req: Request): Promise<Response> {
     });
   }
 
-  const key = `${user.user.email}-${id}`;
+  const key = `${user.email}-${id}`;
 
   // save to cloudflare
-  const getResponse = await fetch(`${env.WORKER_BASE_URL}?key=${key}`, {
+  const getResponse = await fetch(`${process.env.WORKER_BASE_URL}?key=${key}`, {
     method: "GET",
     headers: {
-      "X-Custom-Auth-Key": env.CLOUDFLARE_R2_TOKEN,
+      "X-Custom-Auth-Key": `${process.env.SECURITY_KEY}`,
     },
   });
 
@@ -89,9 +100,9 @@ export async function GET(req: Request): Promise<Response> {
 
 export async function DELETE(req: Request): Promise<Response> {
   const id = new URL(req.url).searchParams.get("id");
-  const user = await auth();
+  const user = await currentUser();
 
-  if (!user?.user?.email) {
+  if (!user?.email) {
     return new Response("Saved locally | Login for Cloud Sync", {
       status: 401,
     });
@@ -102,13 +113,13 @@ export async function DELETE(req: Request): Promise<Response> {
     });
   }
 
-  const key = `${user.user.email}-${id}`;
+  const key = `${user.email}-${id}`;
 
   // save to cloudflare
-  const deleteResponse = await fetch(`${env.WORKER_BASE_URL}?key=${key}`, {
+  const deleteResponse = await fetch(`${process.env.WORKER_BASE_URL}?key=${key}`, {
     method: "DELETE",
     headers: {
-      "X-Custom-Auth-Key": env.CLOUDFLARE_R2_TOKEN,
+      "X-Custom-Auth-Key": `${process.env.SECURITY_KEY}`,
     },
   });
 

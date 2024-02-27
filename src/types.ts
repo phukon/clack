@@ -17,3 +17,7 @@ export interface DataStruct {
     contributions: DataStructContribution[];
 }
 
+export type NoteValue = {
+  type: string;
+  content: [{ type: string; content: [{ text: string; type: string }] }];
+};

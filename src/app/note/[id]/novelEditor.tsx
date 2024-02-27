@@ -1,11 +1,12 @@
 'use client';
 
-// import Warning from '@/components/warning';
-// import useNotes from '@/lib/context/NotesContext';
+import Warning from '@/components/warning';
+import useNotes from '@/context/NotesContext';
 import { Editor } from 'novel';
 import { useEffect, useState } from 'react';
 import { type JSONContent } from "@tiptap/core"
-import defaultData from './defaultData';
+import crypto from 'crypto'
+// import {placeholder} from './defaultData';
 
 function NovelEditor({ id }: { id: string }) {
   const [data, setData] = useState<JSONContent | string>('');
@@ -13,7 +14,8 @@ function NovelEditor({ id }: { id: string }) {
   const [syncWithCloudWarning, setSyncWithCloudWarning] = useState(false);
   const [saveStatus, setSaveStatus] = useState('Saved');
 
-  // const { revalidateNotes, kv } = useNotes();
+  var md5Hash
+  const { revalidateNotes, kv } = useNotes();
 
   const loadData = async () => {
     try {
@@ -27,6 +29,8 @@ function NovelEditor({ id }: { id: string }) {
       }
 
       const jsonData = await response.json() as JSONContent;
+      md5Hash = crypto.createHash('md5').update(JSON.stringify(data)).digest('hex');
+      console.log(md5Hash)
       return jsonData;
     } catch (error) {
       console.error('Error loading data from cloud:', error);
@@ -70,18 +74,18 @@ function NovelEditor({ id }: { id: string }) {
 
   return (
     <>
-      {/* {syncWithCloudWarning && (
+      {syncWithCloudWarning && (
         <Warning
           handleKeepLocalStorage={handleKeepLocalStorage}
           handleKeepCloudStorage={handleKeepCloudStorage}
         />
-      )} */}
+      )}
       <div className="relative w-full max-w-screen-lg pb-8">
         <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
           {saveStatus}
         </div>
         <Editor
-          key={JSON.stringify(data)}
+          key={md5Hash}
           defaultValue={data}
           storageKey={id}
           className="novel-relative novel-min-h-[500px] novel-w-full novel-max-w-screen-lg novel-border-stone-200 sm:novel-mb-[calc(20vh)] sm:novel-rounded-lg sm:novel-border sm:novel-shadow-lg"
@@ -92,15 +96,15 @@ function NovelEditor({ id }: { id: string }) {
           }}
           onDebouncedUpdate={async (value) => {
             if (!value) return;
-            // const kvValue = kv.find(([key]) => key === id);
-            // const kvValueFirstLine = kvValue?.[1].content?.[0].content[0].text.split('\n')[0];
+            const kvValue = kv.find(([key]) => key === id);
+            const kvValueFirstLine = kvValue?.[1].content?.[0].content[0].text.split('\n')[0];
 
             // if first line edited, revalidate notes
-            // if (value.getText().split('\n')[0] !== kvValueFirstLine) {
-            //   void revalidateNotes();
-            // }
+            if (value.getText().split('\n')[0] !== kvValueFirstLine) {
+              void revalidateNotes();
+            }
 
-            // setSaveStatus('Saving...');
+            setSaveStatus('Saving...');
             const response = await fetch('/api/note', {
               method: 'POST',
               body: JSON.stringify({ id, data: value.getJSON() }),

@@ -1,0 +1,10 @@
+name = "clack-cloudfare-worker"
+main = "src/index.ts"
+compatibility_date = "2024-02-23"
+
+kv_namespaces = [
+  { binding = "<name>", id = "<id>" }
+]
+
+[vars]
+SECURITY_KEY = ""

@@ -1,4 +1,4 @@
-const defaultData = {
+export const defaultData = {
   type: 'doc',
   content: [
     {
@@ -70,4 +70,25 @@ const defaultData = {
   ],
 };
 
-export default defaultData;
+export const placeholder = {
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'textStyle',
+              attrs: {
+                color: '#A8A29E',
+              },
+            },
+          ],
+          text: "Press '/' for commands....",
+        },
+      ],
+    },
+  ],
+};
