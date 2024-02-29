@@ -26,7 +26,7 @@ export async function getUserData(userId: string) {
     }));
 
     const contributionsData = user.years.flatMap(year => year.contributions.map(contribution => ({
-      date: contribution.contribution_date.toISOString().slice(0, 10),
+      date: contribution.contribution_date,
       count: contribution.count,
       color: contribution.color,
       intensity: contribution.intensity,

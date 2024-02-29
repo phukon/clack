@@ -2,12 +2,14 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { type NoteValue } from '@/types';
+import { wordCountRef } from '@/actions/wordCountRef';
 
 type NotesContextValue = {
     kv: [string, NoteValue][];
     loading: boolean;
     deleteNote: (keyToDelete: string) => Promise<void>;
     revalidateNotes: () => Promise<[string, NoteValue][]>;
+    wordCountReference: number  | undefined | null;
 };
 
 const NotesContext = createContext<NotesContextValue | null>(null);
@@ -25,6 +27,7 @@ export const useNotes = () => {
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     const [kv, setKv] = useState<[string, NoteValue][]>([]);
     const [loading, setLoading] = useState(true); // Loading state
+    const [wordCountReference, setWordCountReference] = useState<number | undefined | null>(0)
 
 
     const fetchLocalStorageData = async () => {
@@ -46,6 +49,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     // Function to fetch data from cloud
     const fetchCloudData = async () => {
         try {
+            await wordCountRef().then(n => setWordCountReference(n)).catch(e => console.log(e)) // TODO: optimize return types!!
             const response = await fetch("/api/fetchPosts");
             if (response.status != 200) {
                 return [];
@@ -103,7 +107,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
         const newKey = "archived-" + keyToDelete;
         const newValue = localStorage.getItem(keyToDelete);
         localStorage.removeItem(keyToDelete);
-        localStorage.setItem(newKey, JSON.stringify(newValue));
+        // localStorage.setItem(newKey, JSON.stringify(newValue));
 
         try {
             await fetch(`/api/note?id=${keyToDelete}`, {
@@ -123,7 +127,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
-        <NotesContext.Provider value={{ kv, loading, deleteNote, revalidateNotes }}>
+        <NotesContext.Provider value={{ kv, loading, deleteNote, revalidateNotes, wordCountReference }}>
             {children}
         </NotesContext.Provider>
     );

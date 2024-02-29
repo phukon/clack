@@ -4,8 +4,8 @@ import Warning from '@/components/warning';
 import useNotes from '@/context/NotesContext';
 import { Editor } from 'novel';
 import { useEffect, useState } from 'react';
-import { type JSONContent } from "@tiptap/core"
-import crypto from 'crypto'
+import { type JSONContent } from '@tiptap/core';
+import crypto from 'crypto';
 // import {placeholder} from './defaultData';
 
 function NovelEditor({ id }: { id: string }) {
@@ -14,8 +14,9 @@ function NovelEditor({ id }: { id: string }) {
   const [syncWithCloudWarning, setSyncWithCloudWarning] = useState(false);
   const [saveStatus, setSaveStatus] = useState('Saved');
 
-  var md5Hash
-  const { revalidateNotes, kv } = useNotes();
+  var md5Hash;
+  const { revalidateNotes, kv, wordCountReference } = useNotes();
+  console.log(`word count ref: ${wordCountReference}`)
 
   const loadData = async () => {
     try {
@@ -23,14 +24,11 @@ function NovelEditor({ id }: { id: string }) {
 
       if (response.status === 404) {
         return null;
-      }
-      else if (!response.ok) {
+      } else if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
-      const jsonData = await response.json() as JSONContent;
-      md5Hash = crypto.createHash('md5').update(JSON.stringify(data)).digest('hex');
-      console.log(md5Hash)
+      const jsonData = (await response.json()) as JSONContent;
       return jsonData;
     } catch (error) {
       console.error('Error loading data from cloud:', error);
@@ -61,6 +59,13 @@ function NovelEditor({ id }: { id: string }) {
     void synchronizeData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+  
+  useEffect(() => {
+    md5Hash = crypto
+      .createHash('md5')
+      .update(JSON.stringify(data))
+      .digest('hex');
+  }, [data]);
 
   const handleKeepLocalStorage = () => {
     setSyncWithCloudWarning(false);
@@ -97,7 +102,8 @@ function NovelEditor({ id }: { id: string }) {
           onDebouncedUpdate={async (value) => {
             if (!value) return;
             const kvValue = kv.find(([key]) => key === id);
-            const kvValueFirstLine = kvValue?.[1].content?.[0].content[0].text.split('\n')[0];
+            const kvValueFirstLine =
+              kvValue?.[1].content?.[0].content[0].text.split('\n')[0];
 
             // if first line edited, revalidate notes
             if (value.getText().split('\n')[0] !== kvValueFirstLine) {

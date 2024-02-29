@@ -1,6 +1,7 @@
 'use client';
+import { UserButton } from '@/components/auth/user-button';
 import Sidebar, { SidebarItem } from '@/components/ui/sidebar';
-import { Settings, Activity, User, Layout } from 'lucide-react';
+import { Settings, Activity, User, Layout, LogOutIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 const DashLayout = ({ children }: { children: React.ReactNode }) => {
@@ -32,6 +33,7 @@ const DashLayout = ({ children }: { children: React.ReactNode }) => {
           active={pathname === '/dash/settings' ? true : false}
           path="/dash/settings"
         />
+        <UserButton/>
       </Sidebar>
       <div className="h-full max-w-screen md:w-full flex gap-y-10 items-center mt-5 justify-center">
         {children}

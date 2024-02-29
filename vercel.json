@@ -3,5 +3,11 @@
     "deploymentEnabled": {
       "documents": false
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron",
+      "schedule": "0 0 * * *"
+    }
+  ]
 }

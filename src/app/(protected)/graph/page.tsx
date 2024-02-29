@@ -4,50 +4,52 @@ import { drawContributions } from '@/lib/graph';
 import { seedUserData } from './_addData';
 import { getUserData } from './_getData';
 import { DataStruct } from '@/types';
-import jsonData from './mock.json';
+import { useCurrentUser } from '@/hooks/use-current-user';
+// import jsonData from './mock.json';
 
 const Graph = ({previewData}: {previewData: boolean}) => {
   const canvasRef = useRef(null);
   const [userData, setUserData] = useState<DataStruct>();
   const currentYear = new Date().getFullYear();
 
-  const username = 'random';
-  const userId = 'clsurlkij0000ipngsjjcqmej';
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const userData = await getUserData(userId);
-  //       setUserData(userData);
-  //     } catch (error) {
-  //       console.error('Error fetching user data:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [userId]);
+  const user = useCurrentUser()
+  const username = user?.name
+  const userId = user?.id
 
   useEffect(() => {
-    if ( canvasRef.current) {
-      const filteredYears:any = jsonData.years.filter(
+    const fetchData = async () => {
+      try {
+        const userData = await getUserData(userId!); // TODO: check later if it really needs non-null assertion operator (!)
+        setUserData(userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
+
+  useEffect(() => {
+    if (canvasRef.current && userData) {
+      const filteredYears: any = userData.years.filter(
         (year) => year.year === currentYear.toString()
       );
       const filteredData = {
         years: filteredYears,
-        contributions: jsonData.contributions,
+        contributions: userData.contributions,
       };
       drawContributions(canvasRef.current, {
-        data: previewData ? filteredData : jsonData,
-        username: username,
+        data: previewData ? filteredData : userData,
+        username: username!,
         themeName: 'standard',
         footerText: 'Clack ©2024',
       });
     }
   }, [userData, username]);
 
-  const handlePostClick = () => {
-    seedUserData(userId);
-  };
+  // const handlePostClick = () => {
+  //   seedUserData(userId);
+  // };
 
   return (
     <div

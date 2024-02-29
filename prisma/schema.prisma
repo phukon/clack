@@ -85,6 +85,7 @@ model User {
   years                 Year[]
   contributions         Contribution[]
   notes                 Note[]
+  wordCountRef          Int
 }
 
 enum NoteType {
@@ -118,12 +119,12 @@ model Year {
 }
 
 model Contribution {
-  id                Int      @id @default(autoincrement())
-  year              Year     @relation(fields: [yearId], references: [id])
-  user              User     @relation(fields: [userId], references: [id])
+  id                String @id @default(cuid())
+  year              Year   @relation(fields: [yearId], references: [id])
+  user              User   @relation(fields: [userId], references: [id])
   userId            String
   yearId            String
-  contribution_date DateTime
+  contribution_date String
   count             Int
   color             String
   intensity         Int

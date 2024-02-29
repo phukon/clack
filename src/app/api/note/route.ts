@@ -1,4 +1,4 @@
-// import { env } from "@/env";
+// import { env } from "@/env"; // for edge runtime
 import {currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { exportContentAsText } from "@/lib/extractText";
@@ -9,7 +9,7 @@ export async function POST(req: Request): Promise<Response> {
   const user = await currentUser();
 
   if (!user) {
-    return new Response("Saved locally | Login for Cloud Sync", {
+    return new Response("Saved locally | Upgrade for Notion integration", {
       status: 401,
     });
   }
@@ -115,7 +115,7 @@ export async function DELETE(req: Request): Promise<Response> {
 
   const key = `${user.email}-${id}`;
 
-  // save to cloudflare
+  // cloudflare
   const deleteResponse = await fetch(`${process.env.WORKER_BASE_URL}?key=${key}`, {
     method: "DELETE",
     headers: {

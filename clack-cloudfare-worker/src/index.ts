@@ -40,6 +40,10 @@ export default {
 		const reqUrl = new URL(request.url);
 		const key = reqUrl.searchParams.get('key');
 		const getAllFromUser = reqUrl.searchParams.get('getAllFromUser');
+    
+    if(reqUrl.searchParams.has('sayonara')) {
+       return await deleteEverything(env)
+    }
 
 		if (getAllFromUser) {
 			return await getAllKeys(env, getAllFromUser);
@@ -94,9 +98,17 @@ async function handleDelete(env: Env, key: string): Promise<Response> {
 }
 
 async function handleGet(env: Env, key: string): Promise<Response> {
-	const data = await env.clackkv.get(key);
-	if (!data) {
-		return new Response('Not found', { status: 404 });
-	}
-	return new Response(data);
+  const data = await env.clackkv.get(key);
+  if (!data) {
+    return new Response('Not found', { status: 404 });
+  }
+  return new Response(data);
+}
+
+async function deleteEverything(env: Env): Promise<Response>{
+  const keys = await env.clackkv.list();
+  for (const key of keys.keys) {
+    await env.clackkv.delete(key.name.toString());
+  }
+  return new Response('Deleted everything', {status: 200})
 }

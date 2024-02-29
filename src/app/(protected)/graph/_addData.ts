@@ -36,7 +36,7 @@ export async function seedUserData(userId: string) {
         for (const contributionData of contributionsForYear) {
           const existingContribution = existingYear.contributions.find(
             (contribution) =>
-              contribution.contribution_date.toISOString() === contributionData.date
+              contribution.contribution_date === contributionData.date
           );
           if (existingContribution) {
             // Update existing contribution
@@ -54,7 +54,7 @@ export async function seedUserData(userId: string) {
               data: {
                 year: { connect: { id: existingYear.id } },
                 user: { connect: { id: userId } },
-                contribution_date: new Date(contributionData.date),
+                contribution_date: contributionData.date,
                 count: contributionData.count,
                 color: contributionData.color,
                 intensity: contributionData.intensity,
@@ -83,7 +83,7 @@ export async function seedUserData(userId: string) {
             data: {
               year: { connect: { id: createdYear.id } },
               user: { connect: { id: userId } },
-              contribution_date: new Date(contributionData.date),
+              contribution_date: contributionData.date,
               count: contributionData.count,
               color: contributionData.color,
               intensity: contributionData.intensity,
