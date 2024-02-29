@@ -1,5 +1,5 @@
 "use client";
- 
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { type NoteValue } from "@/types";
 import { useCurrentUser } from "@/hooks/use-current-user";
@@ -9,6 +9,7 @@ type NotesContextValue = {
   loading: boolean;
   deleteNote: (keyToDelete: string) => Promise<void>;
   revalidateNotes: () => Promise<[string, NoteValue][]>;
+  wordCount: number;
 };
 
 const NotesContext = createContext<NotesContextValue | null>(null);
@@ -26,7 +27,9 @@ export const useNotes = () => {
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   const currentUser = useCurrentUser();
   const [kv, setKv] = useState<[string, NoteValue][]>([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
+  const wordCount: number = 0
+  // const [wordCount, setWordCount] = useState<number>(0);
 
   const fetchLocalStorageData = async () => {
     const entries = Object.entries(localStorage);
@@ -47,13 +50,15 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   // Function to fetch data from cloud
   const fetchCloudData = async () => {
     try {
+      // Might use later
+      // await fetch("api/fetchMetaData")
+      //   .then((r) => r.text())
+      //   .then((count) => setWordCount(Number(count)));
       const response = await fetch("/api/fetchPosts");
       if (response.status != 200) {
         return [];
       }
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const data = await response.json();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return data as [string, NoteValue][];
     } catch (error) {
       console.error("Error fetching cloud data:", error);
@@ -98,7 +103,6 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
       if (currentUser) {
         void combineData();
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentUser]);
 
   const deleteNote = async (keyToDelete: string) => {
@@ -124,7 +128,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     return await combineData();
   };
 
-  return <NotesContext.Provider value={{ kv, loading, deleteNote, revalidateNotes }}>{children}</NotesContext.Provider>;
+  return <NotesContext.Provider value={{ kv, loading, deleteNote, revalidateNotes, wordCount }}>{children}</NotesContext.Provider>;
 };
 
 export default useNotes;

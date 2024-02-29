@@ -5,7 +5,6 @@ export const exportContentAsText = (value: JSONContent) => {
 
   if (typeof value === "string") {
     // convert into object
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     processedValue = JSON.parse(value);
   }
 

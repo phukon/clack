@@ -45,6 +45,7 @@ interface Options {
   data: DataStruct;
   fontFace?: string;
   footerText?: string;
+  wordCount: number
 }
 
 interface DrawYearOptions extends Options {
@@ -275,16 +276,16 @@ function drawMetaData(
   ctx.font = `20px '${fontFace}'`;
   ctx.fillText(`@${username}`, canvasMargin, canvasMargin);
 
-  let totalContributions = 0;
-  for (const year of data.years) {
-    totalContributions += year.total;
-  }
+  // let totalContributions = opts.wordCount
+  // for (const year of data.years) {
+  //   totalContributions += year.total;
+  // }
   ctx.font = `10px '${fontFace}'`;
-  ctx.fillText(
-    `Total words written: ${totalContributions}`,
-    canvasMargin,
-    canvasMargin + 30
-  );
+  // ctx.fillText(
+  //   `Total words written: ${totalContributions}`,
+  //   canvasMargin,
+  //   canvasMargin + 30
+  // );
 
   ctx.beginPath();
   ctx.moveTo(canvasMargin, 55 + 10);

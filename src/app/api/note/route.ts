@@ -15,10 +15,8 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // get request body
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const body = await req.json();
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id, data } = body;
 
   if (!id || !data) {
@@ -90,7 +88,6 @@ export async function GET(req: Request): Promise<Response> {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const data = await getResponse.json();
 
   return new Response(JSON.stringify(data), {

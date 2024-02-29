@@ -26,6 +26,7 @@ interface Options {
     data: DataStruct;
     fontFace?: string;
     footerText?: string;
+    wordCount: number
 }
 interface Theme {
     background: string;

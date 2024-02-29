@@ -1,17 +1,23 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { drawContributions } from '@/lib/graph';
-import { seedUserData } from './_addData';
 import { getUserData } from './_getData';
 import { DataStruct } from '@/types';
 import { useCurrentUser } from '@/hooks/use-current-user';
+// import useNotes from '@/context/NotesContext';
+// import { seedUserData } from './_addData';
 // import jsonData from './mock.json';
 
-const Graph = ({previewData}: {previewData: boolean}) => {
+type GraphProps = {
+  isPreview: boolean
+}
+
+export default function Graph (props: GraphProps) {
+  // const {wordCount} = useNotes()
+  const isPreview = props.isPreview
   const canvasRef = useRef(null);
   const [userData, setUserData] = useState<DataStruct>();
   const currentYear = new Date().getFullYear();
-
   const user = useCurrentUser()
   const username = user?.name
   const userId = user?.id
@@ -19,7 +25,7 @@ const Graph = ({previewData}: {previewData: boolean}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData = await getUserData(userId!); // TODO: check later if it really needs non-null assertion operator (!)
+        const userData = await getUserData(userId ?? ''); // Add nullish coalescing operator to provide a default value
         setUserData(userData);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -39,13 +45,14 @@ const Graph = ({previewData}: {previewData: boolean}) => {
         contributions: userData.contributions,
       };
       drawContributions(canvasRef.current, {
-        data: previewData ? filteredData : userData,
-        username: username!,
+        data: isPreview ? filteredData : userData,
+        username: username ?? '', // Provide a default value for username
         themeName: 'solarizedDark',
         footerText: 'Clack ©2024',
+        wordCount: 0, // might use later
       });
     }
-  }, [userData, username]);
+  }, [userData, username, currentYear, isPreview]);
 
   // const handlePostClick = () => {
   //   seedUserData(userId);
@@ -61,9 +68,6 @@ const Graph = ({previewData}: {previewData: boolean}) => {
     </div>
   );
 };
-
-export default Graph;
-
 // import React, { useEffect, useRef } from 'react';
 // import { drawContributions } from '@/lib/graph';
 // import mockData from './mock.json';

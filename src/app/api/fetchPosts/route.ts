@@ -28,13 +28,10 @@ export async function GET(_: Request): Promise<Response> {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const data = await getResponse.json();
 
-  // Convert it into a list instead of an object
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const keys = Object.keys(data);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
   const values = Object.values(data);
 
   // convert to list of [key, value] pairs
