@@ -69,12 +69,12 @@ interface Theme {
   grade0: string;
 }
 
-function getPixelRatio() {
-  if (typeof window === 'undefined') {
-    return 1;
-  }
-  return window.devicePixelRatio || 1;
-}
+// function getPixelRatio() {
+//   if (typeof window === 'undefined') {
+//     return 1;
+//   }
+//   return window.devicePixelRatio || 1;
+// }
 
 const DATE_FORMAT = 'yyyy-MM-dd';
 const boxWidth = 10;
@@ -104,9 +104,19 @@ function getTheme(opts: Options): Theme {
   return themes[name] ?? themes.standard;
 }
 
-function getDateInfo(data: DataStruct, date: string) {
-  return data.contributions.find((contrib) => contrib.date === date);
-}
+function getDateInfo(data: DataStruct, date: string): DataStructContribution {
+  const contribution = data.contributions.find((contrib) => contrib.date === date);
+  if (contribution) {
+     return contribution;
+  }
+  // Return a default contribution object for dates with no contributions
+  return {
+     date,
+     count: 0,
+     color: '#239a3b', // Assuming 'transparent' is a valid color in your theme
+     intensity: 0,
+  };
+ }
 
 function getContributionCount(graphEntries: GraphEntry[][]) {
   return graphEntries.reduce((rowTotal, row) => {

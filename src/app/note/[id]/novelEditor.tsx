@@ -1,4 +1,19 @@
 'use client';
+/**
+ * HEADS UP! i MADE A MISTAKE TO WHILE TRYING TO FORCE A RE-RENDER USING THE MD5HASH VALUE.
+ * check the @parentCommit_41f7fcdb0566f790e4e6169a2a3d6d8b6ede9fec to study what I changed.
+ * 
+ * In the first code snippet, the md5Hash variable is declared using the var keyword inside the useEffect hook.
+ * This variable is assigned the result of the cryptographic hashing operation, but since it's not a state variable,
+ * changes to its value don't trigger re-renders in React components. Therefore, the editor component doesn't rerender
+ * when the md5Hash value changes, leading to the observed issue.
+ * 
+ * In the second code snippet, the issue is addressed by replacing the var declaration of md5Hash with a state variable
+ * created using the useState hook. This allows for updating md5Hash using setMd5Hash, which triggers a re-render
+ * whenever its value changes. Since state updates trigger re-renders in React components, this approach ensures that
+ * the editor component properly re-renders when the md5Hash value changes, resolving the initial issue.
+ * ~ Riki {@Github https://github.com/phukon}
+ */
 
 import Warning from '@/components/warning';
 import useNotes from '@/context/NotesContext';
@@ -13,10 +28,9 @@ function NovelEditor({ id }: { id: string }) {
   const [cloudData, setCloudData] = useState<JSONContent | string>('');
   const [syncWithCloudWarning, setSyncWithCloudWarning] = useState(false);
   const [saveStatus, setSaveStatus] = useState('Saved');
+  const [md5Hash, setMd5Hash] = useState('');
 
-  var md5Hash;
-  const { revalidateNotes, kv, wordCountReference } = useNotes();
-  console.log(`word count ref: ${wordCountReference}`)
+  const { revalidateNotes, kv } = useNotes();
 
   const loadData = async () => {
     try {
@@ -61,11 +75,11 @@ function NovelEditor({ id }: { id: string }) {
   }, [id]);
   
   useEffect(() => {
-    md5Hash = crypto
+    setMd5Hash(crypto
       .createHash('md5')
       .update(JSON.stringify(data))
-      .digest('hex');
-  }, [data]);
+      .digest('hex'));
+ }, [data]);
 
   const handleKeepLocalStorage = () => {
     setSyncWithCloudWarning(false);

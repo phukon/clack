@@ -100,7 +100,7 @@ model Note {
   wordCount Int?
   userId    String
   data      Json? // I may use an edge KV store
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade )
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -109,7 +109,7 @@ model Note {
 
 model Year {
   id            String         @id @default(cuid())
-  user          User           @relation(fields: [userId], references: [id])
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        String
   year          String
   total         Int
@@ -120,8 +120,8 @@ model Year {
 
 model Contribution {
   id                String @id @default(cuid())
-  year              Year   @relation(fields: [yearId], references: [id])
-  user              User   @relation(fields: [userId], references: [id])
+  year              Year   @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId            String
   yearId            String
   contribution_date String

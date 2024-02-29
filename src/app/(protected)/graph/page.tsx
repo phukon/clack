@@ -41,7 +41,7 @@ const Graph = ({previewData}: {previewData: boolean}) => {
       drawContributions(canvasRef.current, {
         data: previewData ? filteredData : userData,
         username: username!,
-        themeName: 'standard',
+        themeName: 'solarizedDark',
         footerText: 'Clack ©2024',
       });
     }

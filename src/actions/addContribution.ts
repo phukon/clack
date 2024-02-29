@@ -1,7 +1,7 @@
 "use server";
 /**
  * To the future contributors.
- * Please do not delete the SCRAP YARD until April 2024.
+ * Please do not delete the SCRAP YARD.
  * I might reuse the code later.
  * ~ riki (⌐■_■)
  */
