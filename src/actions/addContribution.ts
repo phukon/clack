@@ -1,105 +1,80 @@
-'use server';
-import { getUserById } from '@/data/user';
-import { currentUser } from '@/lib/auth';
-import { db } from '@/lib/db';
-import {formatDateToISO} from '@/lib/formatDateToISO'
+"use server";
+/**
+ * To the future contributors.
+ * Please do not delete the SCRAP YARD until April 2024.
+ * I might reuse the code later.
+ * ~ riki (⌐■_■)
+ */
 
-export const addContribution = async () => {
-  const user = await currentUser();
+import { getUserById } from "@/data/user";
+import { currentUser } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { formatDateToISO } from "@/lib/formatDateToISO";
 
-  if (!user) {
-    return { error: 'Unauthorized' };
-  }
+enum IntensityLevel {
+  Low = 0,
+  Moderate = 1,
+  High = 2,
+  VeryHigh = 3,
+  Extreme = 4,
+}
 
-  if (!user.id) {
-    return { error: 'Invalid user ID' };
-  }
+async function calculateIntensityLevel(wordCount: number): Promise<IntensityLevel> {
+  if (wordCount >= 0 && wordCount <= 10) return IntensityLevel.Low;
+  if (wordCount >= 11 && wordCount <= 50) return IntensityLevel.Moderate;
+  if (wordCount >= 51 && wordCount <= 150) return IntensityLevel.High;
+  if (wordCount >= 151 && wordCount <= 300) return IntensityLevel.VeryHigh;
+  return IntensityLevel.Extreme;
+}
 
-  const dbUser = await getUserById(user.id);
-
-  if (!dbUser) {
-    return { error: 'Unauthorized' };
-  }
-
-  const userNotes = await db.note.findMany({
-    where: {
-      userId: dbUser.id,
-    },
+async function getTotalContributions(userId: string): Promise<number> {
+  const user = await db.user.findUnique({
+    where: { id: userId },
+    include: { contributions: true },
   });
 
-  const totalWordCount = userNotes.reduce(
-    (acc, note) => acc + (note.wordCount ?? 0),
-    0
-  );
-
-  function getIntensityLevel(wordCount: number): number {
-    if (wordCount >= 0 && wordCount <= 10) {
-      return 0;
-    } else if (wordCount >= 11 && wordCount <= 50) {
-      return 1;
-    } else if (wordCount >= 51 && wordCount <= 150) {
-      return 2;
-    } else if (wordCount >= 151 && wordCount <= 300) {
-      return 3;
-    } else {
-      return 4;
-    }
+  if (!user) {
+    throw new Error("User not found");
   }
-  // let year = '2024'
-  // let transaction;
-  // try {
-  //   // Start a transaction
-  //   transaction = await db.$transaction([
-  //     db.year.create({
-  //       data: {
-  //         user: { connect: { id: 'user.id' } },
-  //         userId: user.id,
-  //         year: year
-  //       }
-  //     }),
-  //     db.contribution.create({
-  //       data: {
-  //         user: { connect: { id: user.id } },
-  //         userId: user.id,
-  //         year: { connect: { year: year } },
-  //         contribution_date: contributionDate,
-  //         count: count,
-  //         color: color,
-  //         intensity: intensity
-  //       }
-  //     })
-  //   ]);
 
-  //   console.log("Year and Contribution created successfully!");
-  // } catch (error) {
-  //   console.error("Error creating year and contribution:", error);
-  // }
-  // }
+  return user.contributions.reduce((accumulator, contribution) => accumulator + contribution.count, 0);
+}
 
+async function addContribution() {
+  const user = await currentUser();
+  if (!user) throw new Error("Unauthorized");
+  if (!user.id) throw new Error("Invalid user ID");
+
+  const dbUser = await getUserById(user.id);
+  if (!dbUser) throw new Error("Unauthorized");
+
+  const userNotes = await db.note.findMany({
+    where: { userId: dbUser.id },
+  });
+
+  const totalWordCount = userNotes.reduce((acc, note) => acc + (note.wordCount ?? 0), 0);
+  const intensityLevel = await calculateIntensityLevel(totalWordCount);
+  const totalContributions = await getTotalContributions(dbUser.id);
+
+  const currentYear = new Date().getFullYear();
   const existingYear = await db.year.findFirst({
-    where: { year: new Date().getFullYear().toString() },
+    where: { year: currentYear.toString() },
   });
 
   const existingContribution = await db.contribution.findFirst({
-    where: { contribution_date: formatDateToISO(new Date), userId: dbUser.id },
+    where: {
+      contribution_date: formatDateToISO(new Date()),
+      userId: dbUser.id,
+    },
   });
 
   if (existingYear) {
     if (existingContribution) {
       await db.contribution.update({
-        where: {
-          id: existingContribution.id,
-        },
+        where: { id: existingContribution.id },
         data: {
-          count:
-            totalWordCount - dbUser.wordCountRef < 0
-              ? 0
-              : totalWordCount - dbUser.wordCountRef,
-          intensity: getIntensityLevel(
-            totalWordCount - dbUser.wordCountRef < 0
-              ? 0
-              : totalWordCount - dbUser.wordCountRef
-          ),
+          count: totalWordCount - dbUser.wordCountRef < 0 ? 0 : totalWordCount - dbUser.wordCountRef,
+          intensity: intensityLevel,
         },
       });
     } else {
@@ -107,28 +82,25 @@ export const addContribution = async () => {
         data: {
           userId: dbUser.id,
           yearId: existingYear.id,
-          contribution_date: formatDateToISO(new Date),
-          color: '#239a3b',
-          count:
-            totalWordCount - dbUser.wordCountRef < 0
-              ? 0
-              : totalWordCount - dbUser.wordCountRef,
-          intensity: getIntensityLevel(
-            totalWordCount - dbUser.wordCountRef < 0
-              ? 0
-              : totalWordCount - dbUser.wordCountRef
-          ),
+          contribution_date: formatDateToISO(new Date()),
+          color: "#239a3b",
+          count: totalWordCount - dbUser.wordCountRef < 0 ? 0 : totalWordCount - dbUser.wordCountRef,
+          intensity: intensityLevel,
         },
+      });
+      await db.year.update({
+        where: { id: existingYear.id },
+        data: { total: { increment: 1 } },
       });
     }
   } else {
     const createdYear = await db.year.create({
       data: {
         userId: user.id,
-        year: new Date().getFullYear().toString(),
-        total: 234234526,
-        start_date: new Date(new Date().getFullYear(), 0, 1),
-        end_date: new Date(new Date().getFullYear() + 1, 0, 0),
+        year: currentYear.toString(),
+        total: totalContributions,
+        start_date: new Date(currentYear, 0, 1),
+        end_date: new Date(Number(currentYear) + 1, 0, 0),
       },
     });
 
@@ -136,24 +108,54 @@ export const addContribution = async () => {
       data: {
         userId: user.id,
         yearId: createdYear.id,
-        contribution_date: formatDateToISO(new Date),
-        color: '#239a3b',
-        count:
-          totalWordCount - dbUser.wordCountRef < 0
-            ? 0
-            : totalWordCount - dbUser.wordCountRef,
-        intensity: getIntensityLevel(
-          totalWordCount - dbUser.wordCountRef < 0
-            ? 0
-            : totalWordCount - dbUser.wordCountRef
-        ),
+        contribution_date: formatDateToISO(new Date()),
+        color: "#239a3b",
+        count: totalWordCount - dbUser.wordCountRef < 0 ? 0 : totalWordCount - dbUser.wordCountRef,
+        intensity: intensityLevel,
       },
     });
   }
 
-  return { message: 'Contribution added successfully'}
-};
+  return { message: "Contribution added successfully" };
+}
 
+export { addContribution };
+
+/**
+ * SCRAP YARD
+ * TO BE RECYCLED LATER
+ */
+
+// let year = '2024'
+// let transaction;
+// try {
+//   // Start a transaction
+//   transaction = await db.$transaction([
+//     db.year.create({
+//       data: {
+//         user: { connect: { id: 'user.id' } },
+//         userId: user.id,
+//         year: year
+//       }
+//     }),
+//     db.contribution.create({
+//       data: {
+//         user: { connect: { id: user.id } },
+//         userId: user.id,
+//         year: { connect: { year: year } },
+//         contribution_date: contributionDate,
+//         count: count,
+//         color: color,
+//         intensity: intensity
+//       }
+//     })
+//   ]);
+
+//   console.log("Year and Contribution created successfully!");
+// } catch (error) {
+//   console.error("Error creating year and contribution:", error);
+// }
+// }
 // --------
 
 // function formatDate(date: any) {
