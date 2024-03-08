@@ -1,7 +1,8 @@
 {
   "git": {
     "deploymentEnabled": {
-      "documents": false
+      "documents": false,
+      "transformer": false
     }
   },
   "crons": [
