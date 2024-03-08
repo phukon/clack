@@ -100,7 +100,7 @@ export async function DELETE(req: Request): Promise<Response> {
   const user = await currentUser();
 
   if (!user?.email) {
-    return new Response("Saved locally | Login for Cloud Sync", {
+    return new Response("Saved locally", {
       status: 401,
     });
   }
@@ -109,6 +109,8 @@ export async function DELETE(req: Request): Promise<Response> {
       status: 400,
     });
   }
+
+  await db.note.delete({where: {id: id}} )
 
   const key = `${user.email}-${id}`;
 

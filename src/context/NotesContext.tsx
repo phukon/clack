@@ -106,10 +106,10 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     }, [currentUser]);
 
   const deleteNote = async (keyToDelete: string) => {
-    // const newKey = "archived-" + keyToDelete;
-    // const newValue = localStorage.getItem(keyToDelete);
+    const newKey = "archived-" + keyToDelete;
+    const newValue = localStorage.getItem(keyToDelete);
     localStorage.removeItem(keyToDelete);
-    // localStorage.setItem(newKey, JSON.stringify(newValue));
+    localStorage.setItem(newKey, JSON.stringify(newValue));
 
     try {
       await fetch(`/api/note?id=${keyToDelete}`, {
@@ -118,6 +118,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
           "Content-Type": "application/json",
         },
       });
+
     } catch (error) {
       console.error("Error deleting note:", error);
     }
