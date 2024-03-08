@@ -14,7 +14,6 @@ const Dash = () => {
     // pt-[calc(10vh)]
     <div className="mb-12 p-4 flex min-h-[100svh] flex-col items-center sm:px-5 md:mb-0">
       <GraphLayout isPreview={true} />
-      <header className=" mt-10">Your work</header>
       <div className="md:px-12">
         {kv && (
             <div className="mt-8 md:px-12 ">

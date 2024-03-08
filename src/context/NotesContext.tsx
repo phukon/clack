@@ -92,18 +92,16 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Combine and set data
     setKv(uniqueData);
-    setLoading(false); // Set loading state to false when data fetching is complete
-
+    setLoading(false); 
     return kv;
   };
 
-  const user = // Add the declaration for the 'user' variable here
+  const user = 
     useEffect(() => {
-      // Check if the user exists
       if (currentUser) {
         void combineData();
       }
-    }, [currentUser]);
+    }, []); // I'm removing the currentuser as a dependency now. too many api calls!
 
   const deleteNote = async (keyToDelete: string) => {
     const newKey = "archived-" + keyToDelete;
