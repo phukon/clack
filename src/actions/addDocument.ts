@@ -3,7 +3,7 @@
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { NoteType } from "@prisma/client";
+import { NoteType, Prisma } from "@prisma/client";
 import { extractNotionData } from "@/lib/extractNotionData";
 
 export async function addDocument(url: string) {
@@ -50,9 +50,17 @@ export async function addDocument(url: string) {
     });
 
     return {success: "Document added succesfully!"}
-  } catch (error) {
-    // Handle errors
+  } catch (error: any) {
+    // Prisma-specific error handling
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2002' && (error.meta?.target as string[])?.includes('url')) {
+        // This error code (P2002) indicates a unique constraint violation
+        return { error: "URL already exists. Please use a different URL." };
+      }
+    }
+
+    // Generic error handling
     console.error("Error occurred:", error);
-    return {error: error}
+    return { error: error };
   }
 }
