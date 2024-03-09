@@ -89,6 +89,7 @@ model User {
 }
 
 enum NoteType {
+  CLACK
   NOTION
   GOOGLEDOC
 }
@@ -96,7 +97,7 @@ enum NoteType {
 model Note {
   id        String   @id @default(cuid())
   name      String?
-  type      NoteType @default(NOTION)
+  type      NoteType @default(CLACK)
   wordCount Int?
   userId    String
   data      Json? // I may use an edge KV store

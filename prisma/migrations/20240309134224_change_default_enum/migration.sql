@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Note" ALTER COLUMN "type" SET DEFAULT 'CLACK';
