@@ -36,13 +36,12 @@ const Dash = () => {
           </>
         )}
       </Button>
-
+      {kv.length === 0 ? (
+          <h2 className="text-2xl mt-8 font-bold">No documents to show</h2>) : (
+            <h2 className="text-2xl mt-8 font-bold">Your Documents</h2>)}
       <div className="md:px-12">
-        {kv.length === 0 ? (
-          <h2 className="text-2xl mt-8 font-bold">No documents to show</h2>
-        ) : (
+        {kv && (
           <div className="mt-8 md:px-12 ">
-            <h2 className="text-2xl font-bold">Your Documents</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 md:gap-y-8 gap-4 mt-4">
               {kv.map(([key, value]: [string, Value]) => (
                 <Link key={key} href={`/note?id=${key}`} className="rounded-md p-2 group  col-span-1">
