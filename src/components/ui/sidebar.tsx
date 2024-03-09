@@ -1,16 +1,14 @@
-'use client';
-import { MoreVertical, ChevronLast, ChevronFirst } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useContext, createContext, useState } from 'react';
+"use client";
+import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useContext, createContext, useState } from "react";
 
 type SidebarContextState = {
   expanded: boolean;
 };
 
-const SidebarContext = createContext<SidebarContextState | undefined>(
-  undefined
-);
+export const SidebarContext = createContext<SidebarContextState | undefined>(undefined);
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
   const [expanded, setExpanded] = useState(false);
@@ -19,7 +17,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
     <aside className="h-screen relative">
       <nav
         className={`h-full flex flex-col bg-white border-r-2 shadow-sm fixed top-0 left-0 z-50 ${
-          expanded ? 'w-60' : 'w-16'
+          expanded ? "w-60" : "w-16"
         }`}
       >
         <div className="p-4 pb-2 flex justify-between items-center">
@@ -27,9 +25,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
             src="/logo.png"
             width={1000}
             height={1000}
-            className={`overflow-hidden transition-all ${
-              expanded ? 'w-32' : 'w-0'
-            }`}
+            className={`overflow-hidden transition-all ${expanded ? "w-32" : "w-0"}`}
             alt="logo"
           />
           <button
@@ -53,7 +49,7 @@ type TSidebarItem = {
   text: string;
   active?: boolean;
   alert?: boolean;
-  path: string
+  path: string;
 };
 
 export function SidebarItem({ icon, text, active, alert, path }: TSidebarItem) {
@@ -61,34 +57,17 @@ export function SidebarItem({ icon, text, active, alert, path }: TSidebarItem) {
 
   return (
     <Link href={path}>
-      {' '}
       <li
         className={`
       relative flex items-center py-3 px-2 my-1
       font-medium rounded-md cursor-pointer
       transition-colors group
-      ${
-        active
-          ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800'
-          : 'hover:bg-indigo-50 text-gray-600'
-      }
+      ${active ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800" : "hover:bg-indigo-50 text-gray-600"}
   `}
       >
         {icon}
-        <span
-          className={`overflow-hidden transition-all ${
-            expanded ? 'w-52 ml-3' : 'w-0'
-          }`}
-        >
-          {text}
-        </span>
-        {alert && (
-          <div
-            className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
-              expanded ? '' : 'top-2'
-            }`}
-          />
-        )}
+        <span className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>{text}</span>
+        {alert && <div className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${expanded ? "" : "top-2"}`} />}
 
         {!expanded && (
           <div
