@@ -25,7 +25,7 @@ const Dash = () => {
   return (
     // pt-[calc(10vh)]
     <div className="mb-12 p-4 flex min-h-[100svh] flex-col items-center sm:px-5 md:mb-0">
-      <GraphLayout isPreview={true} />
+      <GraphLayout key={isUpdating.toString()} isPreview={true} />
       <Button disabled={isUpdating} variant="secondary" onClick={onClick}>
         {isUpdating ? (
           "Updating..."

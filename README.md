@@ -1,6 +1,8 @@
 - After schema changes run `npx prisma migrate dev` 
 - Reset KV store by sending a GET request on the KV worker url with the param `?sayonara` and a populated `X-Custom-Auth-Key` header.
 
+## TODO: Contribution logic
+Contributions added automatically or manually.
 
 <!-- > TODO: Write high level flow of the data and logic -->
 
