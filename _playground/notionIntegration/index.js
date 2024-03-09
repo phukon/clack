@@ -144,16 +144,15 @@ const printBlockText = (blocks) => {
 async function main() {
   // Make API call to retrieve all block children from the page provided in .env
   const blocks = await retrieveBlockChildren(pageId);
-  // Get and print plain text for each block.
-  fs.writeFile("notionJSON", JSON.stringify(blocks, null, 2), (err) => {
-    if (err) {
-      console.error("Error writing to file:", err);
-    } else {
-      console.log("File generated!");
-    }
-  });
+  // fs.writeFile("notionJSON", JSON.stringify(blocks, null, 2), (err) => {
+  //   if (err) {
+  //     console.error("Error writing to file:", err);
+  //   } else {
+  //     console.log("File generated!");
+  //   }
+  // });
 
-  console.log(blocks);
+  // console.log(blocks);
   printBlockText(blocks);
 }
 

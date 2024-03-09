@@ -1,0 +1,164 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ],
+          "text": "H1"
+        },
+        {
+          "type": "text",
+          "marks": [],
+          "text": " COLOUR COLOURBG"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "marks": [],
+          "text": "normal text"
+        }
+      ]
+    },
+    {
+      "type": "taskItem",
+      "attrs": {
+        "checked": false
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "marks": [],
+              "text": "todo1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "taskItem",
+      "attrs": {
+        "checked": false
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "marks": [],
+              "text": "todo2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "taskItem",
+      "attrs": {
+        "checked": false
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "marks": [],
+              "text": "todo3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "blockquote",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "marks": [],
+              "text": "This is a quoteline1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "codeBlock",
+      "attrs": {
+        "language": "plain text"
+      },
+      "content": [
+        {
+          "type": "text",
+          "marks": [],
+          "text": "this is code"
+        }
+      ]
+    },
+    {
+      "type": "listItem",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "marks": [],
+              "text": "bullet-list1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "listItem",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "marks": [],
+              "text": "bullet-list2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "listItem",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "marks": [],
+              "text": "bullet-list3"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
