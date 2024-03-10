@@ -2,6 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BsStars } from "react-icons/bs";
 import { IoDocumentAttachOutline } from "react-icons/io5";
+import { RiQuillPenFill } from "react-icons/ri";
 import GraphLayout from "../../components/graph/layout";
 import useNotes from "@/context/NotesContext";
 import { exportContentAsText } from "@/lib/extractText";
@@ -27,8 +28,8 @@ const Dash = () => {
     // pt-[calc(10vh)]
     <div className="mb-12 p-4 flex min-h-[100svh] flex-col items-center sm:px-5 md:mb-0">
       <GraphLayout key={isUpdating.toString()} isPreview={true} />
-      <div className=" flex flex-row mt-3 gap-2">
-        <Button disabled={isUpdating} variant="secondary" onClick={onClick}>
+      <div className=" grid md:flex md:flex-row mt-3 gap-2">
+        <Button disabled={isUpdating} className=" col-span-1" variant="outline" onClick={onClick}>
           {isUpdating ? (
             "Updating..."
           ) : (
@@ -39,6 +40,7 @@ const Dash = () => {
           )}
         </Button>
         <AddDocumentButton>Add Document <IoDocumentAttachOutline className="ml-1 w-4 h-4"/></AddDocumentButton>
+        <Link  className=" col-span-2" href="/note/new"><Button className="w-full">Create a document <RiQuillPenFill  className="ml-1 w-4 h-4"/></Button></Link>
       </div>
       {kv.length === 0 ? (
         <h2 className="text-2xl mt-8 font-bold">No documents to show</h2>
