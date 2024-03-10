@@ -1,11 +1,11 @@
 
 
 ## Contribution logic
-- Missing contributions are showed as blank on the canvas. No need to add black contribution data to keep contributions array filled with consecutive dates.
+- Missing contributions are showed as blank on the canvas. No need to add blank contribution data to keep contributions array filled with consecutive dates.
 - Works only if the day comes before the current system date.
 - Non-consecutive dates after the current system date are not rendered. 
 
-# ⚠ Documents
+## ⚠ Documents
 - Added specific error handling for Prisma's known request errors
 - Checked for error code 'P2002' to identify unique constraint violations
 - Checked if the 'url' field was involved in the constraint violation

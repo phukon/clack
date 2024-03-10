@@ -9,7 +9,9 @@
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { extractNotionData } from "@/lib/extractNotionData";
 import { formatDateToISO } from "@/lib/formatDateToISO";
+import { NoteType } from "@prisma/client";
 
 enum IntensityLevel {
   Low = 0,
@@ -48,6 +50,39 @@ async function addContribution() {
   const dbUser = await getUserById(user.id);
   if (!dbUser) throw new Error("Unauthorized");
 
+  // Update wordCount for Notion documents
+  const notionDocuments = await db.note.findMany({
+    where: { userId: dbUser.id, type: NoteType.NOTION },
+  });
+
+  const getWordCount = (str: string): number => {
+    return str.split(/\s+/).length;
+  };
+
+  const getIdFromUrl = (url: string): string | null => {
+    const match = url.match(/[a-zA-Z0-9]{32}/);
+    return match ? match[0] : null;
+  };
+
+  try {
+    for (const doc of notionDocuments) {
+      const id = getIdFromUrl(doc.url!);
+      if (!id) {
+        throw new Error(`ID not found for ${doc.url}`);
+      }
+      const wordArray = await extractNotionData(id);
+      const combinedString = wordArray.join(" ");
+      const wordCount = getWordCount(combinedString);
+      await db.note.update({
+        where: { id: doc.id },
+        data: { wordCount },
+      });
+    }
+  } catch (error) {
+    console.error("Error updating notion documents:", error);
+    return { notionDoc_updation_error: error };
+  }
+
   const userNotes = await db.note.findMany({
     where: { userId: dbUser.id },
   });
@@ -68,58 +103,64 @@ async function addContribution() {
     },
   });
 
-  if (existingYear) {
-    if (existingContribution) {
-      await db.contribution.update({
-        where: { id: existingContribution.id },
+  try {
+    if (existingYear) {
+      if (existingContribution) {
+        await db.contribution.update({
+          where: { id: existingContribution.id },
+          data: {
+            count: Math.max(totalWordCount - dbUser.wordCountRef, 0),
+            intensity: intensityLevel,
+          },
+        });
+      } else {
+        await db.contribution.create({
+          data: {
+            userId: dbUser.id,
+            yearId: existingYear.id,
+            contribution_date: formatDateToISO(new Date()),
+            color: "#239a3b",
+            count: Math.max(totalWordCount - dbUser.wordCountRef, 0),
+            intensity: intensityLevel,
+          },
+        });
+        await db.year.update({
+          where: { id: existingYear.id },
+          data: { total: { increment: 1 } },
+        });
+      }
+    } else {
+      const createdYear = await db.year.create({
         data: {
-          count: totalWordCount - dbUser.wordCountRef < 0 ? 0 : totalWordCount - dbUser.wordCountRef,
-          intensity: intensityLevel,
+          userId: user.id,
+          year: currentYear.toString(),
+          total: totalContributions,
+          start_date: new Date(currentYear, 0, 1),
+          end_date: new Date(currentYear + 1, 0, 0),
         },
       });
-    } else {
+
       await db.contribution.create({
         data: {
-          userId: dbUser.id,
-          yearId: existingYear.id,
+          userId: user.id,
+          yearId: createdYear.id,
           contribution_date: formatDateToISO(new Date()),
           color: "#239a3b",
-          count: totalWordCount - dbUser.wordCountRef < 0 ? 0 : totalWordCount - dbUser.wordCountRef,
+          count: Math.max(totalWordCount - dbUser.wordCountRef, 0),
           intensity: intensityLevel,
         },
       });
-      await db.year.update({
-        where: { id: existingYear.id },
-        data: { total: { increment: 1 } },
-      });
     }
-  } else {
-    const createdYear = await db.year.create({
-      data: {
-        userId: user.id,
-        year: currentYear.toString(),
-        total: totalContributions,
-        start_date: new Date(currentYear, 0, 1),
-        end_date: new Date(Number(currentYear) + 1, 0, 0),
-      },
-    });
-
-    await db.contribution.create({
-      data: {
-        userId: user.id,
-        yearId: createdYear.id,
-        contribution_date: formatDateToISO(new Date()),
-        color: "#239a3b",
-        count: totalWordCount - dbUser.wordCountRef < 0 ? 0 : totalWordCount - dbUser.wordCountRef,
-        intensity: intensityLevel,
-      },
-    });
+  } catch (error) {
+    console.error("Error updating contributions:", error);
+    return { contribution_updation_error: error };
   }
 
   return { message: "Contribution added successfully" };
 }
 
 export { addContribution };
+
 
 /**
  * SCRAP YARD
