@@ -58,7 +58,7 @@ async function addContribution() {
 
   const currentYear = new Date().getFullYear();
   const existingYear = await db.year.findFirst({
-    where: { year: currentYear.toString() },
+    where: { year: currentYear.toString(), userId: dbUser.id },
   });
 
   const existingContribution = await db.contribution.findFirst({

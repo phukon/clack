@@ -3,7 +3,8 @@
     "deploymentEnabled": {
       "documents": false,
       "transformer": false,
-      "integrations": false
+      "integrations": false,
+      "ui": false
     }
   },
   "crons": [
