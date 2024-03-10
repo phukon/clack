@@ -1,6 +1,7 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BsStars } from "react-icons/bs";
+import { RiNotionFill } from "react-icons/ri";
 import { IoDocumentAttachOutline } from "react-icons/io5";
 import { RiQuillPenFill } from "react-icons/ri";
 import GraphLayout from "../../components/graph/layout";
@@ -13,9 +14,10 @@ import { addContribution } from "@/actions/addContribution";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { AddDocumentButton } from "@/components/document/AddDocumentButton";
+import { removeDocument } from "@/actions/removeDocument";
 
 const Dash = () => {
-  const { kv, deleteNote } = useNotes();
+  const { kv, deleteNote, notion, setNotion } = useNotes();
   const [isUpdating, setIsupdating] = useState<boolean>(false);
 
   const onClick = () => {
@@ -84,6 +86,40 @@ const Dash = () => {
                             />
                           </svg>
                         </button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+        {notion && (
+          <div className="mt-8 md:px-12 ">
+            <div className="grid grid-cols-1 md:grid-cols-3 md:gap-y-8 gap-4 mt-4">
+              {notion.map((v) => (
+                <Link key={v[0]} href={v[0]} className="rounded-md p-2 group  col-span-1">
+                  <Card className="group-hover:scale-105 duration-150 ease-out">
+                    <CardHeader className="rounded-t-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
+                      <CardTitle className="text-sm flex flex-row font-semibold">
+                        <RiNotionFill className=" -mt-1 w-6 h-6"/>
+                        Notion document
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="relative overflow-hidden h-40">
+                      <p className="text-sm mt-4">{v[1]}</p>
+                      <div className="absolute bottom-0 w-full h-20 bg-gradient-to-t from-white dark:from-gray-900" />
+
+                      <div className="absolute bottom-4 right-4 z-10">
+                        <Button variant="outline"
+                          onClick={async (e) => {
+                            e.preventDefault();
+                            removeDocument(v[0])
+                            setNotion((prevNotion: [string, string][]) => prevNotion.filter(([id, _]: [id: string, _: string]) => id !== v[0]));
+                          }}
+                        >
+                          Unlink
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>

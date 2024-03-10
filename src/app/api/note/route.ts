@@ -2,7 +2,6 @@
 import {currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { exportContentAsText } from "@/lib/extractText";
-import { redirect } from "next/navigation";
 
 // export const runtime = "edge";
 

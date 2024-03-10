@@ -16,6 +16,12 @@ export async function addDocument(url: string) {
     if (!dbUser) throw new Error("Unauthorized");
 
     // --------------------
+
+    const getWordCount = (str: string): number => {
+      return str.split(/\s+/).length;
+    };
+
+    // --------------------
     const getIdFromUrl = (url: string): string | null => {
       const match = url.match(/[a-zA-Z0-9]{32}/);
       if (match && match.length > 0) {
@@ -29,10 +35,6 @@ export async function addDocument(url: string) {
       throw new Error(`ID not found for ${url}`);
     }
 
-    // --------------------
-    const getWordCount = (str: string): number => {
-      return str.split(/\s+/).length;
-    };
 
     // Extracting data and processing it
     const wordArray = await extractNotionData(id);
