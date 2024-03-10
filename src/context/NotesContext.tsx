@@ -104,10 +104,10 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     }, []); // I'm removing the currentuser as a dependency now. too many api calls!
 
   const deleteNote = async (keyToDelete: string) => {
-    const newKey = "archived-" + keyToDelete;
-    const newValue = localStorage.getItem(keyToDelete);
+    // const newKey = "archived-" + keyToDelete;
+    // const newValue = localStorage.getItem(keyToDelete);
     localStorage.removeItem(keyToDelete);
-    localStorage.setItem(newKey, JSON.stringify(newValue));
+    // localStorage.setItem(newKey, JSON.stringify(newValue));
 
     try {
       await fetch(`/api/note?id=${keyToDelete}`, {

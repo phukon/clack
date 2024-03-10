@@ -5,11 +5,12 @@
 - Works only if the day comes before the current system date.
 - Non-consecutive dates after the current system date are not rendered. 
 
-# ⚠ Note
+# ⚠ Documents
 - Added specific error handling for Prisma's known request errors
 - Checked for error code 'P2002' to identify unique constraint violations
 - Checked if the 'url' field was involved in the constraint violation
 - Provided a custom error message for duplicate URL scenarios
+- Added checks for unauthorized request on another User's documents.
 
 This change enhances the reliability and user experience of the addDocument function by ensuring that duplicate URLs are handled in a more informative and user-friendly manner.
 

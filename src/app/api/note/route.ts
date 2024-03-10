@@ -2,6 +2,7 @@
 import {currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { exportContentAsText } from "@/lib/extractText";
+import { redirect } from "next/navigation";
 
 // export const runtime = "edge";
 
@@ -23,6 +24,15 @@ export async function POST(req: Request): Promise<Response> {
     return new Response("Invalid request", {
       status: 400,
     });
+  }
+
+  const userNote = await db.note.findFirst({where: {
+    userId: user.id,
+    id: id
+  }})
+
+  if (!userNote) {
+    return new Response('Unauthorized', { status: 401 });
   }
 
   const key = `${user.email}-${id}`;
@@ -62,7 +72,7 @@ export async function GET(req: Request): Promise<Response> {
   const user = await currentUser();
 
   if (!user?.email) {
-    return new Response("Saved locally | Login for Cloud Sync", {
+    return new Response("Saved locally", {
       status: 401,
     });
   }
@@ -70,6 +80,15 @@ export async function GET(req: Request): Promise<Response> {
     return new Response("Invalid request", {
       status: 400,
     });
+  }
+
+  const userNote = await db.note.findFirst({where: {
+    userId: user.id,
+    id: id
+  }})
+
+  if (!userNote) {
+    return new Response('Unauthorized', { status: 401 });
   }
 
   const key = `${user.email}-${id}`;
