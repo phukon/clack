@@ -104,7 +104,7 @@ const LoginForm = () => {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input {...field} disabled={isPending} placeholder="*******" type="password" autoComplete="current-password" />
+                        <Input {...field} disabled={isPending} placeholder="*******" type="password" autoComplete="on" />
                       </FormControl>
                       <Button size="sm" variant="link" asChild className="px-0 font-normal">
                         <Link href="/auth/reset">Forgot password?</Link>

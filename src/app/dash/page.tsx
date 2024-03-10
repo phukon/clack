@@ -1,6 +1,7 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BsStars } from "react-icons/bs";
+import { motion } from "framer-motion";
 import { RiNotionFill } from "react-icons/ri";
 import { IoDocumentAttachOutline } from "react-icons/io5";
 import { RiQuillPenFill } from "react-icons/ri";
@@ -41,8 +42,17 @@ const Dash = () => {
             </>
           )}
         </Button>
-        <AddDocumentButton>Add Document <IoDocumentAttachOutline className="ml-1 w-4 h-4"/></AddDocumentButton>
-        <Link  className=" col-span-2" href="/note/new"><Button className="w-full">Create a document <RiQuillPenFill  className="ml-1 w-4 h-4"/></Button></Link>
+
+        <AddDocumentButton>
+          Add Document <IoDocumentAttachOutline className="ml-1 w-4 h-4" />
+        </AddDocumentButton>
+        <motion.div className=" col-span-2" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <Link href="/note/new">
+            <Button className="w-full">
+              Create a document <RiQuillPenFill className="ml-1 w-4 h-4" />
+            </Button>
+          </Link>
+        </motion.div>
       </div>
       {kv.length === 0 ? (
         <h2 className="text-2xl mt-8 font-bold">No documents to show</h2>
@@ -102,7 +112,7 @@ const Dash = () => {
                   <Card className="group-hover:scale-105 duration-150 ease-out">
                     <CardHeader className="rounded-t-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
                       <CardTitle className="text-sm flex flex-row font-semibold">
-                        <RiNotionFill className=" -mt-1 w-6 h-6"/>
+                        <RiNotionFill className=" -mt-1 w-6 h-6" />
                         Notion document
                       </CardTitle>
                     </CardHeader>
@@ -111,11 +121,14 @@ const Dash = () => {
                       <div className="absolute bottom-0 w-full h-20 bg-gradient-to-t from-white dark:from-gray-900" />
 
                       <div className="absolute bottom-4 right-4 z-10">
-                        <Button variant="outline"
+                        <Button
+                          variant="outline"
                           onClick={async (e) => {
                             e.preventDefault();
-                            removeDocument(v[0])
-                            setNotion((prevNotion: [string, string][]) => prevNotion.filter(([id, _]: [id: string, _: string]) => id !== v[0]));
+                            removeDocument(v[0]);
+                            setNotion((prevNotion: [string, string][]) =>
+                              prevNotion.filter(([id, _]: [id: string, _: string]) => id !== v[0])
+                            );
                           }}
                         >
                           Unlink

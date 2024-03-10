@@ -102,6 +102,7 @@ const RegisterForm = () => {
                       disabled={isPending}
                       placeholder="*******"
                       type="password"
+                      autoComplete='on'
                     />
                   </FormControl>
                   <FormMessage />
