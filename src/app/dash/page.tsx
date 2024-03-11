@@ -130,7 +130,7 @@ const Dash = () => {
             </div>
           </div>
         )}
-      {kv.length === 0 ? (
+      {kv.length === 0 && notion.length === 0 && google.length === 0 ? (
         <h2 className="text-2xl mt-8 font-bold">No documents to show</h2>
       ) : (
         <h2 className="text-2xl mt-8 font-bold">Your Documents</h2>

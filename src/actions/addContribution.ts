@@ -14,19 +14,19 @@ import { formatDateToISO } from "@/lib/formatDateToISO";
 import { NoteType } from "@prisma/client";
 
 enum IntensityLevel {
-  Low = 0,
-  Moderate = 1,
-  High = 2,
-  VeryHigh = 3,
-  Extreme = 4,
+  Nil = 0,
+  Low = 1,
+  Moderate = 2,
+  High = 3,
+  VeryHigh = 4,
 }
 
 async function calculateIntensityLevel(wordCount: number): Promise<IntensityLevel> {
+  if (wordCount === 0) return IntensityLevel.Nil
   if (wordCount >= 0 && wordCount <= 10) return IntensityLevel.Low;
   if (wordCount >= 11 && wordCount <= 50) return IntensityLevel.Moderate;
   if (wordCount >= 51 && wordCount <= 150) return IntensityLevel.High;
-  if (wordCount >= 151 && wordCount <= 300) return IntensityLevel.VeryHigh;
-  return IntensityLevel.Extreme;
+  return IntensityLevel.VeryHigh;
 }
 
 async function getTotalContributions(userId: string): Promise<number> {
@@ -112,7 +112,7 @@ async function addContribution() {
   });
 
   const totalWordCount = userNotes.reduce((acc, note) => acc + (note.wordCount ?? 0), 0);
-  const intensityLevel = await calculateIntensityLevel(totalWordCount);
+  const intensityLevel = await calculateIntensityLevel(Math.max(totalWordCount - dbUser.wordCountRef, 0));
   const totalContributions = await getTotalContributions(dbUser.id);
 
   const currentYear = new Date().getFullYear();
