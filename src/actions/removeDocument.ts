@@ -4,6 +4,7 @@ import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Prisma } from "@prisma/client";
+import { updateUserWordCountRef } from "./updateWordCountRef";
 
 export async function removeDocument(url: string) {
   try {
@@ -28,6 +29,8 @@ export async function removeDocument(url: string) {
     await db.note.delete({
       where: { id: existingDocument.id },
     });
+
+    await updateUserWordCountRef(dbUser.id)
 
     return { success: "Document removed successfully!" };
   } catch (error: any) {
