@@ -4,7 +4,14 @@
       "documents": false,
       "transformer": false,
       "integrations": false,
-      "ui": false
+      "ui": false,
+      "auth": false,
+      "backup": false,
+      "editor": false,
+      "features-section": false,
+      "graph": false,
+      "landing": false,
+      "trash": false
     }
   },
   "crons": [

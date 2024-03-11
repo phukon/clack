@@ -141,11 +141,6 @@ const Dash = () => {
                           setGoogle((prevGoogle: [string, string][]) =>
                             prevGoogle.filter(([id, _]: [id: string, _: string]) => id !== v[0])
                           );
-                          toast({
-                            title: "Success",
-                            description: "Removed document!",
-                            variant: "success",
-                          });
                         }}
                       >
                         Unlink
