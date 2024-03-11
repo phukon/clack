@@ -7,8 +7,10 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 type NotesContextValue = {
   kv: [string, NoteValue][];
   notion: [string, string][];
+  google: [string, string][];
   loading: boolean;
   setNotion:  React.Dispatch<React.SetStateAction<[string, string][]>>;
+  setGoogle:  React.Dispatch<React.SetStateAction<[string, string][]>>;
   deleteNote: (keyToDelete: string) => Promise<void>;
   revalidateNotes: () => Promise<[string, NoteValue][]>;
   wordCount: number;
@@ -30,6 +32,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   const currentUser = useCurrentUser();
   const [kv, setKv] = useState<[string, NoteValue][]>([]);
   const [notion, setNotion] = useState<[string, string][]>([]);
+  const [google, setGoogle] = useState<[string, string][]>([]);
   const [loading, setLoading] = useState(true);
   const wordCount: number = 0
   // const [wordCount, setWordCount] = useState<number>(0);
@@ -64,6 +67,20 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
+  const fetchGoogleData = async () => {
+    try {
+      const response = await fetch("/api/google")
+      if (response.status != 200) {
+        return [];
+      }
+      const data = await response.json();
+      return data as [string, string][]
+    } catch (error) {
+      console.error("Error fetching Notion data:", error);
+      return [];
+    }
+  }
+
   const fetchCloudData = async () => {
     try {
       // Might use later
@@ -85,7 +102,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   // Function to combine and set data from both sources
   const combineData = async () => {
     setLoading(true); // Set loading state to true when data fetching starts
-    const [localData, cloudData, notionData] = await Promise.all([fetchLocalStorageData(), fetchCloudData(), fetchNotionData()]);
+    const [localData, cloudData, notionData, googleData] = await Promise.all([fetchLocalStorageData(), fetchCloudData(), fetchNotionData(), fetchGoogleData()]);
     // Process cloud data to match local data format
     const processedCloudData = cloudData?.map(([key, value]: [key: string, value: NoteValue]) => {
       const id = key.split("-").pop(); // Extracts the id from [email]-id format
@@ -108,6 +125,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Combine and set data
     setNotion(notionData as [string, string][])
+    setGoogle(googleData as [string, string][])
     setKv(uniqueData);
     setLoading(false); 
     return kv;
@@ -144,7 +162,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     return await combineData();
   };
 
-  return <NotesContext.Provider value={{ kv, notion, setNotion, loading, deleteNote, revalidateNotes, wordCount }}>{children}</NotesContext.Provider>;
+  return <NotesContext.Provider value={{ kv, notion, setNotion, google, setGoogle, loading, deleteNote, revalidateNotes, wordCount }}>{children}</NotesContext.Provider>;
 };
 
 export default useNotes;
