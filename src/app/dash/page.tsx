@@ -20,7 +20,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const Dash = () => {
   const { toast } = useToast();
-  const { kv, deleteNote, notion, setNotion, google, setGoogle } = useNotes();
+  const { kv, deleteNote, notion, setNotion, google, setGoogle, revalidateNotes } = useNotes();
   const [isUpdating, setIsupdating] = useState<boolean>(false);
 
   const onClick = () => {
@@ -83,7 +83,15 @@ const Dash = () => {
                         variant="outline"
                         onClick={async (e) => {
                           e.preventDefault();
-                          removeDocument(v[0]);
+                          removeDocument(v[0])
+                            .then(() => revalidateNotes())
+                            .then(() => {
+                              toast({
+                                title: "Success",
+                                description: "Removed document!",
+                                variant: "success",
+                              });
+                            });
                           setNotion((prevNotion: [string, string][]) =>
                             prevNotion.filter(([id, _]: [id: string, _: string]) => id !== v[0])
                           );
@@ -121,7 +129,15 @@ const Dash = () => {
                         variant="outline"
                         onClick={async (e) => {
                           e.preventDefault();
-                          removeDocument(v[0]);
+                          removeDocument(v[0])
+                            .then(() => revalidateNotes())
+                            .then(() => {
+                              toast({
+                                title: "Success",
+                                description: "Removed document!",
+                                variant: "success",
+                              });
+                            });
                           setGoogle((prevGoogle: [string, string][]) =>
                             prevGoogle.filter(([id, _]: [id: string, _: string]) => id !== v[0])
                           );

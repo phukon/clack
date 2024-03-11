@@ -1,5 +1,6 @@
 ### Cron Job
-Triggers at 0000hrs UTC to set the word-count reference.
+- A vercel cronjob triggers at 0000hrs UTC to set the word-count reference.
+- A second cronjob from an EC2 instance triggers at 0530hrs IST or 0000hrs UTC for redundancy.
 
 ## Contribution logic
 - Update wordcount Ref if a document is removed.
