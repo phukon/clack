@@ -2,20 +2,23 @@
  * These are the array of routes that do not require authentication.
  * @type {string[]}
  */
-export const publicRoutes = ["/", "/auth/new-verification", "/api/cron"];
+export const publicRoutes = [
+  "/",
+  "/auth/new-verification",
+  "/api/cron",
+  "/api/webhooks/stripe",
+  "/pricing",
+  "/docs",
+  "/privacy",
+  "/features",
+];
 
 /**
  * These are the array of routes that are used for authentication.
  * Redirects logged in users to settings.
  * @type {string[]}
  */
-export const authRoutes = [
-  "/auth/login",
-  "/auth/register",
-  "/auth/error",
-  "/auth/reset",
-  "/auth/new-password",
-];
+export const authRoutes = ["/auth/login", "/auth/register", "/auth/error", "/auth/reset", "/auth/new-password"];
 
 /**
  * The prefix for API authentication routes.

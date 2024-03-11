@@ -62,7 +62,7 @@ export function SidebarItem({ icon, text, active, alert, path }: TSidebarItem) {
       relative flex items-center py-3 px-2 my-1
       font-medium rounded-md cursor-pointer
       transition-colors group
-      ${active ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800" : "hover:bg-indigo-50 text-gray-600"}
+      ${active ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-[#323DD6]" : "hover:bg-indigo-50 text-gray-600"}
   `}
       >
         {icon}

@@ -11,7 +11,8 @@
       "features-section": false,
       "graph": false,
       "landing": false,
-      "trash": false
+      "trash": false,
+      "redesign": true
     }
   },
   "crons": [

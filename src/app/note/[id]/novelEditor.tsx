@@ -104,7 +104,7 @@ function NovelEditor({ id }: { id: string }) {
           {saveStatus}
         </div>
         <Editor
-         debounceDuration={3300}
+         debounceDuration={3000}
           key={md5Hash}
           defaultValue={data}
           storageKey={id}

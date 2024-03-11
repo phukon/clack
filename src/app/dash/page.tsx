@@ -67,7 +67,7 @@ const Dash = () => {
             {notion.map((v) => (
               <Link key={v[0]} href={v[0]} className="rounded-md p-2 group  col-span-1">
                 <Card className="group-hover:scale-105 duration-150 ease-out">
-                  <CardHeader className="rounded-t-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
+                  <CardHeader className="rounded-t-lg bg-gray-300 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
                     <CardTitle className="text-sm flex flex-row font-semibold">
                       <RiNotionFill className=" -mt-1 w-6 h-6" />
                       Notion document
@@ -113,7 +113,7 @@ const Dash = () => {
             {google.map((v) => (
               <Link key={v[0]} href={v[0]} className="rounded-md p-2 group  col-span-1">
                 <Card className="group-hover:scale-105 duration-150 ease-out">
-                  <CardHeader className="rounded-t-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
+                  <CardHeader className="rounded-t-lg bg-gray-300 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
                     <CardTitle className="text-sm flex flex-row font-semibold">
                       <RiGoogleFill className=" -mt-1 w-6 h-6" />
                       {v[1]}
@@ -160,7 +160,7 @@ const Dash = () => {
               {kv.map(([key, value]: [string, Value]) => (
                 <Link key={key} href={`/note?id=${key}`} className="rounded-md p-2 group  col-span-1">
                   <Card className="group-hover:scale-105 duration-150 ease-out">
-                    <CardHeader className="rounded-t-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
+                    <CardHeader className="rounded-t-lg bg-gray-300 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
                       <CardTitle className="text-sm font-semibold">
                         {value ? extractTitle(value) : "untitled"}
                       </CardTitle>

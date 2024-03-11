@@ -86,6 +86,12 @@ model User {
   contributions         Contribution[]
   notes                 Note[]
   wordCountRef          Int
+
+  // Payments
+  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?   @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
 }
 
 enum NoteType {
@@ -102,7 +108,7 @@ model Note {
   wordCount Int?
   userId    String
   data      Json? // I may use an edge KV store
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade )
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
