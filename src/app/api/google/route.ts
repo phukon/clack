@@ -43,7 +43,7 @@ export async function GET(): Promise<Response> {
         // const wordArray = await extractNotionData(id);
         // const combinedString = wordArray.join(" ");
 
-        keyValuePairs[url] = "will change later will change later will change later will change later will change later will change later will change later "
+        keyValuePairs[url] = document.name
       } catch (error) {
         console.error(`Error fetching data from URL: ${url}`, error);
       }

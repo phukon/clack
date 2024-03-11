@@ -19,19 +19,28 @@ function getDocType(url: string): string {
     return "Unknown";
   }
 }
-
 async function addGoogleDoc(url: string, dbUser: any): Promise<void> {
   const docId = extractDocId(url);
-  const wordCount = await fetch(`${process.env.GOOGLE_SCRIPT_URL}?id=${docId}`).then((r) => r.json());
+  const response = await fetch(`${process.env.GOOGLE_SCRIPT_URL}?id=${docId}`);
+  const { title, wordCount } = await response.json();
+  
+  if (!wordCount) {
+    throw new Error("Unable to retrieve word count from the Google Apps Script.");
+  }
+
+  const wordCountNumber = +wordCount; // Convert to number
+
   await db.note.create({
     data: {
       userId: dbUser.id,
       url: url,
-      wordCount: wordCount,
+      wordCount: wordCountNumber,
       type: NoteType.GOOGLEDOC,
+      name: title
     },
   });
 }
+
 
 async function addNotionDoc(url: string, dbUser: any): Promise<void> {
   const extractedId = getIdFromUrl(url);
