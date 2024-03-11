@@ -52,7 +52,7 @@ async function addNotionDoc(url: string, dbUser: any): Promise<void> {
 }
 
 
-export function extractDocId(url: string): string {
+function extractDocId(url: string): string {
   const parts = url.split("/");
   const index = parts.indexOf("d");
   return parts[index + 1];

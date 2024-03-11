@@ -12,7 +12,6 @@ import { db } from "@/lib/db";
 import { extractNotionData } from "@/lib/extractNotionData";
 import { formatDateToISO } from "@/lib/formatDateToISO";
 import { NoteType } from "@prisma/client";
-import { extractDocId } from "./addDocument";
 
 enum IntensityLevel {
   Low = 0,
@@ -42,6 +41,17 @@ async function getTotalContributions(userId: string): Promise<number> {
 
   return user.contributions.reduce((accumulator, contribution) => accumulator + contribution.count, 0);
 }
+
+// util functions
+
+
+function extractDocId(url: string): string {
+  const parts = url.split("/");
+  const index = parts.indexOf("d");
+  return parts[index + 1];
+}
+
+// ---
 
 async function addContribution() {
   const user = await currentUser();
