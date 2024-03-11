@@ -16,8 +16,10 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { AddDocumentButton } from "@/components/document/AddDocumentButton";
 import { removeDocument } from "@/actions/removeDocument";
+import { useToast } from '@/components/ui/use-toast';
 
 const Dash = () => {
+  const { toast } = useToast();
   const { kv, deleteNote, notion, setNotion, google, setGoogle } = useNotes();
   const [isUpdating, setIsupdating] = useState<boolean>(false);
 
@@ -54,6 +56,11 @@ const Dash = () => {
           </Link>
         </motion.div>
       </div>
+      {kv.length === 0 && notion.length === 0 && google.length === 0 ? (
+        <h2 className="text-2xl mt-8 font-bold">No documents to show</h2>
+      ) : (
+        <h2 className="text-2xl mt-8 font-bold">Your documents</h2>
+      )}
       {notion && (
           <div className="mt-8 md:px-12 ">
             <div className="grid grid-cols-1 md:grid-cols-3 md:gap-y-8 gap-4 mt-4">
@@ -118,6 +125,11 @@ const Dash = () => {
                             setGoogle((prevGoogle: [string, string][]) =>
                               prevGoogle.filter(([id, _]: [id: string, _: string]) => id !== v[0])
                             );
+                            toast({
+                              title: 'Success',
+                              description: 'Removed document!',
+                              variant: 'success',
+                            });
                           }}
                         >
                           Unlink
@@ -130,11 +142,6 @@ const Dash = () => {
             </div>
           </div>
         )}
-      {kv.length === 0 && notion.length === 0 && google.length === 0 ? (
-        <h2 className="text-2xl mt-8 font-bold">No documents to show</h2>
-      ) : (
-        <h2 className="text-2xl mt-8 font-bold">Your Documents</h2>
-      )}
       <div className="md:px-12">
         {kv && (
           <div className="mt-8 md:px-12 ">

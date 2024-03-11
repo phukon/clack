@@ -11,8 +11,11 @@ import { Input } from "../ui/input";
 import FormSuccess from "../form-success";
 import FormError from "../form-error";
 import { Button } from "../ui/button";
+import useNotes from "@/context/NotesContext";
 
 export const AddDocumentForm = () => {
+
+  const {revalidateNotes} = useNotes()
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -38,6 +41,7 @@ export const AddDocumentForm = () => {
           if (d?.success) {
             form.reset();
             setSuccess(d.success);
+            revalidateNotes()
           }
         })
         .catch(() => {

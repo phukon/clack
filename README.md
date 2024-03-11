@@ -2,6 +2,7 @@
 Triggers at 0000hrs UTC to set the word-count reference.
 
 ## Contribution logic
+- Update wordcount Ref if a document is removed.
 - Missing contributions are showed as blank on the canvas. No need to add blank contribution data to keep contributions array filled with consecutive dates.
 - Works only if the day comes before the current system date.
 - Non-consecutive dates after the current system date are not rendered. 
