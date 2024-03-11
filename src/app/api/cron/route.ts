@@ -1,7 +1,7 @@
+import { updateUserWordCountRef } from '@/actions/updateWordCountRef';
 import type { NextRequest } from 'next/server';
-import { db } from '@/lib/db';
 
-export function GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return new Response('Unauthorized', {
@@ -10,36 +10,14 @@ export function GET(request: NextRequest) {
   }
 
   try {
-    const updateUserWordCountRef = async () => {
-
-      const users = await db.user.findMany();
-
-      for (const user of users) {
-        let userNotes = await db.note.findMany({
-          where: {
-            userId: user.id,
-          },
-        });
-        let totalWordCount = userNotes.reduce(
-          (acc, note) => acc + (note.wordCount ?? 0),
-          0
-        );
-        await db.user.update({
-          where: { id: user.id },
-          data: { wordCountRef: totalWordCount },
-        });
-        console.log(`Updated wordCountRef for user ${user.name || user.id}`);
-      }
-
-      console.log('All users updated successfully.');
-    };
-
-    (async () => {
-      await updateUserWordCountRef();
-    })();
+    await updateUserWordCountRef();
+    return new Response(JSON.stringify({ success: true }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
-    console.error('Error updating users:', error);
+    console.error("Error updating user word count:", error);
+    return new Response('Internal Server Error', {
+      status: 500,
+    });
   }
-
-  return Response.json({ success: true });
 }

@@ -1,4 +1,5 @@
-
+### Cron Job
+Triggers at 0000hrs UTC to set the word-count reference.
 
 ## Contribution logic
 - Missing contributions are showed as blank on the canvas. No need to add blank contribution data to keep contributions array filled with consecutive dates.
