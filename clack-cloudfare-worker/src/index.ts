@@ -92,7 +92,7 @@ async function handleDelete(env: Env, key: string): Promise<Response> {
 	if (!data) {
 		return new Response('Not found', { status: 404 });
 	}
-	await env.clackkv.put('archived-' + key, data);
+	// await env.clackkv.put('archived-' + key, data);
 	await env.clackkv.delete(key);
 	return new Response('OK');
 }
