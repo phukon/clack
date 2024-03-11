@@ -5,13 +5,11 @@ import { db } from "@/lib/db";
 import { NoteType } from "@prisma/client";
 
 // --------------------
-const getIdFromUrl = (url: string): string | null => {
-  const match = url.match(/[a-zA-Z0-9]{32}/);
-  if (match && match.length > 0) {
-    return match[0];
-  }
-  return null;
-};
+function extractDocId(url: string): string {
+  const parts = url.split("/");
+  const index = parts.indexOf("d");
+  return parts[index + 1];
+}
 
 export async function GET(): Promise<Response> {
   const user = await currentUser();
@@ -34,7 +32,7 @@ export async function GET(): Promise<Response> {
     const { url } = document;
     if (url) {
       try {
-        const id = getIdFromUrl(url);
+        const id = extractDocId(url);
         if (!id) {
           throw new Error(`ID not found for ${url}`);
         }

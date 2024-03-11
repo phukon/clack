@@ -51,7 +51,7 @@ const Dash = () => {
         <motion.div className=" col-span-2" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <Link href="/note/new">
             <Button className="w-full">
-              Create a document <RiQuillPenFill className="ml-1 w-4 h-4" />
+              Write <RiQuillPenFill className="ml-1 w-4 h-4" />
             </Button>
           </Link>
         </motion.div>
@@ -141,11 +141,6 @@ const Dash = () => {
                           setGoogle((prevGoogle: [string, string][]) =>
                             prevGoogle.filter(([id, _]: [id: string, _: string]) => id !== v[0])
                           );
-                          toast({
-                            title: "Success",
-                            description: "Removed document!",
-                            variant: "success",
-                          });
                         }}
                       >
                         Unlink
