@@ -6,63 +6,91 @@ import { db } from "@/lib/db";
 import { NoteType, Prisma } from "@prisma/client";
 import { extractNotionData } from "@/lib/extractNotionData";
 
+async function getWordCount(text: string): Promise<number> {
+  return text.split(/\s+/).length;
+}
+
+function getDocType(url: string): string {
+  if (url.includes("docs.google.com")) {
+    return "GOOGLEDOC";
+  } else if (url.includes("notion.so")) {
+    return "NOTION";
+  } else {
+    return "Unknown";
+  }
+}
+
+async function addGoogleDoc(url: string, dbUser: any): Promise<void> {
+  const docId = extractDocId(url);
+  const wordCount = await fetch(`${process.env.GOOGLE_SCRIPT_URL}?id=${docId}`).then((r) => r.json());
+  await db.note.create({
+    data: {
+      userId: dbUser.id,
+      url: url,
+      wordCount: wordCount,
+      type: NoteType.GOOGLEDOC,
+    },
+  });
+}
+
+async function addNotionDoc(url: string, dbUser: any): Promise<void> {
+  const extractedId = getIdFromUrl(url);
+  if (!extractedId) {
+    throw new Error(`ID not found for ${url}`);
+  }
+  const wordArray = await extractNotionData(extractedId);
+  const combinedString = wordArray.join(" ");
+  const wordCount = await getWordCount(combinedString);
+  await db.note.create({
+    data: {
+      userId: dbUser.id,
+      url: url,
+      wordCount: wordCount,
+      type: NoteType.NOTION,
+    },
+  });
+}
+
+
+function extractDocId(url: string): string {
+  const parts = url.split("/");
+  const index = parts.indexOf("d");
+  return parts[index + 1];
+}
+
+function getIdFromUrl(url: string): string | null {
+  const match = url.match(/[a-zA-Z0-9]{32}/);
+  return match ? match[0] : null;
+}
+
+// --- main ---
 export async function addDocument(url: string) {
   try {
     const user = await currentUser();
-    if (!user) throw new Error("Unauthorized");
-    if (!user.id) throw new Error("Invalid user ID");
+    if (!user || !user.id) throw new Error("Unauthorized");
 
     const dbUser = await getUserById(user.id);
     if (!dbUser) throw new Error("Unauthorized");
 
-    // --------------------
-
-    const getWordCount = (str: string): number => {
-      return str.split(/\s+/).length;
-    };
-
-    // --------------------
-    const getIdFromUrl = (url: string): string | null => {
-      const match = url.match(/[a-zA-Z0-9]{32}/);
-      if (match && match.length > 0) {
-        return match[0];
-      }
-      return null;
-    };
-
-    const id = getIdFromUrl(url);
-    if (!id) {
-      throw new Error(`ID not found for ${url}`);
+    if (getDocType(url) === "GOOGLEDOC") {
+      await addGoogleDoc(url, dbUser);
+    } else if (getDocType(url) === "NOTION") {
+      await addNotionDoc(url, dbUser);
+    } else {
+      throw new Error("Unknown document type");
     }
 
-
-    // Extracting data and processing it
-    const wordArray = await extractNotionData(id);
-    const combinedString = wordArray.join(" ");
-    const wordCount = getWordCount(combinedString);
-
-    // --------------------
-    await db.note.create({
-      data: {
-        userId: dbUser.id,
-        url: url,
-        wordCount: wordCount,
-        type: NoteType.NOTION
-      },
-    });
-
-    return {success: "Document added succesfully!"}
+    return { success: "Document added successfully!" };
   } catch (error: any) {
-    // Prisma-specific error handling
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === 'P2002' && (error.meta?.target as string[])?.includes('url')) {
-        // This error code (P2002) indicates a unique constraint violation
-        return { error: "URL already exists. Please use a different URL." };
-      }
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002" &&
+      (error.meta?.target as string[])?.includes("url")
+    ) {
+      return { error: "URL already exists. Please use a different URL." };
     }
 
-    // Generic error handling
     console.error("Error occurred:", error);
-    return { error: error };
+    return { error: error.message };
   }
 }
