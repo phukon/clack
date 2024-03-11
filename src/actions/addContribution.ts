@@ -12,6 +12,7 @@ import { db } from "@/lib/db";
 import { extractNotionData } from "@/lib/extractNotionData";
 import { formatDateToISO } from "@/lib/formatDateToISO";
 import { NoteType } from "@prisma/client";
+import { extractDocId } from "./addDocument";
 
 enum IntensityLevel {
   Low = 0,
@@ -54,6 +55,10 @@ async function addContribution() {
   const notionDocuments = await db.note.findMany({
     where: { userId: dbUser.id, type: NoteType.NOTION },
   });
+  // Update wordCount for Google documents
+  const googleDocuments = await db.note.findMany({
+    where: { userId: dbUser.id, type: NoteType.GOOGLEDOC },
+  });
 
   const getWordCount = (str: string): number => {
     return str.split(/\s+/).length;
@@ -78,6 +83,15 @@ async function addContribution() {
         data: { wordCount },
       });
     }
+    for (const doc of googleDocuments) {
+      const docId = extractDocId(doc.url!); // Assuming extractDocId is defined elsewhere in the file
+      const wordCount = await await fetch(`${process.env.GOOGLE_SCRIPT_URL}?id=${docId}`).then((r) => r.json());
+
+      await db.note.update({
+          where: { id: doc.id },
+          data: { wordCount },
+      });
+  }
   } catch (error) {
     console.error("Error updating notion documents:", error);
     return { notionDoc_updation_error: error };
