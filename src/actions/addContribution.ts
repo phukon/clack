@@ -95,11 +95,12 @@ async function addContribution() {
     }
     for (const doc of googleDocuments) {
       const docId = extractDocId(doc.url!); // Assuming extractDocId is defined elsewhere in the file
-      const wordCount = await await fetch(`${process.env.GOOGLE_SCRIPT_URL}?id=${docId}`).then((r) => r.json());
+      const response = await fetch(`${process.env.GOOGLE_SCRIPT_URL}?id=${docId}`);
+      const { title, wordCount } = await response.json();
 
       await db.note.update({
           where: { id: doc.id },
-          data: { wordCount },
+          data: { wordCount, name: title },
       });
   }
   } catch (error) {
