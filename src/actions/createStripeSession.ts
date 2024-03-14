@@ -11,7 +11,7 @@ import { absoluteUrl } from "@/lib/utils";
  * Throws errors if the user is not authenticated, has an invalid ID, or encounters any issues during the process.
  * @returns {Object} Object containing either the URL for the subscription session or an error.
  */
-export const createStripeSubscription = async () => {
+export const createStripeSession = async () => {
   try {
     const user = await currentUser();
     if (!user) throw new Error("Unauthorized");
@@ -20,7 +20,7 @@ export const createStripeSubscription = async () => {
     const dbUser = await getUserById(user.id);
     if (!dbUser) throw new Error("Unauthorized");
 
-    const billingUrl = absoluteUrl("/dash");
+    const billingUrl = absoluteUrl("/dash/billing");
     const subscriptionPlan = await getUserSubscriptionPlan();
 
     if (subscriptionPlan && subscriptionPlan.error) {
@@ -53,6 +53,6 @@ export const createStripeSubscription = async () => {
     });
     return { url: stripeSession.url };
   } catch (error) {
-    return { error: "An unexpected error occurred." };
+    return { error: JSON.stringify(error) };
   }
 };

@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa6";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { createStripeSubscription } from "@/actions/createStripeSubscription";
+import { createStripeSession } from "@/actions/createStripeSession";
 // import { usePlausible } from "next-plausible";
 
 const frequencies: {

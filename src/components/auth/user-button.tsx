@@ -10,14 +10,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-// import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { LogoutButton } from "@/components/auth/logout-button";
 import { SidebarContext } from "../ui/sidebar";
 import { useContext } from "react";
 
 export const UserButton = ({ icon, text }: { icon: React.ReactNode; text: string }) => {
-  const user = useCurrentUser();
+  // const user = useCurrentUser();
   const { expanded } = useContext(SidebarContext) || { expanded: true };
 
   return (
