@@ -1,14 +1,10 @@
-'use client';
+"use client";
 
-import BackButton from './BackButton';
-import { Social } from './Social';
-import { Header } from './header';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from '@/components/ui/card';
+import Link from "next/link";
+import BackButton from "./BackButton";
+import { Social } from "./Social";
+import { Header } from "./header";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 
 interface CardWrapperProps {
   children: React.ReactNode;
@@ -18,17 +14,13 @@ interface CardWrapperProps {
   showSocial?: boolean;
 }
 
-const CardWrapper = ({
-  children,
-  headerLabel,
-  backButtonHref,
-  backButtonLabel,
-  showSocial,
-}: CardWrapperProps) => {
+const CardWrapper = ({ children, headerLabel, backButtonHref, backButtonLabel, showSocial }: CardWrapperProps) => {
   return (
     <Card className="w-[400px] shadow-md">
       <CardHeader>
-        <Header label={headerLabel} />
+        <Link href="/">
+          <Header label={headerLabel} />
+        </Link>
       </CardHeader>
       <CardContent>{children}</CardContent>
       {showSocial && (

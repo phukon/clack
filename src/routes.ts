@@ -4,6 +4,7 @@
  */
 export const publicRoutes = [
   "/",
+  "/app",
   "/auth/new-verification",
   "/api/cron",
   "/api/webhooks/stripe",

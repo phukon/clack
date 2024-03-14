@@ -140,7 +140,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     if (currentUser) {
       void combineData();
     }
-  }, []); // I'm removing the currentuser as a dependency for now. too many api calls!
+  }); // I'm removing the currentuser as a dependency for now. too many api calls!
 
   const deleteNote = async (keyToDelete: string) => {
     // const newKey = "archived-" + keyToDelete;
