@@ -1,25 +1,45 @@
 export const PLANS = [
   {
-    name: "Free",
-    slug: "free",
-    widget: false,
+    name: "Pro",
+    slug: "pro",
     price: {
-      amount: 0,
-      priceIds: {
-        test: "",
-        production: "",
+      monthly: {
+        amount: 4,
+        priceIds: {
+          test: process.env.STRIPE_PRICE_ID,
+          production: "", 
+        
+        },
+      },
+      yearly: {
+        amount: 3,
+        priceIds: {
+          test: process.env.STRIPE_PRICE_ID_YEARLY,
+          production:"", 
+        
+        },
       },
     },
   },
   {
-    name: "Pro",
-    slug: "pro",
-    widget: true,
+    name: "Writer",
+    slug: "writer",
     price: {
-      amount: 14,
-      priceIds: {
-        test: process.env.STRIPE_PRICE_ID,
-        production: "",
+      monthly: {
+        amount: 4,
+        priceIds: {
+          test: process.env.STRIPE_PRICE_ID,
+          production: "", // new price
+          // production: "price_1NmMZ7FJyGSZ96lhyad2LW90", // old price
+        },
+      },
+      yearly: {
+        amount: 3,
+        priceIds: {
+          test: process.env.STRIPE_PRICE_ID_YEARLY,
+          production: "", // new price
+          // production: "price_1NmMZ7FJyGSZ96lhqZEkh50e", // old price
+        },
       },
     },
   },

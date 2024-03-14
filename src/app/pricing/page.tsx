@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa6";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { createStripeSession } from "@/actions/createStripeSession";
 // import { usePlausible } from "next-plausible";
 
 const frequencies: {
@@ -40,7 +39,7 @@ const tiers: {
     href: "/auth/register",
     price: { monthly: "$0", annually: "$0" },
     description: "The essentials to start tracking your writing habit effortlessly.",
-    features: ["Track your writing activity", "Unlimited documents", "Google Docs integration"],
+    features: ["Track your writing activity", "Unlimited Clack documents", "Google Docs integration"],
 
     bgColor: "bg-gray-200",
     borderColor: "#bg-gray-800",
@@ -50,11 +49,19 @@ const tiers: {
   },
   {
     name: "Pro",
-    id: "tier-freelancer",
-    href: "/dash",
+    id: "tier-pro",
+    href: "/dash/billing",
     price: { monthly: "$2", annually: "$20" },
     description: "The essentials to help track everything.",
-    features: ["Everything in Free, plus:", "Notion Integration", "Notion Widget", "6 heatmap themes"],
+    features: [
+      "Everything in Free, plus:",
+      "Unlimited Clack documents",
+      "Notion Integration",
+      "Unlimited Google & Notion documents",
+      "Notion Widgets",
+      "6 heatmap themes",
+      "AI Document Assistant incl. 1000 credits",
+    ],
     bgColor: "bg-gray-200",
     borderColor: "#bg-gray-800",
     textColor: "#bg-gray-800",
@@ -90,8 +97,8 @@ export default function PricingPage() {
               works for you
             </h1>
             <p className="text-xl mt-8 text-balance max-w-3xl">
-              <span className=" --local-comfortaa">Clack</span> is an open-source writing activity tracker that integrates with
-              Google Docs and Notion, and has a built-in rich text editor.
+              <span className=" --local-comfortaa">Clack</span> is an open-source writing activity tracker that
+              integrates with Google Docs and Notion, and has a built-in rich text editor.
             </p>
           </div>
         </div>
@@ -112,7 +119,9 @@ export default function PricingPage() {
                     <div className="p-6">
                       <p className="mt-4 text-sm leading-6 text-gray-600 text-balance">{tier.description}</p>
                       <p className="mt-6 flex items-baseline gap-x-1">
-                        <span className="text-balance text-4xl font-medium  text-gray-900">{tier.price[frequency.value]}</span>
+                        <span className="text-balance text-4xl font-medium  text-gray-900">
+                          {tier.price[frequency.value]}
+                        </span>
                         <span
                           className={cn(
                             "text-sm font-semibold leading-6 text-gray-600",

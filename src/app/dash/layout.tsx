@@ -1,46 +1,11 @@
-"use client";
-import { UserButton } from "@/components/auth/user-button";
-import Sidebar, { SidebarItem } from "@/components/ui/sidebar";
-import { Settings, Activity, User, Layout, LogOutIcon, ReceiptText } from "lucide-react";
-import { usePathname } from "next/navigation";
+import SideBarComponent from "@/components/sidebar/SideBarComponent";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
 
-const DashLayout = ({ children }: { children: React.ReactNode }) => {
-  const pathname = usePathname();
+const DashLayout = async ({ children }: { children: React.ReactNode }) => {
+  const subscriptionPlan = await getUserSubscriptionPlan();
   return (
     <div className="flex flex-row gap-12">
-      <Sidebar>
-        <SidebarItem icon={<Layout />} text="Dashboard" active={pathname === "/dash" ? true : false} path="/dash" />
-        <SidebarItem
-          icon={<Activity />}
-          text="Activity"
-          active={pathname === "/dash/activity" ? true : false}
-          path="/dash/activity"
-        />
-        <SidebarItem
-          icon={<User />}
-          text="Profile"
-          active={pathname === "/dash/s-profile" ? true : false}
-          path="/dash/s-profile"
-        />
-        <SidebarItem
-          icon={<ReceiptText />}
-          text="Billing"
-          active={pathname === "/dash/billing" ? true : false}
-          path="/dash/billing"
-        />
-        <SidebarItem
-          icon={<Settings />}
-          text="Settings"
-          active={pathname === "/dash/settings" ? true : false}
-          path="/dash/settings"
-        />
-        {/* <SidebarItem
-          icon={<LogOutIcon />}
-          text="Log out"
-          path="#"
-        /> */}
-        <UserButton icon={<LogOutIcon />} text="Log out" />
-      </Sidebar>
+      <SideBarComponent subscriptionPlan={subscriptionPlan} />
       <div className="h-full max-w-screen md:w-full flex gap-y-10 items-center mt-5 justify-center">{children}</div>
     </div>
   );

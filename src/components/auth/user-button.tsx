@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { LogoutButton } from "@/components/auth/logout-button";
-import { SidebarContext } from "../ui/sidebar";
+import { SidebarContext } from "../sidebar/sidebar";
 import { useContext } from "react";
 
 export const UserButton = ({ icon, text }: { icon: React.ReactNode; text: string }) => {

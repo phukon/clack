@@ -2,9 +2,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Gallery, { GallerySmall } from './Gallery';
-import Cards from '@/app/Cards';
+// import Cards from '@/app/Cards';
 import { LoginButton } from './auth/login-button';
-import Link from 'next/link';
+// import Link from 'next/link';
 import Features from './Features';
 
 const Body: React.FC = (): JSX.Element => {

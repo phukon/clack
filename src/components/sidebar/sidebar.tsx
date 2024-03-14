@@ -3,6 +3,7 @@ import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext, createContext, useState } from "react";
+import ProBanner from "../billing/pro-banner";
 
 type SidebarContextState = {
   expanded: boolean;
@@ -10,28 +11,33 @@ type SidebarContextState = {
 
 export const SidebarContext = createContext<SidebarContextState | undefined>(undefined);
 
-export default function Sidebar({ children }: { children: React.ReactNode }) {
+export default function Sidebar({
+  userPlan,
+  showProBanner,
+  children,
+  setShowProBanner
+}: {
+  children: React.ReactNode;
+  showProBanner: boolean | null;
+  userPlan: string;
+  setShowProBanner: React.Dispatch<React.SetStateAction<boolean | null>>
+}) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <aside className="h-screen relative">
-      <nav
-        className={`h-full flex flex-col bg-white border-r-2 shadow-sm fixed top-0 left-0 z-50 ${
-          expanded ? "w-60" : "w-16"
-        }`}
-      >
+      <nav className={`h-full flex flex-col bg-white border-r-2 shadow-sm fixed top-0 left-0 z-50 ${expanded ? "w-60" : "w-16"}`}>
         <div className="p-4 pb-2 flex justify-between items-center">
-          <Image
-            src="/logo.png"
-            width={1000}
-            height={1000}
-            className={`overflow-hidden transition-all ${expanded ? "w-32" : "w-0"}`}
-            alt="logo"
-          />
-          <button
-            onClick={() => setExpanded((curr) => !curr)}
-            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
-          >
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              width={1000}
+              height={1000}
+              className={`overflow-hidden transition-all ${expanded ? "w-32" : "w-0"}`}
+              alt="logo"
+            />
+          </Link>
+          <button onClick={() => setExpanded((curr) => !curr)} className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100">
             {expanded ? <ChevronFirst /> : <ChevronLast />}
           </button>
         </div>
@@ -39,6 +45,10 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
+        <div className={` overflow-hidden transition-all mb-4 px-2 ${expanded ? "max-w-60" : "hidden"}`}>
+          {userPlan === "pro" && null}
+          {userPlan === "free" && showProBanner ? <ProBanner setShowProBanner={setShowProBanner} /> : null}
+        </div>
       </nav>
     </aside>
   );

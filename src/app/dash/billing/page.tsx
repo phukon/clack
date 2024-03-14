@@ -1,4 +1,4 @@
-import BillingForm from "@/components/BillingForm"
+import BillingForm from "@/components/billing/Billing"
 import { getUserSubscriptionPlan } from "@/lib/stripe"
 
 const Page = async () => {

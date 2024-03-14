@@ -11,7 +11,12 @@ import { absoluteUrl } from "@/lib/utils";
  * Throws errors if the user is not authenticated, has an invalid ID, or encounters any issues during the process.
  * @returns {Object} Object containing either the URL for the subscription session or an error.
  */
-export const createStripeSession = async () => {
+
+type TcreateStripeSession = {
+  period: "monthly" | "yearly";
+};
+
+export const createStripeSession = async ({ period }: TcreateStripeSession) => {
   try {
     const user = await currentUser();
     if (!user) throw new Error("Unauthorized");
@@ -27,7 +32,7 @@ export const createStripeSession = async () => {
       throw new Error(subscriptionPlan.error);
     }
 
-    if ('isSubscribed' in subscriptionPlan && subscriptionPlan.isSubscribed && dbUser.stripeCustomerId) {
+    if ("isSubscribed" in subscriptionPlan && subscriptionPlan.isSubscribed && dbUser.stripeCustomerId) {
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: dbUser.stripeCustomerId,
         return_url: billingUrl,
@@ -43,7 +48,9 @@ export const createStripeSession = async () => {
       billing_address_collection: "auto",
       line_items: [
         {
-          price: PLANS.find((plan) => plan.name === "Pro")?.price.priceIds.test,
+          //
+          price: PLANS.find((plan) => plan.name === "Pro")?.price[period === "yearly" ? "yearly" : "monthly"].priceIds
+            .test,
           quantity: 1,
         },
       ],
