@@ -64,6 +64,61 @@ export default function PrivacyPage() {
           </p>
           <h3>3. Information Collection and Use</h3>
           <p>We collect several different types of information for various purposes to provide and improve our Service to you.</p>
+          <p>
+            Clack's use and transfer of information received from Google APIs to any other app will adhere to{" "}
+            <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">
+              Google API Services User Data Policy
+            </a>
+            , including the Limited Use requirements
+          </p>
+          <p>
+            We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and
+            lawful means, with your knowledge and consent. We also let you know why we're collecting it and how it will be used.
+          </p>
+          <p>
+            You can sign up with your Google account so your Clack account username will be prefilled with your name and your
+            public profile picture.
+          </p>
+          <p>
+            You have the option to 'Add Documents' on your Clack page, allowing you to connect Google Docs files set to share with
+            a publicly accessible Google Docs URL. Additionally, you can add Notion databases/pages that you, the USER, have
+            granted access to through the Clack integration. This enables Clack to access and parse document content, compiling
+            word count data to track your writing progress. Please note that this information is used exclusively for writing
+            activity tracking features within Clack and is not shared externally.
+          </p>
+          <p>
+            By adding a Google Doc and using the writing tracking features, you retain full ownership and rights over your
+            intellectual property. Clack does not claim or assume any rights or ownership over the content of the documents added
+            or the books you are writing. We access the content solely to provide the writing analytics features, with your
+            consent through adding the publicly accessible link.
+          </p>
+          <p>
+            We only retain collected information for as long as necessary to provide you with your requested service. What data we
+            store, we'll protect within commercially acceptable means to prevent loss and theft, as well as unauthorized access,
+            disclosure, copying, use or modification.
+          </p>
+          <p>
+            We don't share any personally identifying information publicly or with third-parties, except when required to by
+            Indian law.
+          </p>{" "}
+          <p>
+            We act in the capacity of a data controller and a data processor with regard to the personal data processed through
+            Clack and the services in terms of the applicable Indian data protection laws.
+          </p>{" "}
+          <p>
+            Our website may link to external sites that are not operated by us. Please be aware that we have no control over the
+            content and practices of these sites, and cannot accept responsibility or liability for their respective privacy
+            policies.
+          </p>
+          <p>
+            You are free to refuse our request for your personal information, and your intellectual property information, with the
+            understanding that we may be unable to provide you with some of your desired services.
+          </p>
+          <p>
+            Your continued use of our website will be regarded as acceptance of our practices around privacy and personal
+            information. If you have any questions about how we handle user data and personal information, feel free to contact
+            us.
+          </p>
           <h3>4. Types of Data Collected</h3>
           <p>
             <strong>Personal Data</strong>
@@ -315,6 +370,7 @@ export default function PrivacyPage() {
           <h3>20. Contact Us</h3>
           <p>If you have any questions about this Privacy Policy, please contact us:</p>
           <p>By email: support@clack.rkph.me.</p>
+          <p>Last updated: 20/04/2023</p>
         </article>
       </div>
       <Footer />
