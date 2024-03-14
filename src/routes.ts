@@ -12,6 +12,7 @@ export const publicRoutes = [
   "/docs",
   "/privacy",
   "/features",
+  "/tos"
 ];
 
 /**

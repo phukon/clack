@@ -8,6 +8,7 @@ const navigation = {
   ],
   resources: [
     { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms of Service", href: "/tos" },
     { name: "Guides", href: "/guides" },
   ],
   tools: [
