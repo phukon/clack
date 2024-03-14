@@ -1,7 +1,8 @@
 // import { env } from "@/env"; // for edge runtime
-import {currentUser } from "@/lib/auth";
+import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { exportContentAsText } from "@/lib/extractText";
+import { decryptData, encryptData } from "@/lib/graph/encryptData";
 
 // export const runtime = "edge";
 
@@ -25,14 +26,22 @@ export async function POST(req: Request): Promise<Response> {
     });
   }
 
-  const userNote = await db.note.findFirst({where: {
-    userId: user.id,
-    id: id
-  }})
+  const userNote = await db.note.findFirst({
+    where: {
+      userId: user.id,
+      id: id,
+    },
+  });
 
   if (!userNote) {
-    return new Response('Unauthorized', { status: 401 });
+    return new Response("Unauthorized", { status: 401 });
   }
+
+  const ENCRYPTEDDATA = encryptData({
+    data: data,
+    enKey: process.env.ENCRYPTION_KEY!,
+    initVector: process.env.INITIALIZATION_VECTOR!,
+  });
 
   const key = `${user.email}-${id}`;
 
@@ -41,9 +50,9 @@ export async function POST(req: Request): Promise<Response> {
    * Since I receive an array for words grouped together by a type, we have multiple words per elements.
    * Therefore I transform the array to have one word per element and get the word count.
    */
-  const wordCount = exportContentAsText(data).join(' ').split(/\s+/).length
+  const wordCount = exportContentAsText(data).join(" ").split(/\s+/).length;
 
-  await db.note.update({where: {id: id}, data: {wordCount: wordCount}} )
+  await db.note.update({ where: { id: id }, data: { wordCount: wordCount } });
 
   // save to cloudflare
   const putResponse = await fetch(`${process.env.WORKER_BASE_URL}?key=${key}`, {
@@ -52,7 +61,7 @@ export async function POST(req: Request): Promise<Response> {
       "Content-Type": "application/json",
       "X-Custom-Auth-Key": `${process.env.SECURITY_KEY}`,
     },
-    body: JSON.stringify(data),
+    body: ENCRYPTEDDATA,
   });
 
   if (putResponse.status !== 200) {
@@ -81,13 +90,15 @@ export async function GET(req: Request): Promise<Response> {
     });
   }
 
-  const userNote = await db.note.findFirst({where: {
-    userId: user.id,
-    id: id
-  }})
+  const userNote = await db.note.findFirst({
+    where: {
+      userId: user.id,
+      id: id,
+    },
+  });
 
   if (!userNote) {
-    return new Response('Unauthorized', { status: 401 });
+    return new Response("Unauthorized", { status: 401 });
   }
 
   const key = `${user.email}-${id}`;
@@ -106,9 +117,14 @@ export async function GET(req: Request): Promise<Response> {
     });
   }
 
-  const data = await getResponse.json();
+  const data = await getResponse.text();
+  const DECRYPTEDDATA = decryptData({
+    encryptedData: data,
+    enKey: process.env.ENCRYPTION_KEY!,
+    initVector: process.env.INITIALIZATION_VECTOR!,
+  });
 
-  return new Response(JSON.stringify(data), {
+  return new Response(JSON.stringify(DECRYPTEDDATA), {
     status: 200,
   });
 }
@@ -128,7 +144,7 @@ export async function DELETE(req: Request): Promise<Response> {
     });
   }
 
-  await db.note.delete({where: {id: id}} )
+  await db.note.delete({ where: { id: id } });
 
   const key = `${user.email}-${id}`;
 

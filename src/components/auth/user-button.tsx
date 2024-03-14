@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+// import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { LogoutButton } from "@/components/auth/logout-button";
 import { SidebarContext } from "../ui/sidebar";

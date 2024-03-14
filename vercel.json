@@ -12,7 +12,8 @@
       "graph": false,
       "landing": false,
       "trash": false,
-      "redesign": true
+      "redesign": true,
+      "encryption": false
     }
   },
   "crons": [
