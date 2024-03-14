@@ -66,12 +66,12 @@ const Tos = () => {
               Quillcap does not give any warranty, guarantee or other term as to the quality, fitness for purpose or otherwise of
               the software. Quillcap shall not be liable to you by reason of any representation (unless fraudulent), or any
               implied warranty, condition or other term, or any duty at common law, for any loss of profit or any indirect,
-              special or consequential loss, damage, costs, expenses or other claims (whether caused by Quillcap's negligence or
+              special or consequential loss, damage, costs, expenses or other claims (whether caused by Quillcap&#39;s negligence or
               the negligence of its servants or agents or otherwise) which arise out of or in connection with the provision of any
               goods or services by Quillcap. Quillcap shall not be liable or deemed to be in breach of contract by reason of any
               delay in performing, or failure to perform, any of its obligations if the delay or failure was due to any cause
               beyond its reasonable control. Notwithstanding contrary clauses in this Agreement, in the event that Quillcap are
-              deemed liable to you for breach of this Agreement, you agree that Quillcap's liability is limited to the amount
+              deemed liable to you for breach of this Agreement, you agree that Quillcap&#39;s liability is limited to the amount
               actually paid by you for your services or software, which amount calculated in reliance upon this clause. You hereby
               release Quillcap from any and all obligations, liabilities and claims in excess of this limitation.
             </p>
@@ -90,7 +90,7 @@ const Tos = () => {
           <section>
             <h2>8. General Terms and Law</h2>
             <p>
-              Governing Law Any claim related to Clack's Website shall be governed by the laws of India without regards to its
+              Governing Law Any claim related to Clack&#39;s Website shall be governed by the laws of India without regards to its
               conflict of law provisions. You acknowledge that no joint venture, partnership, employment, or agency relationship
               exists between you and Clack as a result of your use of these services. You agree not to hold yourself out as a
               representative, agent, or employee of Clack. You agree that Clack will not be liable by reason of any

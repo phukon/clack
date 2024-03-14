@@ -65,7 +65,7 @@ export default function PrivacyPage() {
           <h3>3. Information Collection and Use</h3>
           <p>We collect several different types of information for various purposes to provide and improve our Service to you.</p>
           <p>
-            Clack's use and transfer of information received from Google APIs to any other app will adhere to{" "}
+            Clack&#39;s use and transfer of information received from Google APIs to any other app will adhere to{" "}
             <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">
               Google API Services User Data Policy
             </a>
@@ -73,14 +73,14 @@ export default function PrivacyPage() {
           </p>
           <p>
             We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and
-            lawful means, with your knowledge and consent. We also let you know why we're collecting it and how it will be used.
+            lawful means, with your knowledge and consent. We also let you know why we&#39;re collecting it and how it will be used.
           </p>
           <p>
             You can sign up with your Google account so your Clack account username will be prefilled with your name and your
             public profile picture.
           </p>
           <p>
-            You have the option to 'Add Documents' on your Clack page, allowing you to connect Google Docs files set to share with
+            You have the option to &#39;Add Documents&#39; on your Clack page, allowing you to connect Google Docs files set to share with
             a publicly accessible Google Docs URL. Additionally, you can add Notion databases/pages that you, the USER, have
             granted access to through the Clack integration. This enables Clack to access and parse document content, compiling
             word count data to track your writing progress. Please note that this information is used exclusively for writing
@@ -94,11 +94,11 @@ export default function PrivacyPage() {
           </p>
           <p>
             We only retain collected information for as long as necessary to provide you with your requested service. What data we
-            store, we'll protect within commercially acceptable means to prevent loss and theft, as well as unauthorized access,
+            store, we&#39;ll protect within commercially acceptable means to prevent loss and theft, as well as unauthorized access,
             disclosure, copying, use or modification.
           </p>
           <p>
-            We don't share any personally identifying information publicly or with third-parties, except when required to by
+            We don&#39;t share any personally identifying information publicly or with third-parties, except when required to by
             Indian law.
           </p>{" "}
           <p>
@@ -146,7 +146,7 @@ export default function PrivacyPage() {
             or through a mobile device (“<strong>Usage Data</strong>”).
           </p>
           <p>
-            This Usage Data may include information such as your computer&APOS;s Internet Protocol address (e.g. IP address),
+            This Usage Data may include information such as your computer&#39;s Internet Protocol address (e.g. IP address),
             browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time
             spent on those pages, unique device identifiers and other diagnostic data.
           </p>
@@ -338,13 +338,13 @@ export default function PrivacyPage() {
           <h3>17. Links to Other Sites</h3>
           <p>
             Our Service may contain links to other sites that are not operated by us. If you click a third party link, you will be
-            directed to that third party&APOS;s site. We strongly advise you to review the Privacy Policy of every site you visit.
+            directed to that third party&#39;s site. We strongly advise you to review the Privacy Policy of every site you visit.
           </p>
           <p>
             We have no control over and assume no responsibility for the content, privacy policies or practices of any third party
             sites or services.
           </p>
-          <h3>18. Children&APOS;s Privacy</h3>
+          <h3>18. Children&#39;s Privacy</h3>
           <p>
             Our Services are not intended for use by children under the age of 18 (“ <strong>Child</strong>” or “
             <strong>Children</strong>”).
