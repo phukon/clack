@@ -2,7 +2,7 @@
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { exportContentAsText } from "@/lib/extractText";
-import { decryptData, encryptData } from "@/lib/graph/encryptData";
+import { decryptData, encryptData } from "@/lib/encryptData";
 
 // export const runtime = "edge";
 
@@ -124,7 +124,7 @@ export async function GET(req: Request): Promise<Response> {
     initVector: process.env.INITIALIZATION_VECTOR!,
   });
 
-  return new Response(JSON.stringify(DECRYPTEDDATA), {
+  return new Response(DECRYPTEDDATA, {
     status: 200,
   });
 }

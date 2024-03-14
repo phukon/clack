@@ -2,6 +2,11 @@
 - A vercel cronjob triggers at 0000hrs UTC to set the word-count reference.
 - A second cronjob from an EC2 instance triggers at 0530hrs IST or 0000hrs UTC for redundancy.
 
+## Encryption
+**Type** : `AES-256-CBC`
+- The key should be **32 bytes** or **256 bits** in length!!
+- Initialization Vector should be **16 bytes** or **128 bits**.
+
 ## Contribution logic
 - Update wordcount Ref if a document is removed.
 - Missing contributions are showed as blank on the canvas. No need to add blank contribution data to keep contributions array filled with consecutive dates.

@@ -1,5 +1,5 @@
 import { currentUser } from "@/lib/auth";
-import { decryptData } from "@/lib/graph/encryptData";
+import { decryptData } from "@/lib/encryptData";
 
 export async function GET(_: Request): Promise<Response> {
   const user = await currentUser();
