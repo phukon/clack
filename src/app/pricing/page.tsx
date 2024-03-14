@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CheckIcon } from "lucide-react";
@@ -68,16 +68,15 @@ export default function PricingPage() {
   // plausible;
   const frequency = frequencies[0];
   const user = useCurrentUser();
-  const handleSubmit = async () => {
-    try {
-      const response = await createStripeSubscription();
-      window.location.href = response?.url || "/dash";
-    } catch (error) {
-      console.error("Error creating Stripe subscription:", error);
-      // Handle error gracefully, for example, show an error message to the user
-    }
-  };
-  
+  // const handleSubmit = async () => {
+  //   try {
+  //     const response = await createStripeSubscription();
+  //     window.location.href = response?.url || "/dash";
+  //   } catch (error) {
+  //     console.error("Error creating Stripe subscription:", error);
+  //     // Handle error gracefully, for example, show an error message to the user
+  //   }
+  // };
 
   return (
     <>
@@ -91,8 +90,8 @@ export default function PricingPage() {
               works for you
             </h1>
             <p className="text-xl mt-8 text-balance max-w-3xl">
-              <span className=" --local-comfortaa">Clack</span> is an open-source writing activity tracker that
-              integrates with Google Docs and Notion, and has a built-in rich text editor.
+              <span className=" --local-comfortaa">Clack</span> is an open-source writing activity tracker that integrates with
+              Google Docs and Notion, and has a built-in rich text editor.
             </p>
           </div>
         </div>
@@ -113,9 +112,7 @@ export default function PricingPage() {
                     <div className="p-6">
                       <p className="mt-4 text-sm leading-6 text-gray-600 text-balance">{tier.description}</p>
                       <p className="mt-6 flex items-baseline gap-x-1">
-                        <span className="text-balance text-4xl font-medium  text-gray-900">
-                          {tier.price[frequency.value]}
-                        </span>
+                        <span className="text-balance text-4xl font-medium  text-gray-900">{tier.price[frequency.value]}</span>
                         <span
                           className={cn(
                             "text-sm font-semibold leading-6 text-gray-600",
@@ -136,14 +133,14 @@ export default function PricingPage() {
                     </div>
                   </div>
                   <div className="p-6">
-                    {/* <Link
+                    <Link
                       href={tier.href}
                       // onClick={() => {
                       //   plausible("clickedPricing", {
                       //     props: { tier: tier.name },
                       //   });
                       // }}
-                    > */}
+                    >
                       <Button
                         className="rounded-3xl hover:bg-gray-100"
                         style={{
@@ -153,11 +150,11 @@ export default function PricingPage() {
                           borderWidth: "1px",
                         }}
 
-                        onClick={handleSubmit}
+                        // onClick={handleSubmit}
                       >
                         {tier.name === "Pro" && user ? "Upgrade" : tier.buttonText}
                       </Button>
-                    {/* </Link> */}
+                    </Link>
                   </div>
                 </div>
               ))}
