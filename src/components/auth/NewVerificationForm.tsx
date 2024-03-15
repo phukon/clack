@@ -32,7 +32,7 @@ export const NewVerificationForm = () => {
       })
       .catch(() => {
         setError("Something went wrong!");
-      })
+      });
   }, [token, success, error]);
 
   useEffect(() => {
@@ -46,14 +46,10 @@ export const NewVerificationForm = () => {
       backButtonHref="/auth/login"
     >
       <div className="flex items-center w-full justify-center">
-        {!success && !error && (
-          <BeatLoader />
-        )}
+        {!success && !error && <BeatLoader />}
         <FormSuccess message={success} />
-        {!success && (
-          <FormError message={error} />
-        )}
+        {!success && <FormError message={error} />}
       </div>
     </CardWrapper>
-  )
-}
+  );
+};

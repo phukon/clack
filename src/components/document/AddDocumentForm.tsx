@@ -14,8 +14,7 @@ import { Button } from "../ui/button";
 import useNotes from "@/context/NotesContext";
 
 export const AddDocumentForm = () => {
-
-  const {revalidateNotes} = useNotes()
+  const { revalidateNotes } = useNotes();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -41,7 +40,7 @@ export const AddDocumentForm = () => {
           if (d?.success) {
             form.reset();
             setSuccess(d.success);
-            revalidateNotes()
+            revalidateNotes();
           }
         })
         .catch(() => {
@@ -81,7 +80,7 @@ export const AddDocumentForm = () => {
           <FormSuccess message={success} />
           <FormError message={error} />
           <Button disabled={isPending} type="submit" className="w-full">
-           Add
+            Add
           </Button>
         </form>
       </Form>

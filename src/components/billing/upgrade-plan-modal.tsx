@@ -43,40 +43,41 @@ export function UpgradePlanModal({
 
   const handleSubmit = async () => {
     setClicked(true);
-    createStripeSession({period: period})
-       .then((response) => {
-         if (response.error) {
-           console.error("Error creating Stripe session:", response.error);
-           toast({
-             title: "There was a problem...",
-             description: "Please try again in a moment",
-             variant: "destructive",
-           });
-         } else if (response.url) { // Ensure response.url is not undefined
-           // Redirect the user to the Stripe session URL
-           window.location.href = response.url;
-         } else {
-           console.error("No URL provided in the response.");
-           toast({
-             title: "There was a problem...",
-             description: "No URL provided for the Stripe session.",
-             variant: "destructive",
-           });
-         }
-       })
-       .catch((error) => {
-         console.error("Error creating Stripe session:", error);
-         toast({
-           title: "There was a problem...",
-           description: "Please try again in a moment",
-           variant: "destructive",
-         });
-         setClicked(false)
-       })
-      //  .finally(() => {
-      //    setClicked(false);
-      //  });
-   };
+    createStripeSession({ period: period })
+      .then((response) => {
+        if (response.error) {
+          console.error("Error creating Stripe session:", response.error);
+          toast({
+            title: "There was a problem...",
+            description: "Please try again in a moment",
+            variant: "destructive",
+          });
+        } else if (response.url) {
+          // Ensure response.url is not undefined
+          // Redirect the user to the Stripe session URL
+          window.location.href = response.url;
+        } else {
+          console.error("No URL provided in the response.");
+          toast({
+            title: "There was a problem...",
+            description: "No URL provided for the Stripe session.",
+            variant: "destructive",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error creating Stripe session:", error);
+        toast({
+          title: "There was a problem...",
+          description: "Please try again in a moment",
+          variant: "destructive",
+        });
+        setClicked(false);
+      });
+    //  .finally(() => {
+    //    setClicked(false);
+    //  });
+  };
 
   // If button is present, clone it and add onClick handler
   const buttonChild = React.isValidElement<{
@@ -161,10 +162,7 @@ export function UpgradePlanModal({
                 ))}
               </motion.div>
             </div>
-            <Button
-            loading={clicked}
-              onClick={handleSubmit}
-            >{`Upgrade to ${plan} ${capitalize(period)}`}</Button>
+            <Button loading={clicked} onClick={handleSubmit}>{`Upgrade to ${plan} ${capitalize(period)}`}</Button>
             <div className="flex items-center justify-center space-x-2">
               <a
                 href="https://cal.com/rikiphukon"

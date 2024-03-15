@@ -1,10 +1,10 @@
-'use server'
-import { db } from '@/lib/db';
-import jsonData from './mock2.json';
+"use server";
+import { db } from "@/lib/db";
+import jsonData from "./mock2.json";
 
 export async function seedUserData(userId: string) {
   try {
-    console.log('Starting seed');
+    console.log("Starting seed");
     const existingUser = await db.user.findUnique({
       where: { id: userId },
       include: { years: { include: { contributions: true } } }, // Include years and contributions associated with the user
@@ -15,9 +15,7 @@ export async function seedUserData(userId: string) {
 
     // Iterate over each year in the JSON data
     for (const yearData of jsonData.years) {
-      const existingYear = existingUser.years.find(
-        (year) => year.year === yearData.year
-      );
+      const existingYear = existingUser.years.find((year) => year.year === yearData.year);
       if (existingYear) {
         // Update the existing year
         await db.year.update({
@@ -30,13 +28,12 @@ export async function seedUserData(userId: string) {
         });
 
         // Update or create contributions for the existing year
-        const contributionsForYear = jsonData.contributions.filter(
-          (contribution) => contribution.date.startsWith(yearData.year)
+        const contributionsForYear = jsonData.contributions.filter((contribution) =>
+          contribution.date.startsWith(yearData.year)
         );
         for (const contributionData of contributionsForYear) {
           const existingContribution = existingYear.contributions.find(
-            (contribution) =>
-              contribution.contribution_date === contributionData.date
+            (contribution) => contribution.contribution_date === contributionData.date
           );
           if (existingContribution) {
             // Update existing contribution
@@ -75,8 +72,8 @@ export async function seedUserData(userId: string) {
         });
 
         // Populate contributions for the newly created year
-        const contributionsForYear = jsonData.contributions.filter(
-          (contribution) => contribution.date.startsWith(yearData.year)
+        const contributionsForYear = jsonData.contributions.filter((contribution) =>
+          contribution.date.startsWith(yearData.year)
         );
         for (const contributionData of contributionsForYear) {
           await db.contribution.create({
@@ -92,11 +89,8 @@ export async function seedUserData(userId: string) {
         }
       }
     }
-    console.log(
-      'Years and contributions updated successfully for user:',
-      existingUser.email
-    );
+    console.log("Years and contributions updated successfully for user:", existingUser.email);
   } catch (error) {
-    console.error('Error seeding user data:', error);
+    console.error("Error seeding user data:", error);
   }
 }

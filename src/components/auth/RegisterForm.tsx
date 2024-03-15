@@ -1,43 +1,36 @@
-'use client';
+"use client";
 
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { RegisterSchema } from '@/schemas';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { RegisterSchema } from "@/schemas";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
-import CardWrapper from './CardWrapper';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import FormError from '../form-error';
-import FormSuccess from '../form-success';
-import { register } from '@/actions/register';
-import { useState, useTransition } from 'react';
+import CardWrapper from "./CardWrapper";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import FormError from "../form-error";
+import FormSuccess from "../form-success";
+import { register } from "@/actions/register";
+import { useState, useTransition } from "react";
 
 const RegisterForm = () => {
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      email: '',
-      password: '',
-      name: '',
+      email: "",
+      password: "",
+      name: "",
     },
   });
 
-  const [error, setError] = useState<string | undefined>('');
-  const [success, setSuccess] = useState<string | undefined>('');
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
     startTransition(() => {
       register(values).then((d) => {
         setError(d.error);
@@ -63,11 +56,7 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="John Doe"
-                    />
+                    <Input {...field} disabled={isPending} placeholder="John Doe" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -80,11 +69,7 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="example@mail.com"
-                    />
+                    <Input {...field} disabled={isPending} placeholder="example@mail.com" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -97,13 +82,7 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="*******"
-                      type="password"
-                      autoComplete='on'
-                    />
+                    <Input {...field} disabled={isPending} placeholder="*******" type="password" autoComplete="on" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

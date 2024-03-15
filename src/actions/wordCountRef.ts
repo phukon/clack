@@ -1,6 +1,6 @@
-'use server'
-import { getUserById } from '@/data/user';
-import { currentUser } from '@/lib/auth';
+"use server";
+import { getUserById } from "@/data/user";
+import { currentUser } from "@/lib/auth";
 
 export const wordCountRef = async (): Promise<number | undefined | null> => {
   const user = await currentUser();

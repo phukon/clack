@@ -1,13 +1,13 @@
-'use client';
+"use client";
 /**
  * HEADS UP! i MADE A MISTAKE TO WHILE TRYING TO FORCE A RE-RENDER USING THE MD5HASH VALUE.
  * check the @parentCommit_41f7fcdb0566f790e4e6169a2a3d6d8b6ede9fec to study what I changed.
- * 
+ *
  * In the first code snippet, the md5Hash variable is declared using the var keyword inside the useEffect hook.
  * This variable is assigned the result of the cryptographic hashing operation, but since it's not a state variable,
  * changes to its value don't trigger re-renders in React components. Therefore, the editor component doesn't rerender
  * when the md5Hash value changes, leading to the observed issue.
- * 
+ *
  * In the second code snippet, the issue is addressed by replacing the var declaration of md5Hash with a state variable
  * created using the useState hook. This allows for updating md5Hash using setMd5Hash, which triggers a re-render
  * whenever its value changes. Since state updates trigger re-renders in React components, this approach ensures that
@@ -15,20 +15,20 @@
  * ~ Riki {@Github https://github.com/phukon}
  */
 
-import Warning from '@/components/warning';
-import useNotes from '@/context/NotesContext';
-import { Editor } from 'novel';
-import { useEffect, useState } from 'react';
-import { type JSONContent } from '@tiptap/core';
-import crypto from 'crypto';
+import Warning from "@/components/warning";
+import useNotes from "@/context/NotesContext";
+import { Editor } from "novel";
+import { useEffect, useState } from "react";
+import { type JSONContent } from "@tiptap/core";
+import crypto from "crypto";
 // import {placeholder} from './defaultData';
 
 function NovelEditor({ id }: { id: string }) {
-  const [data, setData] = useState<JSONContent | string>('');
-  const [cloudData, setCloudData] = useState<JSONContent | string>('');
+  const [data, setData] = useState<JSONContent | string>("");
+  const [cloudData, setCloudData] = useState<JSONContent | string>("");
   const [syncWithCloudWarning, setSyncWithCloudWarning] = useState(false);
-  const [saveStatus, setSaveStatus] = useState('Saved');
-  const [md5Hash, setMd5Hash] = useState('');
+  const [saveStatus, setSaveStatus] = useState("Saved");
+  const [md5Hash, setMd5Hash] = useState("");
 
   const { revalidateNotes, kv } = useNotes();
 
@@ -39,13 +39,13 @@ function NovelEditor({ id }: { id: string }) {
       if (response.status === 404) {
         return null;
       } else if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       const jsonData = (await response.json()) as JSONContent;
       return jsonData;
     } catch (error) {
-      console.error('Error loading data from cloud:', error);
+      console.error("Error loading data from cloud:", error);
       return null;
     }
   };
@@ -73,13 +73,10 @@ function NovelEditor({ id }: { id: string }) {
     void synchronizeData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-  
+
   useEffect(() => {
-    setMd5Hash(crypto
-      .createHash('md5')
-      .update(JSON.stringify(data))
-      .digest('hex'));
- }, [data]);
+    setMd5Hash(crypto.createHash("md5").update(JSON.stringify(data)).digest("hex"));
+  }, [data]);
 
   const handleKeepLocalStorage = () => {
     setSyncWithCloudWarning(false);
@@ -94,17 +91,14 @@ function NovelEditor({ id }: { id: string }) {
   return (
     <>
       {syncWithCloudWarning && (
-        <Warning
-          handleKeepLocalStorage={handleKeepLocalStorage}
-          handleKeepCloudStorage={handleKeepCloudStorage}
-        />
+        <Warning handleKeepLocalStorage={handleKeepLocalStorage} handleKeepCloudStorage={handleKeepCloudStorage} />
       )}
       <div className="relative w-full max-w-screen-lg pb-8">
         <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
           {saveStatus}
         </div>
         <Editor
-         debounceDuration={3000}
+          debounceDuration={3000}
           key={md5Hash}
           defaultValue={data}
           storageKey={id}
@@ -112,22 +106,21 @@ function NovelEditor({ id }: { id: string }) {
           // TODO: UPLOAD IMAGES THROUGH /API/UPLOAD
           completionApi="/api/generate"
           onUpdate={(_) => {
-            setSaveStatus('Unsaved');
+            setSaveStatus("Unsaved");
           }}
           onDebouncedUpdate={async (value) => {
             if (!value) return;
             const kvValue = kv.find(([key]) => key === id);
-            const kvValueFirstLine =
-              kvValue?.[1].content?.[0].content[0].text.split('\n')[0];
+            const kvValueFirstLine = kvValue?.[1].content?.[0].content[0].text.split("\n")[0];
 
             // if first line edited, revalidate notes
-            if (value.getText().split('\n')[0] !== kvValueFirstLine) {
+            if (value.getText().split("\n")[0] !== kvValueFirstLine) {
               void revalidateNotes();
             }
 
-            setSaveStatus('Saving...');
-            const response = await fetch('/api/note', {
-              method: 'POST',
+            setSaveStatus("Saving...");
+            const response = await fetch("/api/note", {
+              method: "POST",
               body: JSON.stringify({ id, data: value.getJSON() }),
             });
             const res = await response.text();

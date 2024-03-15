@@ -17,9 +17,7 @@ export const extractTitle = (value: JSONContent) => {
     }
     for (const innerContent of contentItem.content) {
       const text = innerContent.text ?? "";
-      return text.length > 36
-        ? text.substring(0, 36) + "..."
-        : text;
+      return text.length > 36 ? text.substring(0, 36) + "..." : text;
     }
   }
   return "untitled";

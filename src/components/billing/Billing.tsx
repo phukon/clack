@@ -29,7 +29,6 @@ interface Tier {
   features: string[];
 }
 
-
 const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
   const [clicked, setClicked] = useState<boolean>(false);
   if ("error" in subscriptionPlan) {
@@ -40,44 +39,45 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
     );
   }
 
-  const plan: "pro" | "free" = subscriptionPlan.isSubscribed ? "pro" : "free"
+  const plan: "pro" | "free" = subscriptionPlan.isSubscribed ? "pro" : "free";
 
   const handleSubmit = async () => {
     setClicked(true);
-    createStripeSession({period:"monthly"})
-       .then((response) => {
-         if (response.error) {
-           console.error("Error creating Stripe session:", response.error);
-           toast({
-             title: "There was a problem...",
-             description: "Please try again in a moment",
-             variant: "destructive",
-           });
-         } else if (response.url) { // Ensure response.url is not undefined
-           // Redirect the user to the Stripe session URL
-           window.location.href = response.url;
-         } else {
-           console.error("No URL provided in the response.");
-           toast({
-             title: "There was a problem...",
-             description: "No URL provided for the Stripe session.",
-             variant: "destructive",
-           });
-         }
-       })
-       .catch((error) => {
-         console.error("Error creating Stripe session:", error);
-         toast({
-           title: "There was a problem...",
-           description: "Please try again in a moment",
-           variant: "destructive",
-         });
-         setClicked(false)
-       })
-      //  .finally(() => {
-      //    setClicked(false);
-      //  });
-   };
+    createStripeSession({ period: "monthly" })
+      .then((response) => {
+        if (response.error) {
+          console.error("Error creating Stripe session:", response.error);
+          toast({
+            title: "There was a problem...",
+            description: "Please try again in a moment",
+            variant: "destructive",
+          });
+        } else if (response.url) {
+          // Ensure response.url is not undefined
+          // Redirect the user to the Stripe session URL
+          window.location.href = response.url;
+        } else {
+          console.error("No URL provided in the response.");
+          toast({
+            title: "There was a problem...",
+            description: "No URL provided for the Stripe session.",
+            variant: "destructive",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error creating Stripe session:", error);
+        toast({
+          title: "There was a problem...",
+          description: "Please try again in a moment",
+          variant: "destructive",
+        });
+        setClicked(false);
+      });
+    //  .finally(() => {
+    //    setClicked(false);
+    //  });
+  };
 
   const tiers: Tier[] = [
     {
@@ -87,11 +87,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
       description: "What's included:",
       currentPlan: plan && plan == "free" ? true : false,
       hasPlan: false,
-      features: [
-        "Unlimited Clack documents",
-        "Google integration",
-        "10 Google Documents",
-      ],
+      features: ["Unlimited Clack documents", "Google integration", "10 Google Documents"],
     },
     {
       id: 2,
@@ -107,7 +103,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
         "6 heatmap themes",
         "AI Document Assistant incl. 1000 credits",
       ],
-    }
+    },
   ];
 
   return (

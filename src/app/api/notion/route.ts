@@ -20,7 +20,6 @@ export async function GET(): Promise<Response> {
   const dbUser = await getUserById(user.id);
   if (!dbUser) throw new Error("Unauthorized");
 
-
   const notionDocuments = await db.note.findMany({
     where: { userId: dbUser.id, type: NoteType.NOTION },
   });
@@ -28,8 +27,7 @@ export async function GET(): Promise<Response> {
     return new Response("Not Found", { status: 404 });
   }
 
-
-  const keyValuePairs: Record<string, string | null> = {}
+  const keyValuePairs: Record<string, string | null> = {};
   for (const document of notionDocuments) {
     const { url } = document;
     if (url) {
@@ -43,13 +41,13 @@ export async function GET(): Promise<Response> {
         const wordArray = await extractNotionData(id);
         const combinedString = wordArray.join(" ");
 
-        keyValuePairs[url] = combinedString
+        keyValuePairs[url] = combinedString;
       } catch (error) {
         console.error(`Error fetching data from URL: ${url}`, error);
       }
     }
   }
-  const keys = Object.keys(keyValuePairs)
+  const keys = Object.keys(keyValuePairs);
   const values = Object.values(keyValuePairs);
   const result = keys.map((key, index) => {
     return [key, values[index]];

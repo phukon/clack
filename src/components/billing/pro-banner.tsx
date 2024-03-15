@@ -6,7 +6,11 @@ import { Button } from "@/components/ui/button";
 import X from "@/components/shared/icons/x";
 // import { useAnalytics } from "@/lib/analytics";
 
-export default function ProBanner({ setShowProBanner }: { setShowProBanner: Dispatch<SetStateAction<boolean | null>> }) {
+export default function ProBanner({
+  setShowProBanner,
+}: {
+  setShowProBanner: Dispatch<SetStateAction<boolean | null>>;
+}) {
   // const plausible = usePlausible();
   // const analytics = useAnalytics();
 
@@ -31,7 +35,9 @@ export default function ProBanner({ setShowProBanner }: { setShowProBanner: Disp
       <div className="flex space-x-2">
         <span className="font-bold text-sm">✨ Clack Pro ✨</span>
       </div>
-      <p className="my-4 text-sm">Join the Clack Pro plan to unlock Notion integration, AI writing assistant, and more.</p>
+      <p className="my-4 text-sm">
+        Join the Clack Pro plan to unlock Notion integration, AI writing assistant, and more.
+      </p>
       <div className="flex">
         <UpgradePlanModal clickedPlan={"Pro"} trigger={"pro_banner"}>
           <Button

@@ -10,4 +10,4 @@ export const localEbgaramond = localFont({
 export const localComfortaa = localFont({
   src: "./Comfortaa-VariableFont_wght.ttf",
   variable: "--local-comfortaa",
-})
+});

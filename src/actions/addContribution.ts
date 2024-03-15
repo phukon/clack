@@ -22,7 +22,7 @@ enum IntensityLevel {
 }
 
 async function calculateIntensityLevel(wordCount: number): Promise<IntensityLevel> {
-  if (wordCount === 0) return IntensityLevel.Nil
+  if (wordCount === 0) return IntensityLevel.Nil;
   if (wordCount >= 0 && wordCount <= 10) return IntensityLevel.Low;
   if (wordCount >= 11 && wordCount <= 50) return IntensityLevel.Moderate;
   if (wordCount >= 51 && wordCount <= 150) return IntensityLevel.High;
@@ -43,7 +43,6 @@ async function getTotalContributions(userId: string): Promise<number> {
 }
 
 // util functions
-
 
 function extractDocId(url: string): string {
   const parts = url.split("/");
@@ -99,10 +98,10 @@ async function addContribution() {
       const { title, wordCount } = await response.json();
 
       await db.note.update({
-          where: { id: doc.id },
-          data: { wordCount, name: title },
+        where: { id: doc.id },
+        data: { wordCount, name: title },
       });
-  }
+    }
   } catch (error) {
     console.error("Error updating notion documents:", error);
     return { notionDoc_updation_error: error };
@@ -185,7 +184,6 @@ async function addContribution() {
 }
 
 export { addContribution };
-
 
 /**
  * SCRAP YARD

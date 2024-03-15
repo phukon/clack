@@ -4,11 +4,9 @@ import { logout } from "@/actions/logout"; // server action
 
 interface LogoutButtonProps {
   children?: React.ReactNode;
-};
+}
 
-export const LogoutButton = ({
-  children
-}: LogoutButtonProps) => {
+export const LogoutButton = ({ children }: LogoutButtonProps) => {
   const onClick = () => {
     logout();
   };

@@ -30,7 +30,7 @@ export async function removeDocument(url: string) {
       where: { id: existingDocument.id },
     });
 
-    await updateUserWordCountRef(dbUser.id)
+    await updateUserWordCountRef(dbUser.id);
 
     return { success: "Document removed successfully!" };
   } catch (error: any) {

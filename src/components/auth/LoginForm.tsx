@@ -19,7 +19,8 @@ import Link from "next/link";
 const LoginForm = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
-  const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email is already in use with different provider!" : "";
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked" ? "Email is already in use with different provider!" : "";
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -63,7 +64,12 @@ const LoginForm = () => {
   };
 
   return (
-    <CardWrapper headerLabel="Welcome back" backButtonLabel="Don't have an account?" backButtonHref="/auth/register" showSocial>
+    <CardWrapper
+      headerLabel="Welcome back"
+      backButtonLabel="Don't have an account?"
+      backButtonHref="/auth/register"
+      showSocial
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
           <div className=" space-y-4">
@@ -91,7 +97,13 @@ const LoginForm = () => {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input {...field} disabled={isPending} placeholder="example@mail.com" type="email" autoComplete="email" />
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          placeholder="example@mail.com"
+                          type="email"
+                          autoComplete="email"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -104,7 +116,13 @@ const LoginForm = () => {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input {...field} disabled={isPending} placeholder="*******" type="password" autoComplete="on" />
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          placeholder="*******"
+                          type="password"
+                          autoComplete="on"
+                        />
                       </FormControl>
                       <Button size="sm" variant="link" asChild className="px-0 font-normal">
                         <Link href="/auth/reset">Forgot password?</Link>

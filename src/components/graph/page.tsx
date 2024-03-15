@@ -27,7 +27,7 @@ export default function Graph(props: GraphProps) {
       try {
         if (userId) {
           const userData = await getUserData(userId); // Add nullish coalescing operator to provide a default value
-          console.log('DEUBG: /components/graph ',userData)
+          console.log("DEUBG: /components/graph ", userData);
           setUserData(userData);
         }
       } catch (error) {

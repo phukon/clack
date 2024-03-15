@@ -1,11 +1,6 @@
-import authConfig from './auth.config';
-import NextAuth from 'next-auth';
-import {
-  DEFAULT_LOGIN_REDIRECT,
-  apiAuthPrefix,
-  publicRoutes,
-  authRoutes,
-} from './routes';
+import authConfig from "./auth.config";
+import NextAuth from "next-auth";
+import { DEFAULT_LOGIN_REDIRECT, apiAuthPrefix, publicRoutes, authRoutes } from "./routes";
 
 const { auth } = NextAuth(authConfig);
 
@@ -17,7 +12,7 @@ export default auth((req) => {
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
-    return
+    return;
   }
 
   if (isAuthRoute) {
@@ -25,23 +20,22 @@ export default auth((req) => {
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl)); // always pass nextUrl when using redirect and new url constructor. this constructs a proper url with the hostname
     }
 
-    return // new Response('Unauthorized', { status:  401 });
+    return; // new Response('Unauthorized', { status:  401 });
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-
     // this is to redirect the visitor to the page they were trying to visit prior to the
     // auth wall happening and stopping them.
     let callbackUrl = nextUrl.pathname;
     if (nextUrl.search) {
-      callbackUrl += nextUrl.search
+      callbackUrl += nextUrl.search;
     }
 
-    const encodedCallbackUrl = encodeURIComponent(callbackUrl)
-    return Response.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl))
+    const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+    return Response.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl));
   }
 
-  return
+  return;
 
   // console.log('Route: ', req.nextUrl.pathname);
   // console.log('Is logged in: ', isLoggedIn);
@@ -50,5 +44,5 @@ export default auth((req) => {
 // Optionally, don't invoke Middleware on some paths
 // Read more: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };

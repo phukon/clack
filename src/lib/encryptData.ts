@@ -1,6 +1,6 @@
 import * as crypto from "crypto";
 
-export const encryptData = ({ data, enKey, initVector }: { data: any, enKey: string, initVector: string }): string => {
+export const encryptData = ({ data, enKey, initVector }: { data: any; enKey: string; initVector: string }): string => {
   const stringData = JSON.stringify(data);
   const algorithm = "aes-256-cbc";
   const keyBuffer = Buffer.from(enKey, "hex"); // Convert hex string to buffer
@@ -13,7 +13,15 @@ export const encryptData = ({ data, enKey, initVector }: { data: any, enKey: str
   return encryptedData;
 };
 
-export const decryptData = ({ encryptedData, enKey, initVector }: { encryptedData: string, enKey: string, initVector: string }): string => {
+export const decryptData = ({
+  encryptedData,
+  enKey,
+  initVector,
+}: {
+  encryptedData: string;
+  enKey: string;
+  initVector: string;
+}): string => {
   const algorithm = "aes-256-cbc";
   const keyBuffer = Buffer.from(enKey, "hex"); // Convert hex string to buffer
   const ivBuffer = Buffer.from(initVector, "hex"); // Convert hex string to buffer

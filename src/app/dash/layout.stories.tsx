@@ -17,6 +17,6 @@ type Story = StoryObj<typeof meta>;
 
 export const DashLayoutLight: Story = {
   args: {
-    children: <Dash/>
+    children: <Dash />,
   },
 };

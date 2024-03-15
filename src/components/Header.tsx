@@ -63,7 +63,7 @@ const Header: React.FC = (): JSX.Element => {
               </button>
             </span> */}
             <span className="group/parent relative text-primary dark:text-primary-dark flex flex-row gap-4">
-              <Link href='/auth/login'>
+              <Link href="/auth/login">
                 <Button className="my-1 p-2 rounded hover:bg-border dark:hover:bg-border-dark mr-2">Login</Button>
               </Link>
             </span>

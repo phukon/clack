@@ -12,8 +12,7 @@ export const STAGGER_CHILD_VARIANTS = {
 
 export const CLACK_HEADERS = {
   headers: {
-    "x-powered-by":
-      "Clack -Track your writing progress effortlessly",
+    "x-powered-by": "Clack -Track your writing progress effortlessly",
   },
 };
 
@@ -44,13 +43,7 @@ export const ONE_DAY = ONE_HOUR * 24;
 export const ONE_WEEK = ONE_DAY * 7;
 
 // growing list of blocked pathnames that lead to 404s
-export const BLOCKED_PATHNAMES = [
-  "/phpmyadmin",
-  "/server-status",
-  "/wordpress",
-  "/_all_dbs",
-  "/wp-json",
-];
+export const BLOCKED_PATHNAMES = ["/phpmyadmin", "/server-status", "/wordpress", "/_all_dbs", "/wp-json"];
 
 // list of paths that should be excluded from team checks
 export const EXCLUDED_PATHS = [

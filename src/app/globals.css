@@ -84,7 +84,7 @@
 }
 
 .squiggly-text::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: -2px; /* Adjust as needed */
@@ -103,9 +103,8 @@
   justify-content: center;
   background: white;
   border-radius: 20px;
-  box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075),
-    0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
-    0 0 16px hsl(0deg 0% 0% / 0.075);
+  box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075), 0 0 4px hsl(0deg 0% 0% / 0.075),
+    0 0 8px hsl(0deg 0% 0% / 0.075), 0 0 16px hsl(0deg 0% 0% / 0.075);
   transform-origin: 10% 60%;
   margin-top: 2rem;
   padding: 5px;

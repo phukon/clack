@@ -15,18 +15,22 @@ export default function Sidebar({
   userPlan,
   showProBanner,
   children,
-  setShowProBanner
+  setShowProBanner,
 }: {
   children: React.ReactNode;
   showProBanner: boolean | null;
   userPlan: string;
-  setShowProBanner: React.Dispatch<React.SetStateAction<boolean | null>>
+  setShowProBanner: React.Dispatch<React.SetStateAction<boolean | null>>;
 }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <aside className="h-screen relative">
-      <nav className={`h-full flex flex-col bg-white border-r-2 shadow-sm fixed top-0 left-0 z-50 ${expanded ? "w-60" : "w-16"}`}>
+      <nav
+        className={`h-full flex flex-col bg-white border-r-2 shadow-sm fixed top-0 left-0 z-50 ${
+          expanded ? "w-60" : "w-16"
+        }`}
+      >
         <div className="p-4 pb-2 flex justify-between items-center">
           <Link href="/">
             <Image
@@ -37,7 +41,10 @@ export default function Sidebar({
               alt="logo"
             />
           </Link>
-          <button onClick={() => setExpanded((curr) => !curr)} className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100">
+          <button
+            onClick={() => setExpanded((curr) => !curr)}
+            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
+          >
             {expanded ? <ChevronFirst /> : <ChevronLast />}
           </button>
         </div>
@@ -48,7 +55,6 @@ export default function Sidebar({
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
-
       </nav>
     </aside>
   );

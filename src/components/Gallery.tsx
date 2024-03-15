@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { ReactNode } from 'react';
-import Image, { StaticImageData } from 'next/image';
-import { motion } from 'framer-motion';
-import clsx from 'clsx';
-import localFont from 'next/font/local';
+import { ReactNode } from "react";
+import Image, { StaticImageData } from "next/image";
+import { motion } from "framer-motion";
+import clsx from "clsx";
+import localFont from "next/font/local";
 
-import lirmen from '/public/showcase/1.png';
-import meJanlem from '/public/showcase/2.png';
-import iitghy from '/public/showcase/3.png';
-import nr from '/public/showcase/1.png';
+import lirmen from "/public/showcase/1.png";
+import meJanlem from "/public/showcase/2.png";
+import iitghy from "/public/showcase/3.png";
+import nr from "/public/showcase/1.png";
 
-import Halo from '@/components/ui/Halo';
+import Halo from "@/components/ui/Halo";
 
 const ticketingFont = localFont({
-  src: '../../public/ticketing.woff2',
-  display: 'swap',
+  src: "../../public/ticketing.woff2",
+  display: "swap",
 });
 
 type PhotoProps = {
@@ -28,28 +28,13 @@ type PhotoProps = {
   rotate: number;
   left: number;
   index: number;
-  flipDirection?: 'left' | 'right';
+  flipDirection?: "left" | "right";
   children?: ReactNode;
 };
 
-function Photo({
-  src,
-  alt,
-  filename,
-  width,
-  height,
-  rotate,
-  left,
-  index,
-  flipDirection,
-  meta,
-  children,
-}: PhotoProps) {
-  const fileName =
-    filename ||
-    (typeof src !== 'string' &&
-      `${src.src.split('/').at(-1)?.split('.')[0]}.jpg`);
-  const shared = 'absolute h-full w-full rounded-2xl overflow-hidden border-2 border-gray-400';
+function Photo({ src, alt, filename, width, height, rotate, left, index, flipDirection, meta, children }: PhotoProps) {
+  const fileName = filename || (typeof src !== "string" && `${src.src.split("/").at(-1)?.split(".")[0]}.jpg`);
+  const shared = "absolute h-full w-full rounded-2xl overflow-hidden border-2 border-gray-400";
   return (
     <motion.div
       className={`absolute mx-auto cursor-grab hover:before:absolute hover:before:-left-7 hover:before:-top-8 hover:before:block hover:before:h-[300px] hover:before:w-[calc(100%+55px)]`}
@@ -64,10 +49,9 @@ function Photo({
       }}
       transition={{
         default: {
-          type: 'spring',
+          type: "spring",
           bounce: 0.2,
-          duration:
-            index === 1 ? 0.8 : index === 2 ? 0.85 : index === 3 ? 0.9 : 1,
+          duration: index === 1 ? 0.8 : index === 2 ? 0.85 : index === 3 ? 0.9 : 1,
           delay: index * 0.15,
         },
         opacity: {
@@ -79,23 +63,23 @@ function Photo({
       }}
       animate={{ width, height, rotate, y: 0, opacity: 1, x: 0 }}
       drag
-      whileTap={{ scale: 1.1, cursor: 'grabbing' }}
-      whileDrag={{ scale: 1.1, cursor: 'grabbing' }}
+      whileTap={{ scale: 1.1, cursor: "grabbing" }}
+      whileDrag={{ scale: 1.1, cursor: "grabbing" }}
       whileHover="flipped"
     >
       <motion.div
         className="relative h-full w-full rounded-2xl shadow-md will-change-transform"
-        style={{ transformStyle: 'preserve-3d' }}
-        transition={{ type: 'spring', duration: 0.4 }}
+        style={{ transformStyle: "preserve-3d" }}
+        transition={{ type: "spring", duration: 0.4 }}
         variants={{
           flipped: {
             scale: 1.1,
-            rotateY: flipDirection === 'right' ? -180 : 180,
+            rotateY: flipDirection === "right" ? -180 : 180,
             rotateX: 5,
           },
         }}
       >
-        <div className={shared} style={{ backfaceVisibility: 'hidden' }}>
+        <div className={shared} style={{ backfaceVisibility: "hidden" }}>
           <Image
             src={src}
             alt={alt}
@@ -107,24 +91,16 @@ function Photo({
           {children}
         </div>
         <div
-          className={clsx(
-            shared,
-            'flex items-center overflow-hidden rounded-2xl bg-[#FFFAF2]'
-          )}
+          className={clsx(shared, "flex items-center overflow-hidden rounded-2xl bg-[#FFFAF2]")}
           style={{
-            backfaceVisibility: 'hidden',
-            transform: 'rotateY(180deg)',
+            backfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
           }}
         >
           <Halo strength={50} className="flex items-center">
             <span className="absolute h-[500px] w-[500px] rotate-[-20deg] bg-[length:280px] bg-repeat" />
             <div className="z-[1] px-6">
-              <div
-                className={clsx(
-                  ticketingFont.className,
-                  'flex flex-col gap-1 uppercase'
-                )}
-              >
+              <div className={clsx(ticketingFont.className, "flex flex-col gap-1 uppercase")}>
                 <p className="text-sm text-secondary">{fileName}</p>
                 {meta && <p className="text-sm text-secondary">{meta}</p>}
               </div>

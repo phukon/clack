@@ -1,11 +1,11 @@
-import NextAuth from 'next-auth';
-import { PrismaAdapter } from '@auth/prisma-adapter';
-import authConfig from '@/auth.config';
-import { db } from '@/lib/db';
-import { getUserById } from './data/user';
-import { UserRole } from '@prisma/client';
-import { getTwoFactorConfirmationByUserId } from './data/two-factor-confirmation';
-import { getAccountByUserId } from './data/account';
+import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import authConfig from "@/auth.config";
+import { db } from "@/lib/db";
+import { getUserById } from "./data/user";
+import { UserRole } from "@prisma/client";
+import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation";
+import { getAccountByUserId } from "./data/account";
 
 // the jwt token is used to generate a token
 export const {
@@ -13,11 +13,11 @@ export const {
   auth,
   signIn,
   signOut,
-  unstable_update
+  unstable_update,
 } = NextAuth({
   pages: {
-    signIn: '/auth/login',
-    error: '/auth/error',
+    signIn: "/auth/login",
+    error: "/auth/error",
   },
   events: {
     async linkAccount({ user }) {
@@ -35,17 +35,15 @@ export const {
        */
 
       // Allow OAuth without email verification
-      if (account?.provider !== 'credentials') return true;
+      if (account?.provider !== "credentials") return true;
 
-      const existingUser = await getUserById(user?.id || '');
+      const existingUser = await getUserById(user?.id || "");
 
       // Prevent sign in without email verification
       if (!existingUser?.emailVerified) return false;
 
       if (existingUser.isTwoFactorEnabled) {
-        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
-          existingUser.id
-        );
+        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id);
 
         if (!twoFactorConfirmation) return false;
 
@@ -72,7 +70,7 @@ export const {
 
       if (session.user) {
         session.user.name = token.name;
-        session.user.email = token.email ?? '';
+        session.user.email = token.email ?? "";
         session.user.isOAuth = token.isOAuth as boolean;
       }
 
@@ -95,6 +93,6 @@ export const {
     },
   },
   adapter: PrismaAdapter(db),
-  session: { strategy: 'jwt' },
+  session: { strategy: "jwt" },
   ...authConfig,
 });

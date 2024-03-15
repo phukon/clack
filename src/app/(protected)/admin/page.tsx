@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { admin } from '@/actions/admin';
-import { RoleGate } from '@/components/auth/role-gate';
-import FormSuccess from '@/components/form-success';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { UserRole } from '@prisma/client';
-import { useToast } from '@/components/ui/use-toast';
+import { admin } from "@/actions/admin";
+import { RoleGate } from "@/components/auth/role-gate";
+import FormSuccess from "@/components/form-success";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { UserRole } from "@prisma/client";
+import { useToast } from "@/components/ui/use-toast";
 
 const AdminPage = () => {
   const { toast } = useToast();
@@ -15,35 +15,35 @@ const AdminPage = () => {
     admin().then((data) => {
       if (data.error) {
         toast({
-          title: 'Error',
+          title: "Error",
           description: data.error,
-          variant: 'destructive',
+          variant: "destructive",
         });
       }
 
       if (data.success) {
         toast({
-          title: 'Success',
+          title: "Success",
           description: data.success,
-          variant: 'success',
+          variant: "success",
         });
       }
     });
   };
 
   const onApiRouteClick = () => {
-    fetch('/api/admin').then((response) => {
+    fetch("/api/admin").then((response) => {
       if (response.ok) {
         toast({
-          title: 'Success',
-          description: 'Allowed API route!',
-          variant: 'success',
+          title: "Success",
+          description: "Allowed API route!",
+          variant: "success",
         });
       } else {
         toast({
-          title: 'Error',
-          description: 'Forbidden API route!',
-          variant: 'destructive',
+          title: "Error",
+          description: "Forbidden API route!",
+          variant: "destructive",
         });
       }
     });

@@ -14,19 +14,14 @@ const openai = new OpenAI({
 export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
-  if (
-    process.env.KV_REST_API_URL &&
-    process.env.KV_REST_API_TOKEN
-  ) {
+  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     const ip = req.headers.get("x-forwarded-for");
     const ratelimit = new Ratelimit({
       redis: kv,
       limiter: Ratelimit.slidingWindow(1, "5 s"),
     });
 
-    const { success, limit, reset, remaining } = await ratelimit.limit(
-      `notty_ratelimit_${ip}`,
-    );
+    const { success, limit, reset, remaining } = await ratelimit.limit(`notty_ratelimit_${ip}`);
 
     if (!success) {
       return new Response("You have reached your request limit for the day.", {

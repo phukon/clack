@@ -1,5 +1,5 @@
-'use server';
-import { db } from '@/lib/db';
+"use server";
+import { db } from "@/lib/db";
 
 export async function getUserData(userId: string) {
   try {
@@ -16,7 +16,7 @@ export async function getUserData(userId: string) {
       throw new Error(`User with id ${userId} not found`);
     }
 
-    const yearsData = user.years.map(year => ({
+    const yearsData = user.years.map((year) => ({
       year: year.year,
       total: year.total,
       range: {
@@ -25,12 +25,14 @@ export async function getUserData(userId: string) {
       },
     }));
 
-    const contributionsData = user.years.flatMap(year => year.contributions.map(contribution => ({
-      date: contribution.contribution_date,
-      count: contribution.count,
-      color: contribution.color,
-      intensity: contribution.intensity,
-    })));
+    const contributionsData = user.years.flatMap((year) =>
+      year.contributions.map((contribution) => ({
+        date: contribution.contribution_date,
+        count: contribution.count,
+        color: contribution.color,
+        intensity: contribution.intensity,
+      }))
+    );
 
     const userData = {
       years: yearsData,
@@ -39,8 +41,7 @@ export async function getUserData(userId: string) {
 
     return userData;
   } catch (error) {
-    console.error('Error retrieving user data:', error);
+    console.error("Error retrieving user data:", error);
     throw error;
   }
 }
-

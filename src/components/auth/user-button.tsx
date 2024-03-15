@@ -48,9 +48,7 @@ export const UserButton = ({ icon, text }: { icon: React.ReactNode; text: string
       </DropdownMenuTrigger>
       <DropdownMenuContent className=" ml-5 w-44" align="end">
         <LogoutButton>
-          <DropdownMenuItem className=" border-gray-500 border">
-            Click to confirm.
-          </DropdownMenuItem>
+          <DropdownMenuItem className=" border-gray-500 border">Click to confirm.</DropdownMenuItem>
         </LogoutButton>
       </DropdownMenuContent>
     </DropdownMenu>

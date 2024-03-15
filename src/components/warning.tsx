@@ -15,31 +15,17 @@ export default function Warning({
   handleKeepCloudStorage: () => void;
 }) {
   return (
-    <div
-      key="1"
-      className="m-4 flex items-center gap-4 rounded-lg bg-white p-6 shadow-md"
-    >
+    <div key="1" className="m-4 flex items-center gap-4 rounded-lg bg-white p-6 shadow-md">
       <AlertTriangleIcon className="hidden h-6 w-6 text-yellow-500 md:block" />
       <div className="flex-grow">
         <h2 className="text-xl font-bold">Warning</h2>
-        <p>
-          This note was fetched from local storage, it may not be the latest
-          version.
-        </p>
+        <p>This note was fetched from local storage, it may not be the latest version.</p>
       </div>
       <div className="flex flex-col justify-end gap-4 md:flex-row">
-        <Button
-          onClick={handleKeepLocalStorage}
-          className="border-blue-500 text-blue-500"
-          variant="outline"
-        >
+        <Button onClick={handleKeepLocalStorage} className="border-blue-500 text-blue-500" variant="outline">
           Keep Local Storage
         </Button>
-        <Button
-          onClick={handleKeepCloudStorage}
-          className="border-blue-500 text-blue-500"
-          variant="outline"
-        >
+        <Button onClick={handleKeepCloudStorage} className="border-blue-500 text-blue-500" variant="outline">
           Keep Cloud
         </Button>
       </div>

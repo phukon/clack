@@ -1,20 +1,20 @@
 export interface DataStructYear {
-    year: string;
-    total: number;
-    range: {
-        start: string;
-        end: string;
-    };
+  year: string;
+  total: number;
+  range: {
+    start: string;
+    end: string;
+  };
 }
 export interface DataStructContribution {
-    date: string;
-    count: number;
-    color: string;
-    intensity: number;
+  date: string;
+  count: number;
+  color: string;
+  intensity: number;
 }
 export interface DataStruct {
-    years: DataStructYear[];
-    contributions: DataStructContribution[];
+  years: DataStructYear[];
+  contributions: DataStructContribution[];
 }
 
 export type NoteValue = {

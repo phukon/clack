@@ -11,12 +11,12 @@ export const exportContentAsText = (value: JSONContent) => {
   // Recursive function to find text in content
   const findText = (content: JSONContent): string[] => {
     let texts = [];
-  
+
     // Base case: if the node itself is a text node, add its text to the array
-    if (content.type === 'text') {
+    if (content.type === "text") {
       texts.push(content.text ?? "");
     }
-    
+
     // Check if the content has a 'content' property, which indicates further nesting
     if (content.content && Array.isArray(content.content)) {
       for (const child of content.content) {
@@ -24,15 +24,15 @@ export const exportContentAsText = (value: JSONContent) => {
         texts = texts.concat(findText(child));
       }
     }
-    
+
     // Return all found text values
     return texts;
-  }
+  };
 
   // Searching for the text inside the 'paragraph' type
   const contentArray = processedValue.content ?? [];
   const textArray = contentArray.flatMap(findText);
 
   // Skip the first line
-  return textArray
-}
+  return textArray;
+};

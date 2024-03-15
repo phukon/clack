@@ -1,4 +1,4 @@
-import { FaCheck } from 'react-icons/fa6';
+import { FaCheck } from "react-icons/fa6";
 
 interface FormSuccessProps {
   message?: string;

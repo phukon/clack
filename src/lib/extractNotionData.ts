@@ -133,14 +133,14 @@ async function retrieveBlockChildren(id: string) {
 
 const printBlockText = (blocks: any): string[] => {
   console.log("Displaying blocks:");
-  let wordsArr = []
+  let wordsArr = [];
 
   for (let i = 0; i < blocks.length; i++) {
     const text = getTextFromBlock(blocks[i]);
     // Print plain text for each block.
-   wordsArr.push(text)
+    wordsArr.push(text);
   }
-  return wordsArr
+  return wordsArr;
 };
 
 export async function extractNotionData(id: string) {
@@ -156,5 +156,5 @@ export async function extractNotionData(id: string) {
   // });
 
   // console.log(blocks);
-  return printBlockText(blocks)
+  return printBlockText(blocks);
 }

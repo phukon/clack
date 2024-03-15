@@ -22,7 +22,7 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
       </CardHeader>
       <CardContent className="space-y-4">
         <Avatar>
-          <AvatarImage src={user?.image || "/showcase/cat.png"} alt=" profile pic"/>
+          <AvatarImage src={user?.image || "/showcase/cat.png"} alt=" profile pic" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
@@ -44,7 +44,9 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
 
         <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
           <p className="text-sm font-medium">Two Factor Authentication</p>
-          <Badge variant={user?.isTwoFactorEnabled ? "success" : "destructive"}>{user?.isTwoFactorEnabled ? "ON" : "OFF"}</Badge>
+          <Badge variant={user?.isTwoFactorEnabled ? "success" : "destructive"}>
+            {user?.isTwoFactorEnabled ? "ON" : "OFF"}
+          </Badge>
         </div>
       </CardContent>
     </Card>

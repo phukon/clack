@@ -1,7 +1,7 @@
 // 'use server' not making it a server action
-import { currentUser } from '@/lib/auth';
-import { db } from '@/lib/db';
-import { redirect } from 'next/navigation';
+import { currentUser } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { redirect } from "next/navigation";
 
 async function Route() {
   // Generate a 10 digit number
@@ -9,7 +9,7 @@ async function Route() {
   const user = await currentUser();
 
   if (!user) {
-    return 'Unauthorized';
+    return "Unauthorized";
   }
 
   if (user.id) {

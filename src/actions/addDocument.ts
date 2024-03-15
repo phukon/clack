@@ -23,7 +23,7 @@ async function addGoogleDoc(url: string, dbUser: any): Promise<void> {
   const docId = extractDocId(url);
   const response = await fetch(`${process.env.GOOGLE_SCRIPT_URL}?id=${docId}`);
   const { title, wordCount } = await response.json();
-  
+
   if (!wordCount) {
     throw new Error("Unable to retrieve word count from the Google Apps Script.");
   }
@@ -36,11 +36,10 @@ async function addGoogleDoc(url: string, dbUser: any): Promise<void> {
       url: url,
       wordCount: wordCountNumber,
       type: NoteType.GOOGLEDOC,
-      name: title
+      name: title,
     },
   });
 }
-
 
 async function addNotionDoc(url: string, dbUser: any): Promise<void> {
   const extractedId = getIdFromUrl(url);
@@ -59,7 +58,6 @@ async function addNotionDoc(url: string, dbUser: any): Promise<void> {
     },
   });
 }
-
 
 function extractDocId(url: string): string {
   const parts = url.split("/");

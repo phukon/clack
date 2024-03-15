@@ -1,4 +1,4 @@
-import { FaExclamation } from 'react-icons/fa6';
+import { FaExclamation } from "react-icons/fa6";
 
 interface FormErrorProps {
   message?: string;

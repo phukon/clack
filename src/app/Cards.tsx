@@ -1,6 +1,6 @@
-'use client';
-import { motion, Variants } from 'framer-motion';
-import Image from 'next/image';
+"use client";
+import { motion, Variants } from "framer-motion";
+import Image from "next/image";
 
 interface Props {
   emoji: string;
@@ -15,7 +15,7 @@ const cardVariants: Variants = {
     y: -20,
     rotate: 0,
     transition: {
-      type: 'spring',
+      type: "spring",
       bounce: 0.4,
       duration: 1.0,
     },
@@ -34,7 +34,7 @@ function Card({ emoji }: Props) {
       <div className=" flex flex-col md:flex-row justify-between w-full items-center">
         <div className=" max-w-[550px]">
           <span className=" text-2xl md:text-2xl font-extrabold --local-ebgaramond">Build your portfolio</span>
-          <p className=' text-gray-600 text-base max-w-80 md:max-w-60 mt-2'>{emoji}</p>
+          <p className=" text-gray-600 text-base max-w-80 md:max-w-60 mt-2">{emoji}</p>
         </div>
         <motion.div className="card" variants={cardVariants}>
           <Image
@@ -51,9 +51,9 @@ function Card({ emoji }: Props) {
 }
 
 const food: [string][] = [
-  ['Track your workTrack your workTrack your workTrack your work'],
-  ['Track your workTrack your workTrack your workTrack your work'],
-  ['Track your workTrack your workTrack your workTrack your work'],
+  ["Track your workTrack your workTrack your workTrack your work"],
+  ["Track your workTrack your workTrack your workTrack your work"],
+  ["Track your workTrack your workTrack your workTrack your work"],
   [
     "Automatically sync your Google Doc activity, and view your daily writing progress. Don't worry, you can choose to keep this public or private on your page",
   ],
