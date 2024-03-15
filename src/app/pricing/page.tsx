@@ -39,7 +39,7 @@ const tiers: {
     href: "/auth/register",
     price: { monthly: "$0", annually: "$0" },
     description: "The essentials to start tracking your writing habit effortlessly.",
-    features: ["Track your writing activity", "Unlimited Clack documents", "Google Docs integration"],
+    features: ["Encrypted Documents", "Unlimited Clack documents", "Google Docs integration"],
 
     bgColor: "bg-gray-200",
     borderColor: "#bg-gray-800",
