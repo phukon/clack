@@ -41,14 +41,14 @@ export default function Sidebar({
             {expanded ? <ChevronFirst /> : <ChevronLast />}
           </button>
         </div>
-
-        <SidebarContext.Provider value={{ expanded }}>
-          <ul className="flex-1 px-3">{children}</ul>
-        </SidebarContext.Provider>
         <div className={` overflow-hidden transition-all mb-4 px-2 ${expanded ? "max-w-60" : "hidden"}`}>
           {userPlan === "pro" && null}
           {userPlan === "free" && showProBanner ? <ProBanner setShowProBanner={setShowProBanner} /> : null}
         </div>
+        <SidebarContext.Provider value={{ expanded }}>
+          <ul className="flex-1 px-3">{children}</ul>
+        </SidebarContext.Provider>
+
       </nav>
     </aside>
   );

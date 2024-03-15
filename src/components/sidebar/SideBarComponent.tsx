@@ -28,37 +28,35 @@ const SideBarComponent = ({ subscriptionPlan }: SideBarComponentProps) => {
   const userPlan = subscriptionPlan.isSubscribed ? "pro" : "free";
 
   return (
-    <>
-      <Sidebar  userPlan={userPlan} showProBanner={showProBanner} setShowProBanner={setShowProBanner}>
-        <SidebarItem icon={<Layout />} text="Dashboard" active={pathname === "/dash" ? true : false} path="/dash" />
-        <SidebarItem
-          icon={<Activity />}
-          text="Activity"
-          active={pathname === "/dash/activity" ? true : false}
-          path="/dash/activity"
-        />
-        <SidebarItem
-          icon={<User />}
-          text="Profile"
-          active={pathname === "/dash/s-profile" ? true : false}
-          path="/dash/s-profile"
-        />
-        <SidebarItem
-          icon={<ReceiptText />}
-          text="Billing"
-          active={pathname === "/dash/billing" ? true : false}
-          path="/dash/billing"
-        />
-        <SidebarItem
-          icon={<Settings />}
-          text="Settings"
-          active={pathname === "/dash/settings" ? true : false}
-          path="/dash/settings"
-        />
+    <Sidebar userPlan={userPlan} showProBanner={showProBanner} setShowProBanner={setShowProBanner}>
+      <SidebarItem icon={<Layout />} text="Dashboard" active={pathname === "/dash" ? true : false} path="/dash" />
+      <SidebarItem
+        icon={<Activity />}
+        text="Activity"
+        active={pathname === "/dash/activity" ? true : false}
+        path="/dash/activity"
+      />
+      <SidebarItem
+        icon={<User />}
+        text="Profile"
+        active={pathname === "/dash/s-profile" ? true : false}
+        path="/dash/s-profile"
+      />
+      <SidebarItem
+        icon={<ReceiptText />}
+        text="Billing"
+        active={pathname === "/dash/billing" ? true : false}
+        path="/dash/billing"
+      />
+      <SidebarItem
+        icon={<Settings />}
+        text="Settings"
+        active={pathname === "/dash/settings" ? true : false}
+        path="/dash/settings"
+      />
 
-        <UserButton icon={<LogOutIcon />} text="Log out" />
-      </Sidebar>
-    </>
+      <UserButton icon={<LogOutIcon />} text="Log out" />
+    </Sidebar>
   );
 };
 
