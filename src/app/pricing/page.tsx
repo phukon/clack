@@ -51,7 +51,7 @@ const tiers: {
     name: "Pro",
     id: "tier-pro",
     href: "/dash/billing",
-    price: { monthly: "$2", annually: "$20" },
+    price: { monthly: "$4", annually: "$36" },
     description: "The essentials to help track everything.",
     features: [
       "Everything in Free, plus:",

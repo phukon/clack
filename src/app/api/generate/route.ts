@@ -1,17 +1,20 @@
+import { getUserById } from "@/data/user";
+import { currentUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
+
 import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { kv } from "@vercel/kv";
 import { Ratelimit } from "@upstash/ratelimit";
-// import { env } from "@/env";
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-  // baseURL: "https://openrouter.ai/api/v1/",
 });
 
 // IMPORTANT! Set the runtime to edge: https://vercel.com/docs/functions/edge-functions/edge-runtime
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
   if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
@@ -33,6 +36,42 @@ export async function POST(req: Request): Promise<Response> {
         },
       });
     }
+  }
+
+  const user = await currentUser();
+  if (!user) {
+    return new Response("Unauthorized bruh", {
+      status: 200,
+    });
+  }
+
+  if (!user.id) {
+    return new Response("Invalid user ID bruh", {
+      status: 200,
+    });
+  }
+
+  const dbUser = await getUserById(user.id);
+
+  if (!dbUser) {
+    return new Response("Unauthorized", {
+      status: 200,
+    });
+  }
+
+  const subscriptionPlan = await getUserSubscriptionPlan();
+
+  if ("error" in subscriptionPlan) {
+    return new Response("Error getting subscription plan", {
+      status: 200,
+    });
+  }
+
+  const userPlan = subscriptionPlan.isSubscribed ? "pro" : "free";
+  if (userPlan === "free") {
+    return new Response("Upgrade to Clack Pro to use the AI writing assistant ✨", {
+      status: 200,
+    });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

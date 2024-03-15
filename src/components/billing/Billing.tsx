@@ -92,7 +92,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
     {
       id: 2,
       title: "Pro",
-      priceMonthly: "€29/mo",
+      priceMonthly: "$4/mo",
       description: "Everything in Free, plus:",
       currentPlan: plan && plan == "pro" ? true : false,
       hasPlan: plan && plan !== "free" ? true : false,
