@@ -174,7 +174,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
                   ))}
                 </div>
                 <div className="mt-6 flex items-center justify-center gap-x-6">
-                  {tier.id === 1 && <div className="h-10 w-24 animate-pulse rounded-md bg-border" />}
+                  {/* {tier.id === 1 && <div className="h-10 w-24 animate-pulse rounded-md bg-border" />} */}
                   {tier.id === 2 &&
                     (plan ? (
                       tier.hasPlan ? (
