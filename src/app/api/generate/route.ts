@@ -74,7 +74,6 @@ export async function POST(req: Request): Promise<Response> {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { prompt } = await req.json();
 
   const response = await openai.chat.completions.create({
@@ -91,7 +90,6 @@ export async function POST(req: Request): Promise<Response> {
       },
       {
         role: "user",
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         content: prompt,
       },
     ],
