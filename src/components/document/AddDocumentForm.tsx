@@ -52,7 +52,7 @@ export const AddDocumentForm = () => {
   };
 
   return (
-    <CardWrapper headerLabel="" backButtonLabel="Tutorial" backButtonHref="/docs/notion">
+    <CardWrapper headerLabel="" backButtonLabel="Tutorial" backButtonHref="/tutorials">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
           <div className=" space-y-4">

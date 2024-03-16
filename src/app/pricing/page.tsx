@@ -98,7 +98,7 @@ export default function PricingPage() {
             </h1>
             <p className="text-xl mt-8 text-balance max-w-3xl">
               <span className=" --local-comfortaa">Clack</span> is an open-source writing activity tracker that
-              integrates with Google Docs and Notion, and has a built-in rich text editor.
+              integrates with Google Docs and Notion, has an AI writing assistant and a built-in rich text editor.
             </p>
           </div>
         </div>

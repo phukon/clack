@@ -13,6 +13,10 @@ export const publicRoutes = [
   "/privacy",
   "/features",
   "/tos",
+  "/alternatives/quillcap",
+  "/link-google-doc",
+  "/link-notion-page",
+  "/tutorials"
 ];
 
 /**

@@ -10,17 +10,17 @@ import Features from "./Features";
 const Body: React.FC = (): JSX.Element => {
   return (
     <div className="flex flex-col gap-2 pt-5 md:pt-0 md:gap-0">
-      <div className="max-w-screen-2xl mx-auto mt-4 mb-8 md:mb-16 md:my-16 px-4 z-10 relative">
+      <div className="max-w-screen-2xl mx-auto mt-4 mb-8 md:mb-16 md:my-16 px-4 z-30 relative">
         <h1 className="m-0 text-center text-6xl md:text-[80px] font-normal overflow-hidden pb-3 --local-ebgaramond">
           <span className=" ml-4 first:ml-0 inline-block">Track</span>
           <span className=" ml-4 first:ml-0 inline-block">your</span> <br />
           <span className="text-[#1722BE] dark:text-yellow ml-4 first:ml-0 inline-block">writing</span>
           <span className="text-[#1722BE] dark:text-yellow ml-4 first:ml-0 inline-block">progress</span>
-          <span className="text-[#1722BE] dark:text-yellow ml-4 first:ml-0 inline-block  animate-pulse">
+          <span className="text-[#1722BE] dark:text-yellow ml-4 mt-2 md:mt-0 first:ml-0 inline-block  animate-pulse">
             effortlessly
           </span>
         </h1>
-        <h2 className="m-0 text-center text-[18px] xl:text-2xl leading-tight font-normal mt-2 md:px-28 xl:px-96 md:mt-3 text-gray-500 mb-6">
+        <h2 className="m-0 text-center text-[18px] xl:text-2xl leading-tight font-normal mt-5 md:px-28 xl:px-96 md:mt-3 text-gray-500 mb-6">
           Automatically sync your writing activity from Google Docs and Notion, and track your progress on a calendar.
         </h2>
         <div className="flex justify-center items-center mt-11 -mb-11 md:-mb-6 gap-5">
@@ -47,12 +47,24 @@ const Body: React.FC = (): JSX.Element => {
         </div>
       </div>
       <div className="relative max-w-screen hidden z-20 md:hidden lg:block mb-16">
+        <div
+          className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl"
+          aria-hidden="true"
+        >
+          <div
+            className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
+            style={{
+              clipPath:
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+            }}
+          />
+        </div>
         <Gallery />
       </div>
       <div className="md:block lg:hidden relative max-w-screen hidden z-20 mb-16">
         <GallerySmall />
       </div>
-      <span className="md:block mt-60 md:h-96" />
+      <span className="md:block mt-32 md:mt-60 md:h-96" />
       {/* <Cards /> */}
       <Features />
     </div>

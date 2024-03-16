@@ -2,20 +2,20 @@ import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa6";
 
 const navigation = {
   product: [
-    { name: "Google Docs", href: "/guides/googledocs" },
-    { name: "Notion", href: "/guides/notion" },
+    { name: "Google Docs", href: "/link-google-doc" },
+    { name: "Notion", href: "/link-notion-page" },
     { name: "Pricing", href: "/pricing" },
   ],
   resources: [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/tos" },
-    { name: "Guides", href: "/guides" },
+    { name: "Tutorials", href: "/tutorials" },
   ],
   tools: [
     { name: "PostHog", href: "https://posthog.com" },
     { name: "Umami", href: "https://umami.is" },
   ],
-  alternatives: [{ name: "Quillcap", href: "/alternatives/quilllcap" }],
+  alternatives: [{ name: "Quillcap", href: "/alternatives/quillcap" }],
   social: [
     {
       name: "GitHub",

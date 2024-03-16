@@ -33,7 +33,7 @@ export default function ProBanner({
         <span className="sr-only">Close</span>
       </button>
       <div className="flex space-x-2">
-        <span className="font-bold text-sm">✨ Clack Pro ✨</span>
+        <span className="font-bold text-sm">🎉 Clack Pro 🎉</span>
       </div>
       <p className="my-4 text-sm">
         Join the Clack Pro plan to unlock Notion integration, AI writing assistant, and more.

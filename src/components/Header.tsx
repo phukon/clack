@@ -5,8 +5,8 @@ import { Button } from "./ui/button";
 
 const Header: React.FC = (): JSX.Element => {
   return (
-    <header className="z-[23] sticky top-0 bg-white">
-      <div className="border-b border-light dark:border-dark mb-1">
+    <header className="z-[34] sticky top-0 bg-white/75  backdrop-blur-lg">
+      <div className="border-b border-light dark:border-dark">
         <div className="flex mx-auto px-2 md:px-0 mdlg:px-5 justify-items-center transition-all max-w-screen-3xl box-content">
           <div className="flex-1 flex">
             <div className="max-w-[60px] max-h-[60px] flex flex-row align-middle">
