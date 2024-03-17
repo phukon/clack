@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { NotesProvider } from "@/context/NotesContext";
 import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
+import { CSPostHogProvider } from "@/context/CSPostHogProvider";
 
 export const metadata: Metadata = {
   title: "Clack",
@@ -25,17 +26,19 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <NotesProvider>
         <html lang="en">
-          <body className={`${inter.className} ${localComfortaa.variable} ${localEbgaramond.variable}`}>
-            {process.env.NODE_ENV === "production" && (
-              <Script
-                async
-                src="https://analytics.rkph.me/script.js"
-                data-website-id="33d1a924-b267-439a-a436-c87b06326707"
-              />
-            )}
-            <Toaster />
-            {children}
-          </body>
+          <CSPostHogProvider>
+            <body className={`${inter.className} ${localComfortaa.variable} ${localEbgaramond.variable}`}>
+              {process.env.NODE_ENV === "production" && (
+                <Script
+                  async
+                  src="https://analytics.rkph.me/script.js"
+                  data-website-id="33d1a924-b267-439a-a436-c87b06326707"
+                />
+              )}
+              <Toaster />
+              {children}
+            </body>
+          </CSPostHogProvider>
         </html>
       </NotesProvider>
     </SessionProvider>

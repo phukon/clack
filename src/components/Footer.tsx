@@ -24,7 +24,7 @@ const navigation = {
     },
     {
       name: "X / Twitter",
-      href: "https://twitter.com/clackapp",
+      href: "https://twitter.com/kungfukon",
       icon: () => <FaTwitter className="h-5 w-5" aria-hidden="true" />,
     },
   ],
