@@ -75,6 +75,20 @@
   }
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+@layer utilities {
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}
+
 .--local-ebgaramond {
   font-family: var(--local-ebgaramond);
 }

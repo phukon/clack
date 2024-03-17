@@ -27,7 +27,7 @@ export default async function RootLayout({
       <NotesProvider>
         <html lang="en">
           <CSPostHogProvider>
-            <body className={`${inter.className} ${localComfortaa.variable} ${localEbgaramond.variable}`}>
+            <body className={`${inter.className} ${localComfortaa.variable} ${localEbgaramond.variable} scrollbar-hide`}>
               {process.env.NODE_ENV === "production" && (
                 <Script
                   async
