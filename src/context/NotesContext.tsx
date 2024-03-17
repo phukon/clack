@@ -37,22 +37,6 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   const wordCount: number = 0;
   // const [wordCount, setWordCount] = useState<number>(0);
 
-  const fetchLocalStorageData = async () => {
-    const entries = Object.entries(localStorage);
-    const keyVal = entries
-      .map(([key, value]: [key: string, value: string]) => {
-        if (value && key.length === 10 && key.match(/^\d+$/)) {
-          return [key, JSON.parse(value)] as [string, NoteValue];
-        }
-        return undefined;
-      })
-      .filter((kv) => kv !== undefined);
-
-    setKv(keyVal as [string, NoteValue][]);
-
-    return keyVal as [string, NoteValue][];
-  };
-
   const fetchNotionData = async () => {
     try {
       const response = await fetch("/api/notion");
@@ -101,37 +85,33 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Function to combine and set data from both sources
   const combineData = async () => {
-    setLoading(true); // Set loading state to true when data fetching starts
-    const [localData, cloudData, notionData, googleData] = await Promise.all([
-      fetchLocalStorageData(),
+    setLoading(true);
+    const [cloudData, notionData, googleData] = await Promise.all([
       fetchCloudData(),
       fetchNotionData(),
       fetchGoogleData(),
     ]);
-    // Process cloud data to match local data format
+  
     const processedCloudData = cloudData?.map(([key, value]: [key: string, value: NoteValue]) => {
-      const id = key.split("-").pop(); // Extracts the id from [email]-id format
+      const id = key.split("-").pop();
       return [id, value] as [string, NoteValue];
     });
-
-    const newData = [...localData, ...processedCloudData]
-      .filter(([_, value]: [string, NoteValue]) => {
-        return value !== null;
-      })
-      .sort((a, b) => {
-        return Number(b[0]) - Number(a[0]);
-      });
-
-    const uniqueKeys = Array.from(new Set(newData.map(([key, _]) => key)));
-
-    const uniqueData = uniqueKeys.map((key) => {
-      return newData.find(([k, _]) => k === key)!;
-    });
-
-    // Combine and set data
+  
+    // const newData = [...processedCloudData].filter(([_, value]: [string, NoteValue]) => {
+    //   return value !== null;
+    // }).sort((a, b) => {
+    //   return Number(b[0]) - Number(a[0]);
+    // });
+  
+    // const uniqueKeys = Array.from(new Set(newData.map(([key, _]) => key)));
+  
+    // const uniqueData = uniqueKeys.map((key) => {
+    //   return newData.find(([k, _]) => k === key)!;
+    // });
+  
     setNotion(notionData as [string, string][]);
     setGoogle(googleData as [string, string][]);
-    setKv(uniqueData);
+    setKv(processedCloudData);
     setLoading(false);
     return kv;
   };
@@ -143,11 +123,6 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   }, []); // I'm removing the currentuser as a dependency for now. too many api calls!
 
   const deleteNote = async (keyToDelete: string) => {
-    // const newKey = "archived-" + keyToDelete;
-    // const newValue = localStorage.getItem(keyToDelete);
-    localStorage.removeItem(keyToDelete);
-    // localStorage.setItem(newKey, JSON.stringify(newValue));
-
     try {
       await fetch(`/api/note?id=${keyToDelete}`, {
         method: "DELETE",

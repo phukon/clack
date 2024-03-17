@@ -98,6 +98,7 @@ function NovelEditor({ id }: { id: string }) {
           {saveStatus}
         </div>
         <Editor
+        disableLocalStorage={true}
           debounceDuration={3000}
           key={md5Hash}
           defaultValue={data}
