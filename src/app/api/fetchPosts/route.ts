@@ -39,12 +39,14 @@ export async function GET(_: Request): Promise<Response> {
   for (const key in data) {
     if (data.hasOwnProperty(key)) {
       const encryptedValue = data[key];
-      const decryptedValue = decryptData({
-        encryptedData: encryptedValue,
-        enKey: process.env.ENCRYPTION_KEY!,
-        initVector: process.env.INITIALIZATION_VECTOR!,
-      });
-      decryptedValuesArray.push(decryptedValue);
+      if (encryptedValue && typeof encryptedValue === 'string') {
+        const decryptedValue = decryptData({
+          encryptedData: encryptedValue,
+          enKey: process.env.ENCRYPTION_KEY!,
+          initVector: process.env.INITIALIZATION_VECTOR!,
+        });
+        decryptedValuesArray.push(decryptedValue);
+      }
     }
   }
 
