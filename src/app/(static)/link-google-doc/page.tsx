@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Disclosure } from "@headlessui/react";
@@ -14,7 +14,6 @@ import {
   HardDrive as ServerIcon,
 } from "lucide-react";
 import Link from "next/link";
-
 
 const faqs = [
   {
@@ -35,7 +34,7 @@ const faqs = [
 export default function Home() {
   return (
     <div>
-     <Header/>
+      <Header />
 
       <main>
         {/* Hero section */}
@@ -56,15 +55,16 @@ export default function Home() {
             <div className="mx-auto max-w-2xl py-12 sm:py-12 lg:py-32 ">
               <div className="hidden sm:mb-8 sm:flex sm:justify-center">
                 <div className="relative rounded-full px-3 py-1 text-sm leading-6 flex flex-row text-black dark:text-white ring-1 ring-black/10 dark:ring-white/10 hover:ring-white/20">
-                  Clack for Google Docs <RiGoogleFill className=" ml-1 mt-1"/>
+                  Clack for Google Docs <RiGoogleFill className=" ml-1 mt-1" />
                 </div>
               </div>
               <div className="text-center">
-              <h1 className=" tracking-tight text-black dark:text-white sm:text-6xl text-6xl md:text-[80px] font-normal --local-ebgaramond">
+                <h1 className=" tracking-tight text-black dark:text-white sm:text-6xl text-6xl md:text-[80px] font-normal --local-ebgaramond">
                   Link Google Page
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-500">
-                  Enable share in Google Doc settings and add the Doc link in <span className=" --local-comfortaa">Clack</span> dashboard.
+                  Enable share in Google Doc settings and add the Doc link in{" "}
+                  <span className=" --local-comfortaa">Clack</span> dashboard.
                 </p>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
                   <Link
@@ -76,7 +76,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            {/* <div className=" mx-auto w-full max-w-5xl">
+            <div className=" mx-auto w-full max-w-5xl">
               <video
                 width="100%"
                 id="video1"
@@ -87,19 +87,14 @@ export default function Home() {
                 muted
                 loop
               >
-                <source
-                  src="https://dknlay9ljaq1f.cloudfront.net/Clack-notion-video.mp4"
-                  type="video/mp4"
-                />
+                <source src="https://d1g2o751bxy91o.cloudfront.net/ai-autocomp.mp4" type="video/mp4" />
               </video>
-            </div> */}
+            </div>
 
             {/* FAQ section */}
             <div className="mx-auto mt-24 max-w-7xl px-6 sm:mt-32 lg:px-8">
               <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
-                <h2 className="text-2xl font-bold leading-10 tracking-tight text-white">
-                  Frequently asked questions
-                </h2>
+                <h2 className="text-2xl font-bold leading-10 tracking-tight text-white">Frequently asked questions</h2>
                 <dl className="mt-10 space-y-6 divide-y divide-gray-900/10 dark:divide-gray-200/10">
                   {faqs.map((faq) => (
                     <Disclosure as="div" key={faq.question} className="pt-6">
@@ -107,28 +102,18 @@ export default function Home() {
                         <>
                           <dt>
                             <Disclosure.Button className="flex w-full items-start justify-between text-left text-gray-900 dark:text-gray-200">
-                              <span className="text-base font-semibold leading-7">
-                                {faq.question}
-                              </span>
+                              <span className="text-base font-semibold leading-7">{faq.question}</span>
                               <span className="ml-6 flex h-7 items-center">
                                 {open ? (
-                                  <MinusSmallIcon
-                                    className="h-6 w-6"
-                                    aria-hidden="true"
-                                  />
+                                  <MinusSmallIcon className="h-6 w-6" aria-hidden="true" />
                                 ) : (
-                                  <PlusSmallIcon
-                                    className="h-6 w-6"
-                                    aria-hidden="true"
-                                  />
+                                  <PlusSmallIcon className="h-6 w-6" aria-hidden="true" />
                                 )}
                               </span>
                             </Disclosure.Button>
                           </dt>
                           <Disclosure.Panel as="dd" className="mt-2 pr-12">
-                            <p className="text-base leading-7 text-gray-500">
-                              {faq.answer}
-                            </p>
+                            <p className="text-base leading-7 text-gray-500">{faq.answer}</p>
                           </Disclosure.Panel>
                         </>
                       )}

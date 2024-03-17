@@ -3,7 +3,7 @@ import React from "react";
 
 const Card1: React.FC = (): JSX.Element => {
   return (
-    <div className="flex flex-col items-center align-middle mb-8">
+    <div className="flex flex-col md:col-span-1 items-center align-middle mb-8">
       {" "}
       {/* Reduced mb-8 from mb-16 */}
       <div className="relative h-full">

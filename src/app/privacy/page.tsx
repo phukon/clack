@@ -8,7 +8,7 @@ export default function PrivacyPage() {
       <div className="relative pt-36 md:pt-48 pb-14 mx-auto  px-4 lg:px-8 bg-white text-black">
         <article className="prose prose-slate mx-auto">
           <h1>Privacy Policy</h1>
-          <p>Effective date: 20/04/2023</p>
+          <p>Effective date: 17/03/2024</p>
           <h3>1. Introduction</h3>
           <p>
             Welcome to <strong>Clack</strong>.
@@ -383,7 +383,7 @@ export default function PrivacyPage() {
           <h3>20. Contact Us</h3>
           <p>If you have any questions about this Privacy Policy, please contact us:</p>
           <p>By email: support@clack.rkph.me.</p>
-          <p>Last updated: 20/04/2023</p>
+          <p>Last updated: 17/03/2024</p>
         </article>
       </div>
       <Footer />

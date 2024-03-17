@@ -6,6 +6,51 @@ import Gallery, { GallerySmall } from "./Gallery";
 import { LoginButton } from "./auth/login-button";
 // import Link from 'next/link';
 import Features from "./Features";
+import {
+  Plus as PlusSmallIcon,
+  Minus as MinusSmallIcon,
+  Settings as Cog6ToothIcon,
+  Lock as LockClosedIcon,
+  PencilIcon,
+} from "lucide-react";
+import { RiNotionFill, RiGoogleFill } from "react-icons/ri";
+const features = [
+  // {
+  //   name: "Open Source",
+  //   description: "This gives you the freedom to adapt and customize the tool to your specific needs.",
+  //   icon: CloudArrowUpIcon,
+  // },
+  {
+    name: "Secure Document Storage",
+    description: "Your documents are stored encrypted with AES-256-CBC encryption for maximum security.",
+    icon: LockClosedIcon,
+  },
+  {
+    name: "Notion Integration",
+    description: "Seamlessly track with Notion page writing activity.",
+    icon: RiNotionFill,
+  },
+  {
+    name: "Google Integration",
+    description: "Seamlessly track with Google Docs writing activity.",
+    icon: RiGoogleFill,
+  },
+  {
+    name: "Notion-style WYSIWYG editor",
+    description: "Write and format your documents with a modern, intuitive WYSIWYG editor similar to Notion's.",
+    icon: PencilIcon,
+  },
+  {
+    name: "AI-powered",
+    description: "Use AI autocomplete to enhance your writing experience.",
+    icon: Cog6ToothIcon,
+  },
+  // {
+  //   name: "Community Support",
+  //   description: "Being an open-source project, Clack is backed by a community of developers  ",
+  //   icon: ServerIcon,
+  // },
+];
 
 const Body: React.FC = (): JSX.Element => {
   return (
@@ -67,6 +112,25 @@ const Body: React.FC = (): JSX.Element => {
       <span className="md:block mt-32 md:mt-60 md:h-96" />
       {/* <Cards /> */}
       <Features />
+      {/* Feature section */}
+      <div>
+        <div className="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
+          <dl className="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-base leading-7 text-gray-500 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
+            {features.map((feature) => (
+              <div key={feature.name} className="relative pl-9">
+                <dt className="inline font-semibold text-gray-600 dark:text-gray-200">
+                  <feature.icon
+                    className="absolute left-1 top-1 h-5 w-5 text-black dark:text-white"
+                    aria-hidden="true"
+                  />
+                  {feature.name}
+                </dt>{" "}
+                <dd className="inline">{feature.description}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
     </div>
   );
 };

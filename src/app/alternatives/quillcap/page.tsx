@@ -5,17 +5,14 @@ import { Disclosure } from "@headlessui/react";
 import {
   Plus as PlusSmallIcon,
   Minus as MinusSmallIcon,
-  RefreshCw as ArrowPathIcon,
-  GitPullRequestArrow as CloudArrowUpIcon,
   Settings as Cog6ToothIcon,
-  Fingerprint as FingerPrintIcon,
   Lock as LockClosedIcon,
-  HardDrive as ServerIcon,
   PencilIcon,
 } from "lucide-react";
 import { RiNotionFill, RiGoogleFill } from "react-icons/ri";
 import Link from "next/link";
 import { classNames } from "@/lib/utils";
+import { useEffect, useRef } from "react";
 
 const features = [
   // {
@@ -25,27 +22,27 @@ const features = [
   // },
   {
     name: "Secure Document Storage",
-    description: "Clack rich-text documents are stored encrypted with AES-256-CBC.",
+    description: "Your documents are stored encrypted with AES-256-CBC encryption for maximum security.",
     icon: LockClosedIcon,
   },
   {
     name: "Notion Integration",
-    description: "Clack rich-text documents are stored encrypted with AES-256-CBC.",
+    description: "Seamlessly track with Notion page writing activity.",
     icon: RiNotionFill,
   },
   {
     name: "Google Integration",
-    description: "Clack rich-text documents are stored encrypted with AES-256-CBC.",
+    description: "Seamlessly track with Google Docs writing activity.",
     icon: RiGoogleFill,
   },
   {
-    name: "Rich Text Editor",
-    description: "Clack rich-text documents are stored encrypted with AES-256-CBC.",
+    name: "Notion-style WYSIWYG editor",
+    description: "Write and format your documents with a modern, intuitive WYSIWYG editor similar to Notion's.",
     icon: PencilIcon,
   },
   {
     name: "AI-powered",
-    description: "Clack leverages artificial intelligence to enhance your writing experience.",
+    description: "Use AI autocomplete to enhance your writing experience.",
     icon: Cog6ToothIcon,
   },
   // {
@@ -63,8 +60,8 @@ const tiers = [
     priceMonthly: "Quillcap",
     description: "Available Free",
     features: [
-      "❌ Encrypted notes",
-      "❌ In built rich text editor",
+      "❌ Encrypted rich text notes",
+      "❌ Notion-style WYSIWYG editor",
       "❌ Notion integration",
       "❌ AI writing assistant",
     ],
@@ -77,8 +74,8 @@ const tiers = [
     priceMonthly: "Clack",
     description: "Start with free plan",
     features: [
-      "✅ Encrypted notes",
-      "✅ In built rich text editor",
+      "✅ Encrypted rich text notes",
+      "✅ Notion-style WYSIWYG editor",
       "✅ Notion integration",
       "✅ AI writing assistant",
     ],
@@ -103,6 +100,13 @@ const faqs = [
 ];
 
 const Home = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 3.0;
+    }
+  }, []);
   return (
     <div>
       <Header />
@@ -135,6 +139,21 @@ const Home = () => {
                 <p className="mt-6 text-lg leading-8 text-gray-500">
                   Powerful software with Google & Notion integration, encrypted rich text notes and AI writing assistant
                 </p>
+                <div className=" mt-10">
+                  <video
+                  ref={videoRef}
+                    width="100%"
+                    id="video1"
+                    style={{ borderRadius: "6px" }}
+                    aria-hidden="true"
+                    playsInline
+                    autoPlay
+                    muted
+                    loop
+                  >
+                    <source src="https://d1g2o751bxy91o.cloudfront.net/ai-autocomp.mp4" type="video/mp4" />
+                  </video>
+                </div>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
                   <Link
                     className="rounded-md bg-black dark:bg-white px-3.5 py-2.5 text-sm font-semibold text-white dark:text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
@@ -145,7 +164,6 @@ const Home = () => {
                 </div>
               </div>
             </div>
-
             {/* Pricing section */}
             <div className="relative isolate mt-32  px-6 sm:mt-36 lg:px-8">
               <div
@@ -288,7 +306,7 @@ const Home = () => {
             </div>
 
             {/* Testimonial section */}
-            <div className="relative z-10 mt-32 bg-white dark:bg-gray-900 pb-20 sm:mt-56 sm:pb-24 xl:pb-0">
+            {/* <div className="relative z-10 mt-32 bg-white dark:bg-gray-900 pb-20 sm:mt-56 sm:pb-24 xl:pb-0">
               <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
                 <div className="absolute left-[calc(50%-19rem)] top-[calc(50%-36rem)] transform-gpu blur-3xl">
                   <div
@@ -335,7 +353,7 @@ const Home = () => {
                   </figure>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* FAQ section */}
             <div className="mx-auto mt-24 max-w-7xl px-6 sm:mt-32 lg:px-8">
