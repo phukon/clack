@@ -23,13 +23,17 @@ export async function GET(_: Request): Promise<Response> {
     },
   });
 
+  const rawResponse = await getResponse.text();
+  // console.log("Raw Worker Response:", rawResponse);
+
   if (getResponse.status !== 200) {
     return new Response("Failed to get", {
       status: 500,
     });
   }
 
-  const data = await getResponse.json();
+  const data = JSON.parse(rawResponse);
+
 
   const keys = Object.keys(data);
 
@@ -39,7 +43,7 @@ export async function GET(_: Request): Promise<Response> {
   for (const key in data) {
     if (data.hasOwnProperty(key)) {
       const encryptedValue = data[key];
-      if (encryptedValue && typeof encryptedValue === 'string') {
+      if (encryptedValue && typeof encryptedValue === "string") {
         const decryptedValue = decryptData({
           encryptedData: encryptedValue,
           enKey: process.env.ENCRYPTION_KEY!,
