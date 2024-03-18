@@ -111,8 +111,22 @@ async function addContribution() {
     where: { userId: dbUser.id },
   });
 
+/**
+ * HEADS UP!
+ * non-null assertion operator added `dbUser.wordCountRef`
+ * This is a quick work around the O-Auth sign-in.
+ * 
+ * The prisma adaptor for NextAuth autmatically creates a user entry.
+ * So I made the wordCountRef on `USER` optional.
+ * @parentCommit_acb2f5eca8a8f4fe32882adec2b0e2e3e1090ba2
+ * 
+ * Might add a default value of 0 in the future.
+ */
+
+
+
   const totalWordCount = userNotes.reduce((acc, note) => acc + (note.wordCount ?? 0), 0);
-  const intensityLevel = await calculateIntensityLevel(Math.max(totalWordCount - dbUser.wordCountRef, 0));
+  const intensityLevel = await calculateIntensityLevel(Math.max(totalWordCount - dbUser.wordCountRef!, 0));
   const totalContributions = await getTotalContributions(dbUser.id);
 
   const currentYear = new Date().getFullYear();
@@ -133,7 +147,7 @@ async function addContribution() {
         await db.contribution.update({
           where: { id: existingContribution.id },
           data: {
-            count: Math.max(totalWordCount - dbUser.wordCountRef, 0),
+            count: Math.max(totalWordCount - dbUser.wordCountRef!, 0),
             intensity: intensityLevel,
           },
         });
@@ -144,7 +158,7 @@ async function addContribution() {
             yearId: existingYear.id,
             contribution_date: formatDateToISO(new Date()),
             color: "#239a3b",
-            count: Math.max(totalWordCount - dbUser.wordCountRef, 0),
+            count: Math.max(totalWordCount - dbUser.wordCountRef!, 0),
             intensity: intensityLevel,
           },
         });
@@ -170,7 +184,7 @@ async function addContribution() {
           yearId: createdYear.id,
           contribution_date: formatDateToISO(new Date()),
           color: "#239a3b",
-          count: Math.max(totalWordCount - dbUser.wordCountRef, 0),
+          count: Math.max(totalWordCount - dbUser.wordCountRef!, 0),
           intensity: intensityLevel,
         },
       });
