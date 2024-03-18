@@ -17,11 +17,19 @@ import { useState } from "react";
 import { AddDocumentButton } from "@/components/document/AddDocumentButton";
 import { removeDocument } from "@/actions/removeDocument";
 import { useToast } from "@/components/ui/use-toast";
+import { themes } from "@/lib/graph";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const Dash = () => {
   const { toast } = useToast();
   const { kv, deleteNote, notion, setNotion, google, setGoogle, revalidateNotes } = useNotes();
   const [isUpdating, setIsupdating] = useState<boolean>(false);
+
+  const [selectedTheme, setSelectedTheme] = useState<keyof typeof themes>("solarizedDark");
+
+  const handleThemeChange = (value: string) => {
+    setSelectedTheme(value as typeof selectedTheme);
+  };
 
   const onClick = () => {
     setIsupdating(true);
@@ -32,7 +40,29 @@ const Dash = () => {
   return (
     // pt-[calc(10vh)]
     <div className="mb-12 ml-3 p-4 flex min-h-[100svh] flex-col items-center sm:px-5 md:mb-0">
-      <GraphLayout key={isUpdating.toString()} isPreview={true} />
+      <Select onValueChange={(value: string) => handleThemeChange(value)}>
+        <SelectTrigger className=" mb-1 w-[180px]">
+          <SelectValue placeholder="Select Theme" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="solarizedDark">Solarized Dark</SelectItem>
+          <SelectItem value="solarizedLight">Solarized Light</SelectItem>
+          <SelectItem value="standard">Standard</SelectItem>
+          <SelectItem value="classic">Classic</SelectItem>
+          <SelectItem value="githubDark">GitHub Dark</SelectItem>
+          <SelectItem value="halloween">Halloween</SelectItem>
+          <SelectItem value="teal">Teal</SelectItem>
+          <SelectItem value="leftPad">Left Pad</SelectItem>
+          <SelectItem value="dracula">Dracula</SelectItem>
+          <SelectItem value="blue">Blue</SelectItem>
+          <SelectItem value="panda">Panda</SelectItem>
+          <SelectItem value="sunny">Sunny</SelectItem>
+          <SelectItem value="pink">Pink</SelectItem>
+          <SelectItem value="YlGnBu">YlGnBu</SelectItem>
+        </SelectContent>
+      </Select>
+      <GraphLayout key={isUpdating.toString()} isPreview={true} themeName={selectedTheme} />
+
       <div className=" grid md:flex md:flex-row mt-3 gap-2">
         <Button disabled={isUpdating} className=" col-span-1" variant="outline" onClick={onClick}>
           {isUpdating ? (

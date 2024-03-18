@@ -4,17 +4,19 @@ import { drawContributions } from "@/lib/graph";
 import { getUserData } from "./_getData";
 import { DataStruct } from "@/types";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { themes } from "@/lib/graph";
 // import useNotes from '@/context/NotesContext';
 // import { seedUserData } from './_addData';
 // import jsonData from './mock.json';
 
 type GraphProps = {
   isPreview: boolean;
+  themeName: keyof typeof themes
 };
 
 export default function Graph(props: GraphProps) {
   // const {wordCount} = useNotes()
-  const isPreview = props.isPreview;
+  const { isPreview, themeName } = props;
   const canvasRef = useRef(null);
   const [userData, setUserData] = useState<DataStruct>();
   const currentYear = new Date().getFullYear();
@@ -48,12 +50,12 @@ export default function Graph(props: GraphProps) {
       drawContributions(canvasRef.current, {
         data: isPreview ? filteredData : userData,
         username: username ?? "", // Provide a default value for username
-        themeName: "solarizedDark",
+        themeName: themeName, 
         footerText: "Clack ©2024",
         wordCount: 0, // might use later
       });
     }
-  }, [userData, username, currentYear, isPreview]);
+  }, [userData, username, currentYear, isPreview, themeName]);
 
   // const handlePostClick = () => {
   //   seedUserData(userId);
