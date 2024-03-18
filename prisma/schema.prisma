@@ -85,7 +85,7 @@ model User {
   years                 Year[]
   contributions         Contribution[]
   notes                 Note[]
-  wordCountRef          Int
+  wordCountRef          Int?
 
   // Payments
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")

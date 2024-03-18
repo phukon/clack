@@ -6,6 +6,7 @@ import { getUserById } from "./data/user";
 import { UserRole } from "@prisma/client";
 import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation";
 import { getAccountByUserId } from "./data/account";
+import { formatDateToISO } from "./lib/formatDateToISO";
 
 // the jwt token is used to generate a token
 export const {
@@ -23,7 +24,29 @@ export const {
     async linkAccount({ user }) {
       await db.user.update({
         where: { id: user.id },
-        data: { emailVerified: new Date() },
+        data: { emailVerified: new Date(), wordCountRef: 0 },
+      });
+
+      const currentYear = new Date().getFullYear();
+      const createdYear = await db.year.create({
+        data: {
+          userId: user.id!,
+          year: currentYear.toString(),
+          total: 0,
+          start_date: new Date(currentYear, 0, 1),
+          end_date: new Date(currentYear + 1, 0, 0),
+        },
+      });
+
+      await db.contribution.create({
+        data: {
+          userId: user.id!,
+          yearId: createdYear.id,
+          contribution_date: formatDateToISO(new Date()),
+          color: "#239a3b",
+          count: 0,
+          intensity: 0,
+        },
       });
     },
   },
