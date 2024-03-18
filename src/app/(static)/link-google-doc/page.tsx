@@ -60,7 +60,7 @@ export default function Home() {
               </div>
               <div className="text-center">
                 <h1 className=" tracking-tight text-black dark:text-white sm:text-6xl text-6xl md:text-[80px] font-normal --local-ebgaramond">
-                  Link Google Page
+                  Link Google Doc
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-500">
                   Enable share in Google Doc settings and add the Doc link in{" "}

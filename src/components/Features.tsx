@@ -3,14 +3,24 @@ import Image from "next/image";
 
 const featureList = [
   {
-    isVideo: true,
-    blobUrl: "https://d1g2o751bxy91o.cloudfront.net/ai-autocomp.mp4",
-    name: "AI Autocomplete",
-    desc: "Autocomplete will write alongside you to beat writer&apos;s block whenever you need a helping hand",
+    isVideo: false,
+    blobUrl: "/showcase/f1.png",
+    name: "Keep Unlimited Docs",
+    desc: "Enjoy unlimited document storage and accessibility without constraints.",
   },
-  { isVideo: false, blobUrl: "/showcase/cat.png", name: "FX2", desc: "desc2 desc2 desc2 desc2 desc2 desc2 " },
-  { isVideo: false, blobUrl: "/showcase/plant.png", name: "desc2 ", desc: "desc2 desc2 desc2 desc2 desc2 desc2 " },
-  { isVideo: false, blobUrl: "/showcase/plant.png", name: "desc2 ", desc: "desc2 desc2 desc2 desc2 desc2 desc2 " },
+  {
+    isVideo: false,
+    blobUrl: "/showcase/f2.png",
+    name: "Everything at a Glance",
+    desc: "Gain valuable insights and easily track your progress, and trends, all in one place.",
+  },
+  {
+    isVideo: false,
+    blobUrl: "/showcase/f4.png",
+    name: "Notion-Style Editor",
+    desc: "Experience the familiar and intuitive editing interface of Notion with our stylish editor.",
+  },
+  { isVideo: false, blobUrl: "/showcase/f3.png", name: "Multiple Heatmap Themes", desc: "Choose the heatmap theme that resonates with your style." },
 ];
 
 const Features = () => {
@@ -56,7 +66,7 @@ const Features = () => {
               }}
               data-framer-component-type="RichTextContainer"
             >
-              <h2 className="--local-ebgaramond text-[40px] md:text-[54px]">Write, cite, and edit</h2>
+              <h2 className="--local-ebgaramond text-[40px] md:text-[54px]">Sync, Think, and Shine</h2>
             </div>
           </div>
           <div
@@ -76,21 +86,34 @@ const Features = () => {
             </p>
           </div>
         </div>
+        <div className="relative max-w-[900px] overflow-hidden pt-16">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <video
+              width="100%"
+              id="video1"
+              style={{ borderRadius: "6px" }}
+              aria-hidden="true"
+              playsInline
+              autoPlay
+              muted
+              loop
+            >
+              <source src="https://d1g2o751bxy91o.cloudfront.net/editor-demo.mp4" type="video/mp4" />
+            </video>
+            {/* <img
+              src="/showcase/cat.png"
+              alt="App screenshot"
+              className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
+              width={2432}
+              height={1442}
+            /> */}
+            <div className="relative" aria-hidden="true">
+              <div className="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-black pt-[7%]" />
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="relative overflow-hidden pt-16">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                  <img
-                    src="/showcase/cat.png"
-                    alt="App screenshot"
-                    className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
-                    width={2432}
-                    height={1442}
-                  />
-                  <div className="relative" aria-hidden="true">
-                    <div className="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-black pt-[7%]" />
-                  </div>
-                </div>
-                </div>
+
       <div className="mx-auto mt-5 grid max-w-lg grid-cols-1 gap-x-6 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
         {featureList.map((f, i) => (
           <div key={i} className="mx-auto max-w-7xl px-6 mt-16 lg:px-8">

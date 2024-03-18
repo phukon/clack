@@ -123,7 +123,7 @@ export default function Gallery() {
           width={300}
           height={580}
           rotate={0}
-          left={-86}
+          left={-36}
           index={1}
         />
         <Photo
@@ -133,7 +133,7 @@ export default function Gallery() {
           width={300}
           height={580}
           rotate={0}
-          left={188}
+          left={248}
           index={2}
           flipDirection="left"
         />
@@ -144,7 +144,7 @@ export default function Gallery() {
           width={300}
           height={580}
           rotate={0}
-          left={463}
+          left={503}
           index={3}
         />
       </section>
