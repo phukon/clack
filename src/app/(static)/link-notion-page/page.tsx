@@ -69,7 +69,7 @@ export default function Home() {
                 <div className="mt-10 flex items-center justify-center gap-x-6">
                   <Link
                     className="rounded-md bg-black dark:bg-white px-3.5 py-2.5 text-sm font-semibold text-white dark:text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-                    href="/login"
+                    href="/dash"
                   >
                     Link now
                   </Link>

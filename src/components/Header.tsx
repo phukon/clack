@@ -18,7 +18,7 @@ const Header: React.FC = (): JSX.Element => {
             </Link>
           </div>
           <ul className="md:flex hidden list-none m-0 p-0">
-            <li className="h-full">
+            {/* <li className="h-full">
               <UpgradePlanModal clickedPlan={"Pro"} trigger={"pro_banner"}>
                 <Button
                   type="button"
@@ -27,7 +27,7 @@ const Header: React.FC = (): JSX.Element => {
                   Features
                 </Button>
               </UpgradePlanModal>
-            </li>
+            </li> */}
             <li className="h-full">
               <Link
                 rel="noopener noreferrer"
@@ -67,7 +67,9 @@ const Header: React.FC = (): JSX.Element => {
             </span> */}
             <span className="group/parent relative text-primary dark:text-primary-dark flex flex-row gap-4">
               <Link href="/auth/login">
-                <Button className="my-1 p-2 min-w-[80px] rounded-lg hover:bg-border dark:hover:bg-border-dark mr-2">Login</Button>
+                <Button className="my-1 p-2 min-w-[80px] rounded-lg hover:bg-border dark:hover:bg-border-dark mr-2">
+                  Login
+                </Button>
               </Link>
             </span>
           </div>
