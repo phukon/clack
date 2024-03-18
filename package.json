@@ -14,6 +14,7 @@
     "@auth/prisma-adapter": "^1.3.3",
     "@headlessui/react": "^1.7.18",
     "@hookform/resolvers": "^3.3.4",
+    "@lemonsqueezy/lemonsqueezy.js": "^2.2.0",
     "@notionhq/client": "^2.2.14",
     "@prisma/client": "^5.9.1",
     "@radix-ui/react-avatar": "^1.0.4",
