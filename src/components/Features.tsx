@@ -77,6 +77,20 @@ const Features = () => {
           </div>
         </div>
       </div>
+      <div className="relative overflow-hidden pt-16">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                  <img
+                    src="/showcase/cat.png"
+                    alt="App screenshot"
+                    className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
+                    width={2432}
+                    height={1442}
+                  />
+                  <div className="relative" aria-hidden="true">
+                    <div className="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-black pt-[7%]" />
+                  </div>
+                </div>
+                </div>
       <div className="mx-auto mt-5 grid max-w-lg grid-cols-1 gap-x-6 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
         {featureList.map((f, i) => (
           <div key={i} className="mx-auto max-w-7xl px-6 mt-16 lg:px-8">

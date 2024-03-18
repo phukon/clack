@@ -34,5 +34,5 @@ export const exportContentAsText = (value: JSONContent) => {
   const textArray = contentArray.flatMap(findText);
 
   // Skip the first line
-  return textArray;
+  return textArray // textArray.slice(1).join("\n");
 };

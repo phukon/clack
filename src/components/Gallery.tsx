@@ -6,15 +6,15 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import localFont from "next/font/local";
 
-import lirmen from "/public/showcase/1.png";
-import meJanlem from "/public/showcase/2.png";
-import iitghy from "/public/showcase/3.png";
-import nr from "/public/showcase/1.png";
+import ps1 from "/public/showcase/1.png";
+import ps2 from "/public/showcase/2.png";
+import ps3 from "/public/showcase/3.png";
+// import nr from "/public/showcase/1.png";
 
 import Halo from "@/components/ui/Halo";
 
 const ticketingFont = localFont({
-  src: "../../public/ticketing.woff2",
+  src: "../fonts/Comfortaa-VariableFont_wght.ttf",
   display: "swap",
 });
 
@@ -34,7 +34,7 @@ type PhotoProps = {
 
 function Photo({ src, alt, filename, width, height, rotate, left, index, flipDirection, meta, children }: PhotoProps) {
   const fileName = filename || (typeof src !== "string" && `${src.src.split("/").at(-1)?.split(".")[0]}.jpg`);
-  const shared = "absolute h-full w-full rounded-2xl overflow-hidden border-2 border-gray-400";
+  const shared = "absolute h-full w-full rounded-2xl overflow-hidden border-2 border-gray-800";
   return (
     <motion.div
       className={`absolute mx-auto cursor-grab hover:before:absolute hover:before:-left-7 hover:before:-top-8 hover:before:block hover:before:h-[300px] hover:before:w-[calc(100%+55px)]`}
@@ -51,7 +51,7 @@ function Photo({ src, alt, filename, width, height, rotate, left, index, flipDir
         default: {
           type: "spring",
           bounce: 0.2,
-          duration: index === 1 ? 0.8 : index === 2 ? 0.85 : index === 3 ? 0.9 : 1,
+          duration: index === 1 ? 1.8 : index === 2 ? 1.85 : index === 3 ? 0.9 : 2,
           delay: index * 0.15,
         },
         opacity: {
@@ -98,10 +98,10 @@ function Photo({ src, alt, filename, width, height, rotate, left, index, flipDir
           }}
         >
           <Halo strength={50} className="flex items-center">
-            <span className="absolute h-[500px] w-[500px] rotate-[-20deg] bg-[length:280px] bg-repeat" />
+          <span className="absolute h-[1500px] w-[1500px] bg-gray-950 bg-[length:280px]" />
             <div className="z-[1] px-6">
               <div className={clsx(ticketingFont.className, "flex flex-col gap-1 uppercase")}>
-                <p className="text-sm text-secondary">{fileName}</p>
+                <p className="text-sm text-white">{fileName}</p>
                 {meta && <p className="text-sm text-secondary">{meta}</p>}
               </div>
             </div>
@@ -117,32 +117,32 @@ export default function Gallery() {
     <>
       <section className="absolute left-0 lg:left-48 xl:left-80 2xl:left-96 flex h-[268px] gap-4">
         <Photo
-          src={meJanlem}
-          meta="Track your progress"
+          src={ps2}
+          filename="Neat and clean UI"
           alt="Track your progress"
           width={300}
-          height={500}
+          height={580}
           rotate={0}
           left={-86}
           index={1}
         />
         <Photo
-          src={iitghy}
-          meta="2022-04-07"
-          alt="Dirang Valley, Arunchal Pradesh"
+     filename="Multiple heatmap themes to choose from!"
+          src={ps3}
+          alt="ps2"
           width={300}
-          height={500}
+          height={580}
           rotate={0}
           left={188}
           index={2}
           flipDirection="left"
         />
         <Photo
-          src={lirmen}
-          meta="2020-09-20"
-          alt="Lirmen, Nagaland"
+           filename="Everything at a glance"
+          src={ps1}
+          alt="ps3"
           width={300}
-          height={500}
+          height={580}
           rotate={0}
           left={463}
           index={3}
@@ -157,7 +157,7 @@ export function GallerySmall() {
     <>
       <section className="absolute left-0 lg:left-48 xl:left-80 2xl:left-96 flex h-[268px] gap-4">
         <Photo
-          src={meJanlem}
+          src={ps2}
           meta="Track your progress"
           alt="Track your progress"
           width={200}
@@ -167,9 +167,9 @@ export function GallerySmall() {
           index={1}
         />
         <Photo
-          src={iitghy}
-          meta="2022-04-07"
-          alt="Dirang Valley, Arunchal Pradesh"
+          src={ps3}
+          meta="2024-03-07"
+          alt="ps2"
           width={200}
           height={400}
           rotate={0}
@@ -178,9 +178,9 @@ export function GallerySmall() {
           flipDirection="left"
         />
         <Photo
-          src={lirmen}
-          meta="2020-09-20"
-          alt="Lirmen, Nagaland"
+          src={ps1}
+          meta="2024-03-20"
+          alt="ps3"
           width={200}
           height={400}
           rotate={0}
@@ -188,9 +188,9 @@ export function GallerySmall() {
           index={3}
         />
         {/* <Photo
-          src={lirmen}
-          meta="2020-09-20"
-          alt="Lirmen, Nagaland"
+          src={ps1}
+          meta="2024-03-20"
+          alt="ps3"
           width={200}
           height={400}
           rotate={0}

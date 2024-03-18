@@ -15,6 +15,7 @@ export async function seedUserData(userId: string) {
 
     // Iterate over each year in the JSON data
     for (const yearData of jsonData.years) {
+      console.log("ping")
       const existingYear = existingUser.years.find((year) => year.year === yearData.year);
       if (existingYear) {
         // Update the existing year
