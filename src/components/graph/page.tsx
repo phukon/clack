@@ -5,13 +5,14 @@ import { getUserData } from "./_getData";
 import { DataStruct } from "@/types";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { themes } from "@/lib/graph";
+import { toast } from "../ui/use-toast";
 // import useNotes from '@/context/NotesContext';
 // import { seedUserData } from './_addData';
 // import jsonData from './mock.json';
 
 type GraphProps = {
   isPreview: boolean;
-  themeName: keyof typeof themes
+  themeName: keyof typeof themes;
 };
 
 export default function Graph(props: GraphProps) {
@@ -42,7 +43,9 @@ export default function Graph(props: GraphProps) {
 
   useEffect(() => {
     if (canvasRef.current && userData) {
-      const filteredYears: any = userData.years.filter((year) => year.year === currentYear.toString());
+      const filteredYears: any = userData.years.filter(
+        (year) => year.year === currentYear.toString()
+      );
       const filteredData = {
         years: filteredYears,
         contributions: userData.contributions,
@@ -50,7 +53,7 @@ export default function Graph(props: GraphProps) {
       drawContributions(canvasRef.current, {
         data: isPreview ? filteredData : userData,
         username: username ?? "", // Provide a default value for username
-        themeName: themeName, 
+        themeName: themeName,
         footerText: "Clack ©2024",
         wordCount: 0, // might use later
       });
@@ -62,8 +65,25 @@ export default function Graph(props: GraphProps) {
   // };
 
   return (
-    <div className="border-gray-200 border-2 max-w-[325px] md:max-w-full px-1 md:p-10" style={{ overflowX: "auto" }}>
+    <div
+      className="border-gray-200 border-2 max-w-[325px] md:max-w-full px-1 md:p-10"
+      style={{ overflowX: "auto" }}
+    >
       {/* <button onClick={handlePostClick}>POST Data</button> */}
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_APP_URL}/embed/${user?.id}`);
+          toast({
+            title: "🎊 Copied embed link to clipboard! 🎊",
+            description:
+              "You can use this widget in your Notion pages!",
+            variant:"success",
+          });
+        }}
+        className=" border-2 text-gray-500 border-gray-300 px-2 rounded-md"
+      >
+        copy 🔗
+      </button>
       <canvas className="max-w-none md:w-full h-auto" ref={canvasRef}></canvas>
     </div>
   );

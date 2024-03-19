@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { DataStruct } from "@/types";
 import { getUserData } from "@/components/graph/_getData";
-import { getUserById } from "@/data/user";
+// import { getUserById } from "@/data/user";
 import { drawContributions } from "@/lib/graph";
 
 type GraphProps = {
