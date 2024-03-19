@@ -10,6 +10,7 @@ export const publicRoutes = [
   "/api/webhooks/stripe",
   "/pricing",
   "/docs",
+  "/feedback",
   "/privacy",
   "/features",
   "/tos",

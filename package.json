@@ -25,6 +25,7 @@
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-toast": "^1.1.5",
     "@react-email/components": "^0.0.15",
+    "@tiptap/core": "^2.2.4",
     "@types/uuid": "^9.0.8",
     "@upstash/ratelimit": "^1.0.1",
     "@vercel/kv": "^1.0.1",
