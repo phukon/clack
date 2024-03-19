@@ -16,7 +16,8 @@ export const publicRoutes = [
   "/tos",
   "/link-google-doc",
   "/link-notion-page",
-  "/tutorials"
+  "/tutorials",
+  "/userDetails"
 ];
 
 /**
@@ -25,6 +26,9 @@ export const publicRoutes = [
  * @type {string[]}
  */
 export const authRoutes = ["/auth/login", "/auth/register", "/auth/error", "/auth/reset", "/auth/new-password"];
+
+
+export const embedPrefix = "/embed";
 
 /**
  * The prefix for API authentication routes.

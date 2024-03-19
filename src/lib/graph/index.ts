@@ -227,7 +227,7 @@ function drawMetaData(ctx: CanvasRenderingContext2D, opts: DrawMetadataOptions) 
   ctx.fillStyle = theme.text;
   ctx.textBaseline = "hanging";
   ctx.font = `20px '${fontFace}'`;
-  ctx.fillText(`@${username}`, canvasMargin, canvasMargin);
+  ctx.fillText(`${username}`, canvasMargin, canvasMargin);
 
   // let totalContributions = opts.wordCount
   // for (const year of data.years) {

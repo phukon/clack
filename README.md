@@ -1,3 +1,7 @@
+### Nuances
+- Always use `finally` in async worksloads if a UI state depends on it!!. Otherwise, the UI will forever be stuck and never update after the async work is done.
+
+
 ### Cron Job
 - A vercel cronjob triggers at 0000hrs UTC to set the word-count reference.
 - A second cronjob from an EC2 instance triggers at 0530hrs IST or 0000hrs UTC for redundancy.

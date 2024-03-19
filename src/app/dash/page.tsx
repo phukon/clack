@@ -18,7 +18,13 @@ import { AddDocumentButton } from "@/components/document/AddDocumentButton";
 import { removeDocument } from "@/actions/removeDocument";
 import { useToast } from "@/components/ui/use-toast";
 import { themes } from "@/lib/graph";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Dash = () => {
   const { toast } = useToast();
@@ -35,7 +41,18 @@ const Dash = () => {
     setIsupdating(true);
     addContribution()
       .then(() => setIsupdating(false))
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        toast({
+          title: "Couldn't perform an update!",
+          description:
+            "Did you recently delete documents before unlinking them? Check console for more info.",
+          variant: "destructive",
+        });
+      })
+      .finally(() => {
+        setIsupdating(false);
+      });
   };
   return (
     // pt-[calc(10vh)]
@@ -142,7 +159,11 @@ const Dash = () => {
           <div className="mt-8 md:px-12 ">
             <div className="grid grid-cols-1 md:grid-cols-3 md:gap-y-8 gap-4 mt-4">
               {kv.map(([key, value]: [string, Value]) => (
-                <Link key={key} href={`/note?id=${key}`} className="rounded-md p-2 group  col-span-1">
+                <Link
+                  key={key}
+                  href={`/note?id=${key}`}
+                  className="rounded-md p-2 group  col-span-1"
+                >
                   <Card className="group-hover:scale-105 duration-150 ease-out ">
                     <CardHeader className="rounded-t-lg bg-gray-300 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
                       <CardTitle className="text-sm font-semibold">
