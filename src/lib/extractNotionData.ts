@@ -1,8 +1,4 @@
 import { Client, iteratePaginatedAPI } from "@notionhq/client";
-import { config } from "dotenv";
-import fs from "fs";
-
-config();
 
 const apiKey = process.env.NOTION_API_KEY;
 
