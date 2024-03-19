@@ -15,7 +15,7 @@ const navigation = {
     { name: "PostHog", href: "https://posthog.com" },
     { name: "Umami", href: "https://umami.is" },
   ],
-  alternatives: [{ name: "Quillcap", href: "/alternatives/quillcap" }],
+  blog: [{ name: "Blog", href: "/tutorials" }],
   social: [
     {
       name: "GitHub",
@@ -96,9 +96,9 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="font-semibold leading-6 text-black">Alternatives</h3>
+                <h3 className="font-semibold leading-6 text-black">Blog</h3>
                 <ul role="list" className="mt-6 space-y-4">
-                  {navigation.alternatives.map((item) => (
+                  {navigation.blog.map((item) => (
                     <li key={item.name}>
                       <a href={item.href} className="leading-6 text-gray-500 hover:text-black">
                         {item.name}

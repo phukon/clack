@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import VerificationMail from "@/components/email/VerificationMail";
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -10,7 +11,8 @@ export const sendVerificationEmail = async (email: string, token: string) => {
     from: "Clack <mail@clack.rkph.me>",
     to: email,
     subject: "Confirm your email",
-    html: `<p>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
+    // html: `<p>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
+    react: <VerificationMail confirmLink={confirmLink} />,
   });
 };
 

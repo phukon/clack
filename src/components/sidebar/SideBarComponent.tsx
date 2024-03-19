@@ -36,12 +36,12 @@ const SideBarComponent = ({ subscriptionPlan }: SideBarComponentProps) => {
         active={pathname === "/dash/activity" ? true : false}
         path="/dash/activity"
       />
-      <SidebarItem
+      {/* <SidebarItem
         icon={<User />}
         text="Profile"
         active={pathname === "/dash/s-profile" ? true : false}
         path="/dash/s-profile"
-      />
+      /> */}
       <SidebarItem
         icon={<ReceiptText />}
         text="Billing"
