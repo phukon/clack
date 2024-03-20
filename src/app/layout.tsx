@@ -13,6 +13,15 @@ import { CSPostHogProvider } from "@/context/CSPostHogProvider";
 export const metadata: Metadata = {
   title: "Clack",
   description: "Track your writing progress effortlessly",
+  metadataBase: new URL('https://clack.rkph.me'),
+  openGraph: {
+    images: [
+      {
+        url: "https://rkph.me/api/og?title=Sync,%20Think,%20and%20Shine&image=/og.png",
+        alt: "clack.rkph.me"
+      },
+    ]
+  }
 };
 
 export default async function RootLayout({

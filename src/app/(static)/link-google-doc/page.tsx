@@ -6,12 +6,6 @@ import { RiGoogleFill } from "react-icons/ri";
 import {
   Plus as PlusSmallIcon,
   Minus as MinusSmallIcon,
-  RefreshCw as ArrowPathIcon,
-  GitPullRequestArrow as CloudArrowUpIcon,
-  Settings as Cog6ToothIcon,
-  Fingerprint as FingerPrintIcon,
-  Lock as LockClosedIcon,
-  HardDrive as ServerIcon,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -60,7 +54,7 @@ export default function Home() {
               </div>
               <div className="text-center">
                 <h1 className=" tracking-tight text-black dark:text-white sm:text-6xl text-6xl md:text-[80px] font-normal --local-ebgaramond">
-                  Link Google Doc
+                  Link a Google Doc
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-500">
                   Enable share in Google Doc settings and add the Doc link in{" "}

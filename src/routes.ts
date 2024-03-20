@@ -17,7 +17,8 @@ export const publicRoutes = [
   "/link-google-doc",
   "/link-notion-page",
   "/tutorials",
-  "/userDetails"
+  "/userDetails",
+  "/api/og"
 ];
 
 /**

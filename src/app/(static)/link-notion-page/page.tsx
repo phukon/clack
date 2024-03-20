@@ -61,7 +61,7 @@ export default function Home() {
               </div>
               <div className="text-center">
               <h1 className=" tracking-tight text-black dark:text-white sm:text-6xl text-6xl md:text-[80px] font-normal --local-ebgaramond">
-                  Link Notion Page
+                  Link a Notion Page
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-500">
                   Connect the Clack integration Notion and add the page link in <span className=" --local-comfortaa">Clack</span> dashboard.
