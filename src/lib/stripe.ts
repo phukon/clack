@@ -3,10 +3,15 @@ import { PLANS } from "@/config/stripePlans";
 import { db } from "./db";
 import { currentUser } from "./auth";
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2023-10-16",
-  typescript: true,
-});
+export const stripe = new Stripe(
+  process.env.STRIPE_ENV === "TEST"
+    ? process.env.STRIPE_SECRET_KEY_TEST!
+    : process.env.STRIPE_SECRET_KEY_PROD!,
+  {
+    apiVersion: "2023-10-16",
+    typescript: true,
+  }
+);
 
 export async function getUserSubscriptionPlan() {
   const user = await currentUser();
@@ -48,7 +53,7 @@ export async function getUserSubscriptionPlan() {
   const plan = isSubscribed
     ? PLANS.find(
         (plan) =>
-          plan.price.monthly.priceIds[process.env.STRIPE_ENV === "PROD" ? "production" : "test"] ===
+          plan.price.onetime.priceIds[process.env.STRIPE_ENV === "PROD" ? "production" : "test"] ===
           dbUser.stripePriceId
       )
     : null;
@@ -67,4 +72,27 @@ export async function getUserSubscriptionPlan() {
     isSubscribed,
     isCanceled,
   };
+}
+
+// For one time payments
+export async function getUserPaymentStatus() {
+  const user = await currentUser();
+
+  if (!user) {
+    return { error: "Unauthorized" };
+  }
+
+  const dbUser = await db.user.findFirst({
+    where: {
+      id: user.id,
+    },
+  });
+
+  if (!dbUser) {
+    return false;
+  }
+
+  const isSubscribed = Boolean(dbUser.stripeCustomerId && dbUser.stripePaymentIntentId);
+
+  return isSubscribed;
 }

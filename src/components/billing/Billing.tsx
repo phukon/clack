@@ -1,6 +1,6 @@
 "use client";
 
-import { getUserSubscriptionPlan } from "@/lib/stripe";
+// import { getUserSubscriptionPlan } from "@/lib/stripe";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
@@ -10,13 +10,15 @@ import { UpgradePlanModal } from "./upgrade-plan-modal";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import Link from "next/link";
-import { createStripeSession } from "@/actions/createStripeSession";
+// import Link from "next/link";
+// import { createStripeSession } from "@/actions/createStripeSession";
+import { createStripePayIntentSession } from "@/actions/createStripePayIntentSession";
 import { toast } from "../ui/use-toast";
+import { getUserPaymentStatus } from "@/lib/stripe";
 
-interface BillingFormProps {
-  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
-}
+// interface BillingFormProps {
+//   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
+// }
 
 interface Tier {
   id: number;
@@ -29,21 +31,24 @@ interface Tier {
   features: string[];
 }
 
-const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
-  const [clicked, setClicked] = useState<boolean>(false);
-  if ("error" in subscriptionPlan) {
-    return (
-      <div>
-        <p>Error: {subscriptionPlan.error}</p>
-      </div>
-    );
-  }
 
-  const plan: "pro" | "free" = subscriptionPlan.isSubscribed ? "pro" : "free";
+const BillingForm = ({ isPaidUser }: {isPaidUser: Awaited<ReturnType<typeof getUserPaymentStatus>>}) => {
+  const [clicked, setClicked] = useState<boolean>(false);
+  // if ("error" in subscriptionPlan) {
+  //   return (
+  //     <div>
+  //       <p>Error: {subscriptionPlan.error}</p>
+  //     </div>
+  //   );
+  // }
+
+  // const plan: "pro" | "free" = subscriptionPlan.isSubscribed ? "pro" : "free";
+  const plan: "pro" | "free" = isPaidUser ? "pro" : "free";
+  // console.log(isPaidUser)
 
   const handleSubmit = async () => {
     setClicked(true);
-    createStripeSession({ period: "monthly" })
+    createStripePayIntentSession({ period: "onetime" })
       .then((response) => {
         if (response.error) {
           console.error("Error creating Stripe session:", response.error);
@@ -83,7 +88,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
     {
       id: 1,
       title: "Free",
-      priceMonthly: "€0/mo",
+      priceMonthly: "₹0",
       description: "What's included:",
       currentPlan: plan && plan == "free" ? true : false,
       hasPlan: false,
@@ -92,7 +97,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
     {
       id: 2,
       title: "Pro",
-      priceMonthly: "$4/mo",
+      priceMonthly: "₹299 ($3.59)",
       description: "Everything in Free, plus:",
       currentPlan: plan && plan == "pro" ? true : false,
       hasPlan: plan && plan !== "free" ? true : false,
@@ -100,7 +105,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
         "Unlimited Clack, Notion & Google documents",
         "Notion Integration",
         "Notion Widgets",
-        "6 heatmap themes",
+        "14 heatmap themes",
         "AI Document Assistant incl. 1000 credits",
       ],
     },
@@ -112,9 +117,9 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
       <MaxWidthWrapper className="max-w-5xl">
         <Card>
           <CardHeader>
-            <CardTitle>Subscription Plan</CardTitle>
+            <CardTitle>Plan</CardTitle>
             <CardDescription>
-              You are currently on the <strong>{subscriptionPlan.name ?? "Free"}</strong> plan.
+              You are currently on the <strong>{isPaidUser ? "Pro" : "Free"}</strong> plan.
             </CardDescription>
           </CardHeader>
 
@@ -125,12 +130,14 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
               </Button>
             </UpgradePlanModal> */}
 
-            {subscriptionPlan.isSubscribed ? (
+            {/* {subscriptionPlan.isSubscribed ? (
               <p className="rounded-full text-xs font-medium">
-                {subscriptionPlan.isCanceled ? "Your plan will be canceled on " : "Your plan renews on "}
+                {subscriptionPlan.isCanceled
+                  ? "Your plan will be canceled on "
+                  : "Your plan renews on "}
                 {format(subscriptionPlan.stripeCurrentPeriodEnd!, "dd.MM.yyyy")}.
               </p>
-            ) : null}
+            ) : null} */}
           </CardFooter>
         </Card>
       </MaxWidthWrapper>
@@ -149,7 +156,8 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
               >
                 <div className="">
                   <h2 className="text-xl font-bold mb-4 inline-flex items-center gap-x-2">
-                    {tier.title} {tier.currentPlan ? <Badge className="rounded-none">Current Plan</Badge> : null}
+                    {tier.title}{" "}
+                    {tier.currentPlan ? <Badge className="rounded-none">Current Plan</Badge> : null}
                     {tier.isTrial ? <Badge className="rounded-none">Trial</Badge> : null}
                   </h2>
                   <div className="text-3xl font-bold mb-4">{tier.priceMonthly}</div>
@@ -163,7 +171,12 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M5 13l4 4L19 7"
+                        ></path>
                       </svg>
                       {feature}
                     </div>
@@ -183,7 +196,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
                           loading={clicked}
                           onClick={handleSubmit}
                         >
-                          Manage Subscription
+                          Update billing details
                         </Button>
                       ) : (
                         <UpgradePlanModal clickedPlan={"Pro"} trigger={"billing_page"}>

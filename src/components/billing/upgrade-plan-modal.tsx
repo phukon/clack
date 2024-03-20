@@ -8,6 +8,7 @@ import CheckCircle2 from "@/components/shared/icons/check-cirlce-2";
 import { capitalize } from "@/lib/utils";
 import { PLANS } from "@/config/stripePlans";
 import { createStripeSession } from "@/actions/createStripeSession";
+import { createStripePayIntentSession } from "@/actions/createStripePayIntentSession";
 import { Badge } from "../ui/badge";
 import React from "react";
 import { toast } from "../ui/use-toast";
@@ -26,7 +27,7 @@ export function UpgradePlanModal({
   children?: React.ReactNode;
 }) {
   const [plan, setPlan] = useState<"Pro" | "Writer">(clickedPlan);
-  const [period, setPeriod] = useState<"monthly" | "yearly">("monthly");
+  const [period, setPeriod] = useState<"onetime" | "monthly" | "yearly">("onetime");
   const [clicked, setClicked] = useState<boolean>(false);
 
   const features = useMemo(() => {
@@ -43,7 +44,7 @@ export function UpgradePlanModal({
 
   const handleSubmit = async () => {
     setClicked(true);
-    createStripeSession({ period: period })
+    createStripePayIntentSession({ period: period })
       .then((response) => {
         if (response.error) {
           console.error("Error creating Stripe session:", response.error);
@@ -73,10 +74,10 @@ export function UpgradePlanModal({
           variant: "destructive",
         });
         setClicked(false);
+      })
+      .finally(() => {
+        setClicked(false);
       });
-    //  .finally(() => {
-    //    setClicked(false);
-    //  });
   };
 
   // If button is present, clone it and add onClick handler
@@ -103,12 +104,17 @@ export function UpgradePlanModal({
           className="flex flex-col items-center justify-center space-y-3 border-b border-border px-4 py-8 sm:px-16"
         >
           <motion.div variants={STAGGER_CHILD_VARIANTS}>
-            <p className="text-2xl font-bold tracking-tighter text-foreground --local-comfortaa">Clack</p>
+            <p className="text-2xl font-bold tracking-tighter text-foreground --local-comfortaa">
+              Clack
+            </p>
           </motion.div>
           <motion.h3 className="text-lg font-medium" variants={STAGGER_CHILD_VARIANTS}>
             Upgrade to {plan}
           </motion.h3>
-          <motion.p className="text-center text-sm text-muted-foreground" variants={STAGGER_CHILD_VARIANTS}>
+          <motion.p
+            className="text-center text-sm text-muted-foreground"
+            variants={STAGGER_CHILD_VARIANTS}
+          >
             Enjoy higher limits and extra features with our {plan} plan.
           </motion.p>
         </motion.div>
@@ -125,18 +131,18 @@ export function UpgradePlanModal({
                   <h4 className="font-medium text-foreground">
                     {plan} {capitalize(period)}
                   </h4>
-                  <Badge variant="outline" className="text-sm font-normal normal-case">{`$${
+                  <Badge variant="outline" className="text-sm font-normal normal-case">{`₹${
                     PLANS.find((p) => p.name === plan)!.price[period].amount
-                  }/month`}</Badge>
+                  }`}</Badge>
                 </div>
-                <button
+                {/* <button
                   onClick={() => {
                     setPeriod(period === "monthly" ? "yearly" : "monthly");
                   }}
                   className="text-xs text-muted-foreground underline underline-offset-4 transition-colors hover:text-gray-800 hover:dark:text-muted-foreground/80"
                 >
                   {period === "monthly" ? "Get 1 month free 🎁" : "Switch to monthly"}
-                </button>
+                </button> */}
               </div>
               <motion.div
                 variants={{
@@ -162,7 +168,9 @@ export function UpgradePlanModal({
                 ))}
               </motion.div>
             </div>
-            <Button loading={clicked} onClick={handleSubmit}>{`Upgrade to ${plan} ${capitalize(period)}`}</Button>
+            <Button loading={clicked} onClick={handleSubmit}>{`Upgrade to ${plan} ${capitalize(
+              period
+            )}`}</Button>
             <div className="flex items-center justify-center space-x-2">
               <a
                 href="https://cal.com/rikiphukon"

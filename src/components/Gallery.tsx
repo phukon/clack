@@ -32,8 +32,21 @@ type PhotoProps = {
   children?: ReactNode;
 };
 
-function Photo({ src, alt, filename, width, height, rotate, left, index, flipDirection, meta, children }: PhotoProps) {
-  const fileName = filename || (typeof src !== "string" && `${src.src.split("/").at(-1)?.split(".")[0]}.jpg`);
+function Photo({
+  src,
+  alt,
+  filename,
+  width,
+  height,
+  rotate,
+  left,
+  index,
+  flipDirection,
+  meta,
+  children,
+}: PhotoProps) {
+  const fileName =
+    filename || (typeof src !== "string" && `${src.src.split("/").at(-1)?.split(".")[0]}.jpg`);
   const shared = "absolute h-full w-full rounded-2xl overflow-hidden border-2 border-gray-800";
   return (
     <motion.div
@@ -98,7 +111,7 @@ function Photo({ src, alt, filename, width, height, rotate, left, index, flipDir
           }}
         >
           <Halo strength={50} className="flex items-center">
-          <span className="absolute h-[1500px] w-[1500px] bg-gray-950 bg-[length:280px]" />
+            <span className="absolute h-[1500px] w-[1500px] bg-gray-950 bg-[length:280px]" />
             <div className="z-[1] px-6">
               <div className={clsx(ticketingFont.className, "flex flex-col gap-1 uppercase")}>
                 <p className="text-sm text-white">{fileName}</p>
@@ -119,7 +132,7 @@ export default function Gallery() {
         <Photo
           src={ps2}
           filename="Neat and clean UI"
-          alt="Track your progress"
+          alt="ps2"
           width={300}
           height={580}
           rotate={0}
@@ -127,7 +140,7 @@ export default function Gallery() {
           index={1}
         />
         <Photo
-     filename="Multiple heatmap themes to choose from!"
+          filename="Multiple heatmap themes to choose from!"
           src={ps3}
           alt="ps2"
           width={300}
@@ -138,7 +151,7 @@ export default function Gallery() {
           flipDirection="left"
         />
         <Photo
-           filename="Everything at a glance"
+          filename="Everything at a glance"
           src={ps1}
           alt="ps3"
           width={300}
@@ -158,8 +171,8 @@ export function GallerySmall() {
       <section className="absolute left-0 lg:left-48 xl:left-80 2xl:left-96 flex h-[268px] gap-4">
         <Photo
           src={ps2}
-          meta="Track your progress"
-          alt="Track your progress"
+          filename="Neat and clean UI"
+          alt="ps2"
           width={200}
           height={400}
           rotate={0}
@@ -168,7 +181,7 @@ export function GallerySmall() {
         />
         <Photo
           src={ps3}
-          meta="2024-03-07"
+          filename="Multiple heatmap themes to choose from!"
           alt="ps2"
           width={200}
           height={400}
@@ -179,7 +192,7 @@ export function GallerySmall() {
         />
         <Photo
           src={ps1}
-          meta="2024-03-20"
+          filename="Everything at a glance"
           alt="ps3"
           width={200}
           height={400}

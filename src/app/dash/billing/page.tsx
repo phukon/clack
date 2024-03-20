@@ -1,10 +1,13 @@
 import BillingForm from "@/components/billing/Billing";
-import { getUserSubscriptionPlan } from "@/lib/stripe";
+import { getUserPaymentStatus } from "@/lib/stripe";
 
 const Page = async () => {
-  const subscriptionPlan = await getUserSubscriptionPlan();
+  // const subscriptionPlan = await getUserSubscriptionPlan();
 
-  return <BillingForm subscriptionPlan={subscriptionPlan} />;
+  // return <BillingForm subscriptionPlan={subscriptionPlan} />;
+  const isPaidUser = await getUserPaymentStatus();
+
+  return <BillingForm isPaidUser={isPaidUser} />;
 };
 
 export default Page;

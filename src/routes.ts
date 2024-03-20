@@ -8,6 +8,7 @@ export const publicRoutes = [
   "/auth/new-verification",
   "/api/cron",
   "/api/webhooks/stripe",
+  "/api/webhooks/stripePaymentIntent",
   "/pricing",
   "/docs",
   "/feedback",

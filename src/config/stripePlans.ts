@@ -1,19 +1,44 @@
+interface Price {
+  amount: string;
+  priceIds: {
+    test: string;
+    production: string;
+  };
+}
+
+export interface Plan {
+  name: string;
+  slug: string;
+  price: {
+    onetime: Price;
+    monthly: Price;
+    yearly: Price;
+  };
+}
+
 export const PLANS = [
   {
     name: "Pro",
     slug: "pro",
     price: {
-      monthly: {
-        amount: 4,
+      onetime: {
+        amount: '299 ($3.59)',
         priceIds: {
-          test: process.env.STRIPE_PRICE_ID,
-          production: "",
+          test: process.env.STRIPE_PRICE_ID_TEST,
+          production: process.env.STRIPE_PRICE_ID_PROD,
+        },
+      },
+      monthly: {
+        amount: '299 ($3.59)',
+        priceIds: {
+          test: process.env.STRIPE_PRICE_ID_TEST,
+          production: process.env.STRIPE_PRICE_ID_PROD,
         },
       },
       yearly: {
-        amount: 3,
+        amount: '299 ($3.59)',
         priceIds: {
-          test: process.env.STRIPE_PRICE_ID_YEARLY,
+          test: process.env.STRIPE_PRICE_ID_YEARLY_TEST,
           production: "",
         },
       },
@@ -23,18 +48,25 @@ export const PLANS = [
     name: "Writer",
     slug: "writer",
     price: {
-      monthly: {
-        amount: 4,
+      onetime: {
+        amount: '299 ($3.59)',
         priceIds: {
-          test: process.env.STRIPE_PRICE_ID,
-          production: "", // new price
+          test: process.env.STRIPE_PRICE_ID_TEST,
+          production: process.env.STRIPE_PRICE_ID_PROD,
+        },
+      },
+      monthly: {
+        amount: '299 ($3.59)',
+        priceIds: {
+          test: process.env.STRIPE_PRICE_ID_TEST,
+          production: process.env.STRIPE_PRICE_ID_PROD,
           // production: "price_1NmMZ7FJyGSZ96lhyad2LW90", // old price
         },
       },
       yearly: {
-        amount: 3,
+        amount: '299 ($3.59)',
         priceIds: {
-          test: process.env.STRIPE_PRICE_ID_YEARLY,
+          test: process.env.STRIPE_PRICE_ID_YEARLY_TEST,
           production: "", // new price
           // production: "price_1NmMZ7FJyGSZ96lhqZEkh50e", // old price
         },
