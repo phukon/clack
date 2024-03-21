@@ -50,7 +50,7 @@ export const createStripePayIntentSession = async ({ period }: Tperiod) => {
           //
           price: PLANS.find((plan) => plan.name === "Pro")?.price[
             period === "onetime" ? "onetime" : period
-          ].priceIds.test, // will fix later
+          ].priceIds.production, // will fix later
           quantity: 1,
         },
       ],
