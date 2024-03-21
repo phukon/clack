@@ -21,6 +21,8 @@ import { Editor } from "novel";
 import { useEffect, useState } from "react";
 import { type JSONContent } from "@tiptap/core";
 import crypto from "crypto";
+import { toast } from "@/components/ui/use-toast";
+import { redirect } from "next/navigation";
 // import {placeholder} from './defaultData';
 
 function NovelEditor({ id }: { id: string }) {
@@ -36,7 +38,17 @@ function NovelEditor({ id }: { id: string }) {
     try {
       const response = await fetch(`/api/note?id=${id}`);
 
-      if (response.status === 404) {
+      if (response.status === 401) {
+        toast({
+          title: "You don't have permissions not view/edit this note!",
+          description: "Redirecting to dashboard in 8 seconds",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = '/dash'; // Redirect after 10 seconds
+        }, 8_000);
+        return null;
+      } else if (response.status === 404) {
         return null;
       } else if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -91,7 +103,10 @@ function NovelEditor({ id }: { id: string }) {
   return (
     <>
       {syncWithCloudWarning && (
-        <Warning handleKeepLocalStorage={handleKeepLocalStorage} handleKeepCloudStorage={handleKeepCloudStorage} />
+        <Warning
+          handleKeepLocalStorage={handleKeepLocalStorage}
+          handleKeepCloudStorage={handleKeepCloudStorage}
+        />
       )}
       <div className="relative w-full max-w-screen-lg pb-8">
         <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
