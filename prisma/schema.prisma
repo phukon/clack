@@ -86,6 +86,7 @@ model User {
   contributions         Contribution[]
   notes                 Note[]
   wordCountRef          Int?
+  notionDetails Json? // The Notion O-Auth response containing access token that is received after posting the temporary code to the auth url.
 
   // Stripe
   stripeCustomerId String? @unique @map(name: "stripe_customer_id")
@@ -107,17 +108,16 @@ enum NoteType {
 }
 
 model Note {
-  id        String   @id @default(cuid())
-  name      String?
-  type      NoteType @default(CLACK)
-  url       String?
-  wordCount Int?
-  userId    String
-  data      Json? // I may use an edge KV store
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id            String   @id @default(cuid())
+  name          String?
+  type          NoteType @default(CLACK)
+  url           String?
+  wordCount     Int?
+  userId        String
+  data          Json? // I may use an edge KV store
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
   @@unique([url])
 }
 

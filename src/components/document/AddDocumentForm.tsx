@@ -80,7 +80,7 @@ export const AddDocumentForm = () => {
           <FormSuccess message={success} />
           <FormError message={error} />
           <Button disabled={isPending} type="submit" className="w-full">
-            Add
+            Link
           </Button>
         </form>
       </Form>

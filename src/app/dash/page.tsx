@@ -93,7 +93,7 @@ const Dash = () => {
         </Button>
 
         <AddDocumentButton>
-          Add Document <IoDocumentAttachOutline className="ml-1 w-4 h-4" />
+          Link Document <IoDocumentAttachOutline className="ml-1 w-4 h-4" />
         </AddDocumentButton>
         <motion.div className=" col-span-2" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <Link href="/note/new">

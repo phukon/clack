@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { type NoteValue } from "@/types";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { getNotionToken } from "@/actions/getNotionToken";
 
 type NotesContextValue = {
   kv: [string, NoteValue][];
@@ -14,6 +15,7 @@ type NotesContextValue = {
   deleteNote: (keyToDelete: string) => Promise<void>;
   revalidateNotes: () => Promise<[string, NoteValue][]>;
   wordCount: number;
+  token: string | undefined
 };
 
 const NotesContext = createContext<NotesContextValue | null>(null);
@@ -34,8 +36,19 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   const [notion, setNotion] = useState<[string, string][]>([]);
   const [google, setGoogle] = useState<[string, string][]>([]);
   const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState<string | undefined>();
   const wordCount: number = 0;
   // const [wordCount, setWordCount] = useState<number>(0);
+
+  const fetchToken = async () => {
+    await getNotionToken().then((d) => {
+      if (d.error) {
+        console.log(d.error);
+      } else {
+        d.token && setToken(d.token);
+      }
+    });
+  };
 
   const fetchLocalStorageData = async () => {
     const entries = Object.entries(localStorage);
@@ -114,13 +127,14 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
       return [id, value] as [string, NoteValue];
     });
 
-    const newData = [...localData, ...processedCloudData]
-      .filter(([_, value]: [string, NoteValue]) => {
+    const newData = [...localData, ...processedCloudData].filter(
+      ([_, value]: [string, NoteValue]) => {
         return value !== null;
-      })
-      // .sort((a, b) => {
-      //   return Number(b[0]) - Number(a[0]);
-      // });
+      }
+    );
+    // .sort((a, b) => {
+    //   return Number(b[0]) - Number(a[0]);
+    // });
 
     const uniqueKeys = Array.from(new Set(newData.map(([key, _]) => key)));
 
@@ -139,6 +153,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (currentUser) {
       void combineData();
+      void fetchToken();
     }
   }, []); // I'm removing the currentuser as a dependency for now. too many api calls!
 
@@ -167,7 +182,18 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <NotesContext.Provider
-      value={{ kv, notion, setNotion, google, setGoogle, loading, deleteNote, revalidateNotes, wordCount }}
+      value={{
+        kv,
+        notion,
+        setNotion,
+        google,
+        setGoogle,
+        loading,
+        deleteNote,
+        revalidateNotes,
+        wordCount,
+        token
+      }}
     >
       {children}
     </NotesContext.Provider>
