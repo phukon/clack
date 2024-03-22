@@ -51,15 +51,15 @@ const tiers: {
     name: "Pro",
     id: "tier-pro",
     href: "/dash/billing",
-    price: { monthly: "$4", annually: "$36" },
+    price: { monthly: "$3.59", annually: "$36" },
     description: "The essentials to help track everything.",
     features: [
       "Everything in Free, plus:",
-      "Unlimited Clack documents",
+      "Unlimited Clack, Notion & Google documents",
+      "Google integration",
       "Notion Integration",
-      "Unlimited Google & Notion documents",
-      "Notion Widgets",
-      "6 heatmap themes",
+      "Notion Widget",
+      "14 heatmap themes",
       "AI Document Assistant incl. 1000 credits",
     ],
     bgColor: "bg-gray-200",
@@ -128,7 +128,7 @@ export default function PricingPage() {
                             tier.id === "tier-enterprise" ? "hidden" : ""
                           )}
                         >
-                          {frequency.priceSuffix}
+                          {/* {frequency.priceSuffix} */} {tier.id === "tier-free" ? " " : "one-time"}
                         </span>
                       </p>
                       <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-gray-600">

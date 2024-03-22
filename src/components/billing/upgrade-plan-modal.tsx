@@ -15,7 +15,7 @@ import { toast } from "../ui/use-toast";
 
 export function UpgradePlanModal({
   clickedPlan,
-  trigger,
+  // trigger,
   open,
   setOpen,
   children,
@@ -34,9 +34,9 @@ export function UpgradePlanModal({
     return [
       "Unlimited Clack, Notion & Google documents",
       "Google integration",
-      "Notion integration",
-      "Notion Widgets",
-      "6 heatmap themes",
+      "Notion Integration",
+      "Notion Widget",
+      "14 heatmap themes",
       "AI Document Assistant incl. 1000 credits",
       ...(plan === "Writer" ? ["Priority Support"] : []),
     ];

@@ -1,7 +1,7 @@
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { getUserSubscriptionPlan } from "@/lib/stripe";
+import { getUserPaymentStatus, getUserSubscriptionPlan } from "@/lib/stripe";
 
 import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
@@ -59,17 +59,18 @@ export async function POST(req: Request): Promise<Response> {
     });
   }
 
-  const subscriptionPlan = await getUserSubscriptionPlan();
+  // const subscriptionPlan = await getUserSubscriptionPlan();
+  const isPaidUser = await getUserPaymentStatus();
 
-  if ("error" in subscriptionPlan) {
-    return new Response("Error getting subscription plan", {
-      status: 200,
-    });
-  }
-
-  const userPlan = subscriptionPlan.isSubscribed ? "pro" : "free";
-  if (userPlan === "free") {
-    return new Response("Upgrade to Clack Pro to use the AI writing assistant ✨", {
+  if (typeof isPaidUser === "boolean") {
+    // Handle boolean response
+    if (!isPaidUser) {
+      return new Response("Upgrade to Clack Pro to use the AI writing assistant ✨", {
+        status: 200,
+      });
+    }
+  } else {
+    return new Response("Error: " + isPaidUser.error, {
       status: 200,
     });
   }
