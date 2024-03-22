@@ -118,9 +118,9 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
       .filter(([_, value]: [string, NoteValue]) => {
         return value !== null;
       })
-      .sort((a, b) => {
-        return Number(b[0]) - Number(a[0]);
-      });
+      // .sort((a, b) => {
+      //   return Number(b[0]) - Number(a[0]);
+      // });
 
     const uniqueKeys = Array.from(new Set(newData.map(([key, _]) => key)));
 

@@ -45,7 +45,7 @@ function NovelEditor({ id }: { id: string }) {
           variant: "destructive",
         });
         setTimeout(() => {
-          window.location.href = '/dash'; // Redirect after 10 seconds
+          window.location.href = "/dash"; // Redirect after 10 seconds
         }, 8_000);
         return null;
       } else if (response.status === 404) {
@@ -128,17 +128,16 @@ function NovelEditor({ id }: { id: string }) {
             const kvValue = kv.find(([key]) => key === id);
             const kvValueFirstLine = kvValue?.[1].content?.[0].content[0].text.split("\n")[0];
 
-            // if first line edited, revalidate notes
-            if (value.getText().split("\n")[0] !== kvValueFirstLine) {
-              void revalidateNotes();
-            }
-
             setSaveStatus("Saving...");
             const response = await fetch("/api/note", {
               method: "POST",
               body: JSON.stringify({ id, data: value.getJSON() }),
             });
             const res = await response.text();
+            // if first line edited, revalidate notes
+            if (value.getText().split("\n")[0] !== kvValueFirstLine) {
+              void revalidateNotes();
+            }
             setSaveStatus(res);
           }}
         />
