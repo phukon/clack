@@ -1,22 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import oneImg from "/public/showcase/cat.png";
-import bg from "/public/showcase/bg.png";
 
 const posts = [
   {
     id: 1,
     title: "Adding a Notion page",
     href: "/link-notion-page",
-    imageUrl: oneImg,
+    imageUrl: "https://d1g2o751bxy91o.cloudfront.net/n2.png",
     description: "Learn how to connect the Clack integration on Notion and link pages in Clack.",
   },
   {
     id: 2,
     title: "Adding a Google doc",
     href: "/link-google-doc",
-    imageUrl: bg,
-    description: "Learn how to connect the Clack integration on Notion and link pages in Clack.",
+    imageUrl: "https://d1g2o751bxy91o.cloudfront.net/gdoc.png",
+    description: "Learn how to set permissions and link a Google Doc in Clack.",
   },
 ];
 
@@ -30,11 +28,11 @@ export default function DaysGrid() {
               key={post.id}
               className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
             >
-              <Image
+              <img
                 src={post.imageUrl}
                 alt=""
                 className="absolute inset-0 -z-10 h-full w-full object-cover"
-                fill
+                
               />
               <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
               <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10" />

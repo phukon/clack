@@ -3,10 +3,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Disclosure } from "@headlessui/react";
 import { RiGoogleFill } from "react-icons/ri";
-import {
-  Plus as PlusSmallIcon,
-  Minus as MinusSmallIcon,
-} from "lucide-react";
+import { Plus as PlusSmallIcon, Minus as MinusSmallIcon } from "lucide-react";
 import Link from "next/link";
 
 const faqs = [
@@ -60,6 +57,70 @@ export default function Home() {
                   Enable share in Google Doc settings and add the Doc link in{" "}
                   <span className=" --local-comfortaa">Clack</span> dashboard.
                 </p>
+                {/* <div className="mt-10 flex items-center justify-center gap-x-6">
+                  <Link
+                    className="rounded-md bg-black dark:bg-white px-3.5 py-2.5 text-sm font-semibold text-white dark:text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+                    href="/dash"
+                  >
+                    Link now
+                  </Link>
+                </div> */}
+              </div>
+              <div className=" text-left mt-10 pt-14 ">
+                <h3 className=" text-3xl font-bold --local-ebgaramond">
+                  1. Open your Google Docs page
+                </h3>
+                <div className="relative max-w-[900px] overflow-hidden pt-16">
+                  <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <video
+                      width="100%"
+                      id="video1"
+                      style={{ borderRadius: "6px" }}
+                      aria-hidden="true"
+                      playsInline
+                      autoPlay
+                      muted
+                      loop
+                    >
+                      <source
+                        src="https://d1g2o751bxy91o.cloudfront.net/link-google.mp4"
+                        type="video/mp4"
+                      />
+                    </video>
+                  </div>
+                  <p className=" mt-10 text-center leading-8 text-gray-500 font-medium">
+                    Click on <b>Share</b> on the top right of the page.<br/>
+                    Then change the <b>general access</b> to <u><i className=" font-normal">Anyone with the link</i></u>
+                  </p>
+                </div>
+
+                <div className="relative max-w-[900px] overflow-hidden pt-16">
+                  <h3 className=" mt-10 pt-14 text-3xl font-bold --local-ebgaramond">
+                    Happy writing!
+                  </h3>
+                  <div className="mx-auto max-w-7xl pt-14 px-6 lg:px-8">
+                    <div className=" mx-auto w-full max-w-5xl">
+                      <video
+                        width="100%"
+                        id="video1"
+                        style={{ borderRadius: "6px" }}
+                        aria-hidden="true"
+                        playsInline
+                        autoPlay
+                        muted
+                        loop
+                      >
+                        <source
+                          src="https://d1g2o751bxy91o.cloudfront.net/link-google-dash.mp4"
+                          type="video/mp4"
+                        />
+                      </video>
+                    </div>
+                  </div>
+                  <p className=" mt-10 text-center leading-8 text-gray-500 font-medium">
+                    Great! You can now paste the link of your Google Docs document in your dashboard.
+                  </p>
+                </div>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
                   <Link
                     className="rounded-md bg-black dark:bg-white px-3.5 py-2.5 text-sm font-semibold text-white dark:text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
@@ -70,25 +131,13 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className=" mx-auto w-full max-w-5xl">
-              <video
-                width="100%"
-                id="video1"
-                style={{ borderRadius: "6px" }}
-                aria-hidden="true"
-                playsInline
-                autoPlay
-                muted
-                loop
-              >
-                <source src="https://d1g2o751bxy91o.cloudfront.net/ai-autocomp.mp4" type="video/mp4" />
-              </video>
-            </div>
 
             {/* FAQ section */}
             <div className="mx-auto mt-24 max-w-7xl px-6 sm:mt-32 lg:px-8">
               <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
-                <h2 className="text-2xl font-bold leading-10 tracking-tight text-white">Frequently asked questions</h2>
+                <h2 className="text-2xl font-bold leading-10 tracking-tight text-white">
+                  Frequently asked questions
+                </h2>
                 <dl className="mt-10 space-y-6 divide-y divide-gray-900/10 dark:divide-gray-200/10">
                   {faqs.map((faq) => (
                     <Disclosure as="div" key={faq.question} className="pt-6">
@@ -96,7 +145,9 @@ export default function Home() {
                         <>
                           <dt>
                             <Disclosure.Button className="flex w-full items-start justify-between text-left text-gray-900 dark:text-gray-200">
-                              <span className="text-base font-semibold leading-7">{faq.question}</span>
+                              <span className="text-base font-semibold leading-7">
+                                {faq.question}
+                              </span>
                               <span className="ml-6 flex h-7 items-center">
                                 {open ? (
                                   <MinusSmallIcon className="h-6 w-6" aria-hidden="true" />
