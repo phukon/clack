@@ -19,7 +19,8 @@ export const publicRoutes = [
   "/link-notion-page",
   "/tutorials",
   "/userDetails",
-  "/api/og"
+  "/api/og",
+  "/auth/notionAuth"
 ];
 
 /**

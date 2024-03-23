@@ -29,7 +29,12 @@ const SideBarComponent = ({ subscriptionPlan }: SideBarComponentProps) => {
 
   return (
     <Sidebar userPlan={userPlan} showProBanner={showProBanner} setShowProBanner={setShowProBanner}>
-      <SidebarItem icon={<Layout />} text="Dashboard" active={pathname === "/dash" ? true : false} path="/dash" />
+      <SidebarItem
+        icon={<Layout />}
+        text="Dashboard"
+        active={pathname === "/dash" ? true : false}
+        path="/dash"
+      />
       <SidebarItem
         icon={<Activity />}
         text="Activity"
@@ -51,7 +56,7 @@ const SideBarComponent = ({ subscriptionPlan }: SideBarComponentProps) => {
       <SidebarItem
         icon={<Settings />}
         text="Settings"
-        active={pathname === "/dash/settings" ? true : false}
+        active={pathname.startsWith("/dash/settings") ? true : false}
         path="/dash/settings"
       />
 

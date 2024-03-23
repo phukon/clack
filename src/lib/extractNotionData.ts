@@ -1,12 +1,12 @@
-import { Client, iteratePaginatedAPI } from "@notionhq/client";
+import { Client, LogLevel, iteratePaginatedAPI } from "@notionhq/client";
 
 // const apiKey = process.env.NOTION_API_KEY;
 
 export async function extractNotionData(token: string, id: string) {
-  // Make API call to retrieve all block children from the page provided in .env
-
-  const notion = new Client({ auth: token });
+// console.log("type %s | value %s", typeof token, token)
+  const notion = new Client({ auth: token, logLevel: LogLevel.DEBUG });
   const blocks = await retrieveBlockChildren(id!);
+  notion.oauth.token
   // Take rich text array from a block child that supports rich text and return the plain text.
   // Note: All rich text objects include a plain_text field.
   const getPlainTextFromRichText = (richText: any) => {

@@ -2,7 +2,7 @@
 
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
-import { db } from "@/lib/db";
+// import { db } from "@/lib/db";
 
 export const getNotionToken = async () => {
   try {

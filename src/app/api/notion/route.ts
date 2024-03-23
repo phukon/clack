@@ -38,7 +38,8 @@ export async function GET(): Promise<Response> {
         }
 
         // Extracting data and processing it
-        const wordArray = await extractNotionData(id);
+        const token = (dbUser.notionDetails as { access_token: string }).access_token;
+        const wordArray = await extractNotionData(token, id);
         const combinedString = wordArray.join(" ");
 
         keyValuePairs[url] = combinedString;
