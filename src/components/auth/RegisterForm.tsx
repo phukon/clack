@@ -11,7 +11,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import FormError from "../form-error";
 import FormSuccess from "../form-success";
-import { register } from "@/actions/register";
+import { register } from "@/actions/auth/register";
 import { useState, useTransition } from "react";
 
 const RegisterForm = () => {

@@ -20,6 +20,12 @@ export async function GET(): Promise<Response> {
   const dbUser = await getUserById(user.id);
   if (!dbUser) throw new Error("Unauthorized");
 
+  if (!dbUser.notionDetails) {
+    return new Response("Clack integration is not connected with your workspace.", {
+      status: 401,
+    });
+  }
+
   const notionDocuments = await db.note.findMany({
     where: { userId: dbUser.id, type: NoteType.NOTION },
   });

@@ -6,7 +6,7 @@ import CardWrapper from "../auth/CardWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddDocumentUrlSchema } from "@/schemas";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { addDocument } from "@/actions/addDocument";
+import { addDocument } from "@/actions/document/addDocument";
 import { Input } from "../ui/input";
 import FormSuccess from "../form-success";
 import FormError from "../form-error";

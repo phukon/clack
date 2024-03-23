@@ -46,6 +46,11 @@ async function addNotionDoc(url: string, dbUser: any): Promise<void> {
   if (!extractedId) {
     throw new Error(`ID not found for ${url}`);
   }
+
+  if (!dbUser.notionDetails || !dbUser.notionDetails.access_token) {
+    throw new Error("Please connect the Clack Notion Integration before linking documents");
+  }
+
   const token = (dbUser.notionDetails as { access_token: string }).access_token; 
   const wordArray = await extractNotionData(token, extractedId);
   const combinedString = wordArray.join(" ");

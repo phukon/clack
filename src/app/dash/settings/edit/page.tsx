@@ -63,8 +63,8 @@ export default function Edit() {
   };
 
   return (
-    <main className=" max-w-[calc(100%-20px)] ml-2 md:w-[calc(100%-50px)] bg-white md:ml-3 mb-10">
-      <Navbar current="Edit" />
+    <>
+      <Navbar userImage={user?.image} current="Edit" />
       <div className="p-4 sm:p-4 sm:m-4 flex items-center justify-between mb-4 md:mb-8 lg:mb-12">
         <div className="space-y-1">
           <h3 className="text-2xl text-foreground font-semibold tracking-tight">Edit</h3>
@@ -208,6 +208,6 @@ export default function Edit() {
           </Form>
         </CardContent>
       </Card>
-    </main>
+    </>
   );
 }

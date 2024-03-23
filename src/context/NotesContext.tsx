@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { type NoteValue } from "@/types";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { getNotionToken } from "@/actions/getNotionToken";
+import { getNotionToken } from "@/actions/notion/getNotionToken";
 
 type NotesContextValue = {
   kv: [string, NoteValue][];

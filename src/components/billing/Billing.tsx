@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 // import Link from "next/link";
 // import { createStripeSession } from "@/actions/createStripeSession";
-import { createStripePayIntentSession } from "@/actions/createStripePayIntentSession";
+import { createStripePayIntentSession } from "@/actions/payments/createStripePayIntentSession";
 import { toast } from "../ui/use-toast";
 import { getUserPaymentStatus } from "@/lib/stripe";
 

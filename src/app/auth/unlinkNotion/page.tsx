@@ -1,30 +1,20 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { notionOAuth } from "@/actions/notion/notionOAuth";
 import CardWrapper from "@/components/auth/CardWrapper";
 import { BeatLoader } from "react-spinners";
 import FormSuccess from "@/components/form-success";
 import FormError from "@/components/form-error";
+import { unlinkNotion } from "@/actions/notion/unlinkNotion";
 
 const NotionAuth = () => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
 
-  const searchParams = useSearchParams();
-  const code = searchParams.get("code");
-  // const state = searchParams.get("state"); Might use later.
-  // const errorParam = searchParams.get("error");
-
   const onSubmit = useCallback(() => {
     if (success || error) return;
 
-    if (!code) {
-      setError("Missing code!");
-      return;
-    }
-
-    notionOAuth({ code })
+    unlinkNotion()
       .then((data) => {
         setSuccess(data.success);
         setError(data.error);
@@ -32,7 +22,7 @@ const NotionAuth = () => {
       .catch(() => {
         setError("Something went wrong!");
       });
-  }, [code, success, error]);
+  }, [success, error]);
 
   useEffect(() => {
     onSubmit();
@@ -44,9 +34,9 @@ const NotionAuth = () => {
         <div className=" bg-contain md:bg-fixed bg-center absolute inset-0 bg-[url('/showcase/cat.png')] md:bg-[url('/showcase/plant.png')]" />
         <div className="bg-white bg-opacity-45 rounded-lg shadow-md p-8 md:mx-8 relative z-10">
           <CardWrapper
-            headerLabel="Confirming your verification"
-            backButtonLabel="Back to settings"
-            backButtonHref="/dash/settings"
+            headerLabel="Removing access"
+            backButtonLabel="Back to dash"
+            backButtonHref="/dash"
           >
             <div className="flex items-center w-full justify-center">
               {!success && !error && <BeatLoader />}

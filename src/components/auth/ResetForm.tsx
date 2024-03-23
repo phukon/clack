@@ -12,7 +12,7 @@ import CardWrapper from "./CardWrapper";
 import { Button } from "@/components/ui/button";
 import FormError from "../form-error";
 import FormSuccess from "../form-success";
-import { reset } from "@/actions/reset";
+import { reset } from "@/actions/auth/reset";
 
 export const ResetForm = () => {
   const [error, setError] = useState<string | undefined>("");

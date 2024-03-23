@@ -15,7 +15,7 @@ import { addContribution } from "@/actions/addContribution";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { AddDocumentButton } from "@/components/document/AddDocumentButton";
-import { removeDocument } from "@/actions/removeDocument";
+import { removeDocument } from "@/actions/document/removeDocument";
 import { useToast } from "@/components/ui/use-toast";
 import { themes } from "@/lib/graph";
 import {
@@ -112,7 +112,7 @@ const Dash = () => {
         <div className="mt-8 md:px-12 ">
           <div className="grid grid-cols-1 md:grid-cols-3 md:gap-y-8 gap-4 mt-4">
             {notion.map((v) => (
-              <Link key={v[0]} href={v[0]} className="rounded-md p-2 group  col-span-1">
+              <Link target="_blank" key={v[0]} href={v[0]} className="rounded-md p-2 group  col-span-1">
                 <Card className="group-hover:scale-105 duration-150 ease-out">
                   <CardHeader className="rounded-t-lg bg-gray-300 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
                     <CardTitle className="text-sm flex flex-row font-semibold">
@@ -208,7 +208,7 @@ const Dash = () => {
         <div className="mt-8 md:px-12 ">
           <div className="grid grid-cols-1 md:grid-cols-3 md:gap-y-8 gap-4 mt-4">
             {google.map((v) => (
-              <Link key={v[0]} href={v[0]} className="rounded-md p-2 group  col-span-1">
+              <Link target="_blank" key={v[0]} href={v[0]} className="rounded-md p-2 group  col-span-1">
                 <Card className="group-hover:scale-105 duration-150 ease-out">
                   <CardHeader className="rounded-t-lg bg-gray-300 dark:bg-gray-800 group-hover:bg-stone-100 group-active:bg-stone-200 py-2">
                     <CardTitle className="text-sm flex flex-row font-semibold">
