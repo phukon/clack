@@ -66,7 +66,7 @@ const Body: React.FC = (): JSX.Element => {
           </span>
         </h1>
         <h2 className="m-0 text-center text-[18px] xl:text-2xl leading-tight font-normal mt-5 md:px-28 xl:px-96 md:mt-3 text-gray-500 mb-6">
-          Automatically sync your writing activity from Google Docs and Notion, and track your progress on a calendar.
+          Sync your writing activity from Google Docs and Notion, and track your progress on a calendar.
         </h2>
         <div className="flex justify-center items-center mt-11 -mb-11 md:-mb-6 gap-5">
           <motion.div

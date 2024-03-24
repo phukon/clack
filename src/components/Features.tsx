@@ -4,23 +4,34 @@ import Image from "next/image";
 const featureList = [
   {
     isVideo: false,
-    blobUrl: "/showcase/f1.png",
+    blobUrl: "https://d1g2o751bxy91o.cloudfront.net/f1.png",
     name: "Keep Unlimited Docs",
     desc: "Enjoy unlimited document storage and accessibility without constraints.",
   },
   {
     isVideo: false,
-    blobUrl: "/showcase/f2.png",
-    name: "Everything at a Glance",
-    desc: "Gain valuable insights and easily track your progress, and trends, all in one place.",
+    blobUrl: "https://d1g2o751bxy91o.cloudfront.net/wgt.png",
+    name: "Notion Widget",
+    desc: "Visualize your data, and uncover trends—all from your Notion workspace.",
   },
   {
     isVideo: false,
-    blobUrl: "/showcase/f4.png",
-    name: "Notion-Style Editor",
+    blobUrl: "https://d1g2o751bxy91o.cloudfront.net/f4.png",
+    name: "AI powered Notion-Style Editor",
     desc: "Experience the familiar and intuitive editing interface of Notion with our stylish editor.",
   },
-  { isVideo: false, blobUrl: "/showcase/f3.png", name: "Multiple Heatmap Themes", desc: "Choose the heatmap theme that resonates with your style." },
+  {
+    isVideo: false,
+    blobUrl: "https://d1g2o751bxy91o.cloudfront.net/f3.png",
+    name: "Multiple Heatmap Themes",
+    desc: "Choose the heatmap theme that resonates with your style.",
+  },
+  // {
+  //   isVideo: false,
+  //   blobUrl: "https://d1g2o751bxy91o.cloudfront.net/f2.png",
+  //   name: "Everything at a Glance",
+  //   desc: "Gain valuable insights and easily track your progress, and trends, all in one place.",
+  // }
 ];
 
 const Features = () => {
@@ -30,7 +41,10 @@ const Features = () => {
         <div className="framer-4tink3">
           <div className="framer-mcbbpq">
             <div className="framer-1y2wu24-container">
-              <div className="framer-BK4if framer-QFwI9 framer-v-rnu724" style={{ display: "contents" }}>
+              <div
+                className="framer-BK4if framer-QFwI9 framer-v-rnu724"
+                style={{ display: "contents" }}
+              >
                 <div
                   className="framer-1v2bg1q"
                   data-framer-name="dark bg"
@@ -49,7 +63,9 @@ const Features = () => {
                     }}
                     data-framer-component-type="RichTextContainer"
                   >
-                    <div className="text-xs md:text-sm text-[#1722BE] font-semibold">POWERFUL FEATURES</div>
+                    <div className="text-xs md:text-sm text-[#1722BE] font-semibold">
+                      POWERFUL FEATURES
+                    </div>
                   </div>
                 </div>
               </div>
@@ -66,7 +82,9 @@ const Features = () => {
               }}
               data-framer-component-type="RichTextContainer"
             >
-              <h2 className="--local-ebgaramond text-[40px] md:text-[54px]">Sync, Think, and Shine</h2>
+              <h2 className="--local-ebgaramond text-[40px] md:text-[54px]">
+                Sync, Think, and Shine
+              </h2>
             </div>
           </div>
           <div
@@ -98,7 +116,10 @@ const Features = () => {
               muted
               loop
             >
-              <source src="https://d1g2o751bxy91o.cloudfront.net/editor-demo.mp4" type="video/mp4" />
+              <source
+                src="https://d1g2o751bxy91o.cloudfront.net/editor-demo.mp4"
+                type="video/mp4"
+              />
             </video>
             {/* <img
               src="/showcase/cat.png"
@@ -131,7 +152,7 @@ const Features = () => {
                 <source src={f.blobUrl} type="video/mp4" />
               </video>
             ) : (
-              <Image
+              <img
                 src={f.blobUrl}
                 alt="App screenshot"
                 className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
@@ -152,7 +173,9 @@ const Features = () => {
                     marginTop: "40px",
                   }}
                 >
-                  <h3 className="--local-ebgaramond text-[26px] md:text-[26px] text-[#27272A]">{f.name}</h3>
+                  <h3 className="--local-ebgaramond text-[26px] md:text-[26px] text-[#27272A]">
+                    {f.name}
+                  </h3>
                 </div>
                 <div
                   style={{
@@ -164,7 +187,9 @@ const Features = () => {
                     transform: "none",
                   }}
                 >
-                  <p className="text-[#71717A] md:text-[16px] text-base leading-[1.4em]">{f.desc}</p>
+                  <p className="text-[#71717A] md:text-[16px] text-base leading-[1.4em]">
+                    {f.desc}
+                  </p>
                 </div>
               </div>
             </div>
