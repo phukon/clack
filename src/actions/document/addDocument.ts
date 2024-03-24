@@ -48,7 +48,7 @@ async function addNotionDoc(url: string, dbUser: any): Promise<void> {
     const isPaid: boolean = paymentStatus;
     if (!isPaid) {
       throw new Error(
-        "Upgrade to Clack Pro to use the add Notion pages and the Clack integration✨"
+        "Upgrade to Clack Pro to add Notion pages, and use the Clack integration✨"
       );
     }
   } else {
