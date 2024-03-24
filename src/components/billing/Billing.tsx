@@ -92,7 +92,7 @@ const BillingForm = ({ isPaidUser }: {isPaidUser: Awaited<ReturnType<typeof getU
       description: "What's included:",
       currentPlan: plan && plan == "free" ? true : false,
       hasPlan: false,
-      features: ["Unlimited Clack documents", "Google integration", "10 Google Documents"],
+      features: ["Unlimited Clack documents", "Notion-style WYSIWYG editor", "AI Writing Assistant", "Google integration", "10 Google Documents"],
     },
     {
       id: 2,

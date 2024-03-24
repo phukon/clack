@@ -39,7 +39,13 @@ const tiers: {
     href: "/auth/register",
     price: { monthly: "$0", annually: "$0" },
     description: "The essentials to start tracking your writing habit effortlessly.",
-    features: ["Encrypted Documents", "Unlimited Clack documents", "Google Docs integration"],
+    features: [
+      "Encrypted Documents",
+      "Unlimited Clack documents",
+      "Notion-style WYSIWYG editor",
+      "AI Writing Assistant",
+      "Google Docs integration",
+    ],
 
     bgColor: "bg-gray-200",
     borderColor: "#bg-gray-800",
@@ -97,8 +103,9 @@ export default function PricingPage() {
               works for you
             </h1>
             <p className="text-xl mt-8 text-balance max-w-3xl">
-              <span className=" --local-comfortaa">Clack</span> syncs your writing activity from Notion and Google Docs,
-              and comes with an AI assistant and a Notion-style WYSIWYG editor.
+              <span className=" --local-comfortaa">Clack</span> syncs your writing activity from
+              Notion and Google Docs, and comes with an AI assistant and a Notion-style WYSIWYG
+              editor.
             </p>
           </div>
         </div>
@@ -117,7 +124,9 @@ export default function PricingPage() {
                       </h3>
                     </div>
                     <div className="p-6">
-                      <p className="mt-4 text-sm leading-6 text-gray-600 text-balance">{tier.description}</p>
+                      <p className="mt-4 text-sm leading-6 text-gray-600 text-balance">
+                        {tier.description}
+                      </p>
                       <p className="mt-6 flex items-baseline gap-x-1">
                         <span className="text-balance text-4xl font-medium  text-gray-900">
                           {tier.price[frequency.value]}
@@ -128,13 +137,17 @@ export default function PricingPage() {
                             tier.id === "tier-enterprise" ? "hidden" : ""
                           )}
                         >
-                          {/* {frequency.priceSuffix} */} {tier.id === "tier-free" ? " " : "one-time"}
+                          {/* {frequency.priceSuffix} */}{" "}
+                          {tier.id === "tier-free" ? " " : "one-time"}
                         </span>
                       </p>
                       <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
                         {tier.features.map((feature) => (
                           <li key={feature} className="flex gap-x-3">
-                            <CheckIcon className="h-6 w-5 flex-none text-[#323DD6]" aria-hidden="true" />
+                            <CheckIcon
+                              className="h-6 w-5 flex-none text-[#323DD6]"
+                              aria-hidden="true"
+                            />
                             {feature}
                           </li>
                         ))}
@@ -176,7 +189,11 @@ export default function PricingPage() {
             <div className="flex lg:flex-row flex-col item-center justify-between space-y-10 lg:space-y-0">
               <h2 className="text-3xl">Wanna contribute? Clack is open-source!</h2>
               <div className="space-x-2 flex items-center">
-                <Link href="https://github.com/phukon/clack" target="_blank" rel="noopener noreferrer">
+                <Link
+                  href="https://github.com/phukon/clack"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Button
                     variant="outline"
                     className="text-base rounded-3xl bg-transparent border-black hover:bg-gray-200 hover:text-black"
