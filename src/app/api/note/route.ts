@@ -157,6 +157,7 @@ export async function DELETE(req: Request): Promise<Response> {
   });
 
   const data = await deleteResponse.text();
+  
   console.log(data);
   if (deleteResponse.status !== 200) {
     return new Response(data, {

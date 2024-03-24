@@ -9,10 +9,9 @@
  */
 
 export interface Env {
-
-  clackkv: KVNamespace;
+	clackkv: KVNamespace;
 	SECURITY_KEY: string;
-  API_HOST: string;
+	API_HOST: string;
 	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
 	// MY_KV_NAMESPACE: KVNamespace;
 	//
@@ -31,19 +30,22 @@ export interface Env {
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+		if (!isAuthorized(request, env)) {
+			return new Response('Unauthorized', { status: 401 });
+		}
 
-    if (!isAuthorized(request, env)) {
-      return new Response('Unauthorized', { status: 401 });
-    }
-
-    
 		const reqUrl = new URL(request.url);
 		const key = reqUrl.searchParams.get('key');
 		const getAllFromUser = reqUrl.searchParams.get('getAllFromUser');
-    
-    if(reqUrl.searchParams.has('sayonara')) {
-       return await deleteEverything(env)
-    }
+
+		if (reqUrl.searchParams.has('sayonara')) {
+			return await deleteEverything(env);
+		}
+
+		if (reqUrl.searchParams.has('deleteAllUserNotes')) {
+			const userEmail = reqUrl.searchParams.get('deleteAllUserNotes');
+			return await deleteAllNotesOfUser(env, userEmail!);
+		}
 
 		if (getAllFromUser) {
 			return await getAllKeys(env, getAllFromUser);
@@ -98,17 +100,28 @@ async function handleDelete(env: Env, key: string): Promise<Response> {
 }
 
 async function handleGet(env: Env, key: string): Promise<Response> {
-  const data = await env.clackkv.get(key);
-  if (!data) {
-    return new Response('Not found', { status: 404 });
-  }
-  return new Response(data);
+	const data = await env.clackkv.get(key);
+	if (!data) {
+		return new Response('Not found', { status: 404 });
+	}
+	return new Response(data);
 }
 
-async function deleteEverything(env: Env): Promise<Response>{
-  const keys = await env.clackkv.list();
-  for (const key of keys.keys) {
-    await env.clackkv.delete(key.name.toString());
-  }
-  return new Response('Deleted everything', {status: 200})
+async function deleteEverything(env: Env): Promise<Response> {
+	const keys = await env.clackkv.list();
+	for (const key of keys.keys) {
+		await env.clackkv.delete(key.name.toString());
+	}
+	return new Response('Deleted everything', { status: 200 });
+}
+
+async function deleteAllNotesOfUser(env: Env, userEmail: string): Promise<Response> {
+	const prefix = userEmail + '-';
+	const keys = await env.clackkv.list({ prefix });
+
+	for (const key of keys.keys) {
+		await env.clackkv.delete(key.name);
+	}
+
+	return new Response('Deleted all notes of the user', { status: 200 });
 }

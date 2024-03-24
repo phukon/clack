@@ -34,6 +34,12 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     },
   });
 
+  await db.userApiLimit.create({
+    data: {
+      userId: user.id,
+    },
+  });
+
   const currentYear = new Date().getFullYear();
 
   const createdYear = await db.year.create({

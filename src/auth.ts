@@ -27,6 +27,12 @@ export const {
         data: { emailVerified: new Date(), wordCountRef: 0 },
       });
 
+      await db.userApiLimit.create({
+        data: {
+          userId: user.id!,
+        },
+      });
+
       const currentYear = new Date().getFullYear();
       const createdYear = await db.year.create({
         data: {

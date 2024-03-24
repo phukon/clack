@@ -24,6 +24,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import FormError from "@/components/form-error";
 import FormSuccess from "@/components/form-success";
 import Navbar from "../navbar";
+import { DeleteAccountButton } from "@/components/deleteAccount/DeleteAccountButton";
 
 export default function Edit() {
   const user = useCurrentUser();
@@ -208,6 +209,9 @@ export default function Edit() {
           </Form>
         </CardContent>
       </Card>
+     <div className=" mt-5">
+     <DeleteAccountButton>Delete your account</DeleteAccountButton>
+     </div>
     </>
   );
 }

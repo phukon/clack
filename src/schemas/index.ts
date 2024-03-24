@@ -5,6 +5,10 @@ export const AddDocumentUrlSchema = z.object({
   url: z.string(),
 });
 
+export const DeleteFormSchema = z.object({
+  text: z.string(),
+});
+
 export const LoginSchema = z.object({
   email: z.string().email({
     message: "Email is required",

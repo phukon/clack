@@ -6,15 +6,8 @@ import { RiNotionFill } from "react-icons/ri";
 import {
   Plus as PlusSmallIcon,
   Minus as MinusSmallIcon,
-  RefreshCw as ArrowPathIcon,
-  GitPullRequestArrow as CloudArrowUpIcon,
-  Settings as Cog6ToothIcon,
-  Fingerprint as FingerPrintIcon,
-  Lock as LockClosedIcon,
-  HardDrive as ServerIcon,
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 
 const faqs = [
   {
@@ -64,7 +57,7 @@ export default function Home() {
                   Link a Notion Page
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-500">
-                  Connect the Clack integration Notion and add the page link in{" "}
+                  Connect the Clack Notion integration and add the page link in{" "}
                   <span className=" --local-comfortaa">Clack</span> dashboard.
                 </p>
                 {/* <div className="mt-10 flex items-center justify-center gap-x-6">
@@ -132,7 +125,7 @@ export default function Home() {
                     </div> */}
                   </div>
                   <p className=" mt-10 text-center leading-8 text-gray-500 font-medium">
-                    A prompt apperas from Notion, it describes the integration&apos;s capabilities.
+                    A prompt appears from Notion, it describes the integration&apos;s capabilities.
                   </p>
                 </div>
 

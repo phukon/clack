@@ -50,6 +50,13 @@ export async function POST(request: Request) {
         stripePaymentDate: paymentDate,
       },
     });
+
+    await db.userApiLimit.update({
+      where: {
+        id: userId,
+      },
+      data: { count: 50 },
+    });
   }
 
   return new Response(null, { status: 200 });

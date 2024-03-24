@@ -7,6 +7,7 @@ import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { kv } from "@vercel/kv";
 import { Ratelimit } from "@upstash/ratelimit";
+import { checkApiLimit, incrementApiLimit } from "@/lib/api-limit";
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
@@ -61,17 +62,28 @@ export async function POST(req: Request): Promise<Response> {
 
   // const subscriptionPlan = await getUserSubscriptionPlan();
   const isPaidUser = await getUserPaymentStatus();
+  const freeTrial = await checkApiLimit();
 
   if (typeof isPaidUser === "boolean") {
     // Handle boolean response
     if (!isPaidUser) {
-      return new Response("Upgrade to Clack Pro to use the AI writing assistant ✨", {
+      if (!freeTrial) {
+        return new Response("Upgrade to Clack Pro to use the AI writing assistant ✨", {
+          status: 200,
+        });
+      } else {
+        await incrementApiLimit();
+      }
+    } else if (!freeTrial) {
+      return new Response("Buy credits to use the AI writing assistant ✨", {
         status: 200,
       });
+    } else {
+      await incrementApiLimit();
     }
   } else {
     return new Response("Error: " + isPaidUser.error, {
-      status: 200,
+      status: 403,
     });
   }
 
