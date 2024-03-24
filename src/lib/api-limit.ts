@@ -1,9 +1,8 @@
-import { MAX_FREE_COUNTS } from "@/lib/constants";
 import { db } from "./db";
 import { currentUser } from "./auth";
 import { getUserById } from "@/data/user";
 
-export const incrementApiLimit = async () => {
+export const decrementApiLimit = async () => {
   const user = await currentUser();
   if (!user) throw new Error("Unauthorized");
   if (!user.id) throw new Error("Invalid user ID");
@@ -18,11 +17,11 @@ export const incrementApiLimit = async () => {
   if (userApiLimit) {
     await db.userApiLimit.update({
       where: { userId: dbUser.id },
-      data: { count: userApiLimit.count + 1 },
+      data: { count: userApiLimit.count - 1 },
     });
   } else {
     await db.userApiLimit.create({
-      data: { userId: dbUser.id, count: 1 },
+      data: { userId: dbUser.id, count: 10 },
     });
   }
 };
@@ -39,7 +38,7 @@ export const checkApiLimit = async () => {
     where: { userId: dbUser.id },
   });
 
-  if (!userApiLimit || userApiLimit.count < MAX_FREE_COUNTS) {
+  if (userApiLimit!.count > 0) {
     return true;
   } else {
     return false;

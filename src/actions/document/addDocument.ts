@@ -5,6 +5,7 @@ import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { NoteType, Prisma } from "@prisma/client";
 import { extractNotionData } from "@/lib/extractNotionData";
+import { getUserPaymentStatus } from "@/lib/stripe";
 
 async function getWordCount(text: string): Promise<number> {
   return text.split(/\s+/).length;
@@ -42,6 +43,18 @@ async function addGoogleDoc(url: string, dbUser: any): Promise<void> {
 }
 
 async function addNotionDoc(url: string, dbUser: any): Promise<void> {
+  const paymentStatus = await getUserPaymentStatus();
+  if (typeof paymentStatus === "boolean") {
+    const isPaid: boolean = paymentStatus;
+    if (!isPaid) {
+      throw new Error(
+        "Upgrade to Clack Pro to use the add Notion pages and the Clack integration✨"
+      );
+    }
+  } else {
+    throw new Error(paymentStatus.error);
+  }
+
   const extractedId = getIdFromUrl(url);
   if (!extractedId) {
     throw new Error(`ID not found for ${url}`);
@@ -51,7 +64,7 @@ async function addNotionDoc(url: string, dbUser: any): Promise<void> {
     throw new Error("Please connect the Clack Notion Integration before linking documents");
   }
 
-  const token = (dbUser.notionDetails as { access_token: string }).access_token; 
+  const token = (dbUser.notionDetails as { access_token: string }).access_token;
   const wordArray = await extractNotionData(token, extractedId);
   const combinedString = wordArray.join(" ");
   const wordCount = await getWordCount(combinedString);

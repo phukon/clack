@@ -37,6 +37,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   await db.userApiLimit.create({
     data: {
       userId: user.id,
+      count: 10
     },
   });
 

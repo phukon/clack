@@ -12,6 +12,7 @@ import { DataStruct } from "@/types";
 import { getUserData } from "@/components/graph/_getData";
 // import { getUserById } from "@/data/user";
 import { drawContributions } from "@/lib/graph";
+import { getUserPaymentStatus } from "@/lib/stripe";
 
 type GraphProps = {
   isPreview: boolean;
@@ -81,6 +82,7 @@ export default function Page({ params }: { params: { id: string } }) {
   // };
 
   // const [key, setKey] = useState<number>(4234_2354);
+  const [paymentStatus, setPaymentStatus] = useState<boolean | undefined>(); // Assuming initial value is null
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,9 +90,14 @@ export default function Page({ params }: { params: { id: string } }) {
         if (params.id) {
           const userData = await getUserData(params.id);
           setUserData(userData);
-          // const userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/userDetails?id=${params.id}`);
-          // const user = await userResponse.text();
-          // setUsername(user || "");
+
+          // Get payment status
+          const paymentStatus = await getUserPaymentStatus();
+          if (typeof paymentStatus === "boolean") {
+            setPaymentStatus(paymentStatus);
+          } else {
+            setPaymentStatus(undefined);
+          }
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -103,14 +110,20 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <>
       {/* <button className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={generateRandomNumber}>Refresh</button> */}
-      <EmbedGraph
-        // key={key}
-        isPreview={true}
-        themeName={selectedTheme}
-        username="Your year progress"
-        userData={userData!}
-        onThemeChange={handleThemeChange}
-      />
+      {paymentStatus ? (
+        <EmbedGraph
+          // key={key}
+          isPreview={true}
+          themeName={selectedTheme}
+          username="Your year progress"
+          userData={userData!}
+          onThemeChange={handleThemeChange}
+        />
+      ) : (
+        <div className="bg-yellow-200 text-2xl text-yellow-800 px-4 py-2 rounded-md border border-yellow-400">
+          This is a paid feature. Upgrade to Clack Pro to use the Notion widget. ✨
+        </div>
+      )}
     </>
   );
 }

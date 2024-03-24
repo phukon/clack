@@ -30,6 +30,7 @@ export const {
       await db.userApiLimit.create({
         data: {
           userId: user.id!,
+          count: 10
         },
       });
 

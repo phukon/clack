@@ -7,7 +7,7 @@ import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { kv } from "@vercel/kv";
 import { Ratelimit } from "@upstash/ratelimit";
-import { checkApiLimit, incrementApiLimit } from "@/lib/api-limit";
+import { checkApiLimit, decrementApiLimit } from "@/lib/api-limit";
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
@@ -62,24 +62,24 @@ export async function POST(req: Request): Promise<Response> {
 
   // const subscriptionPlan = await getUserSubscriptionPlan();
   const isPaidUser = await getUserPaymentStatus();
-  const freeTrial = await checkApiLimit();
+  const canGenerate = await checkApiLimit();
 
   if (typeof isPaidUser === "boolean") {
     // Handle boolean response
     if (!isPaidUser) {
-      if (!freeTrial) {
+      if (!canGenerate) {
         return new Response("Upgrade to Clack Pro to use the AI writing assistant ✨", {
           status: 200,
         });
       } else {
-        await incrementApiLimit();
+        await decrementApiLimit();
       }
-    } else if (!freeTrial) {
-      return new Response("Buy credits to use the AI writing assistant ✨", {
+    } else if (!canGenerate) {
+      return new Response("Buy some credits to use the AI writing assistant ✨", {
         status: 200,
       });
     } else {
-      await incrementApiLimit();
+      await decrementApiLimit();
     }
   } else {
     return new Response("Error: " + isPaidUser.error, {
@@ -97,7 +97,7 @@ export async function POST(req: Request): Promise<Response> {
         content:
           "You are an AI writing assistant that continues existing text based on context from prior text. " +
           "Give more weight/priority to the later characters than the beginning ones. " +
-          "Limit your response to no more than 200 characters, but make sure to construct complete sentences. Just output in text format.",
+          "Limit your response to no more than 200 characters, I REPEAT, WRITE NO MORE THAN 200 CHARACTERS but make sure to construct complete sentences. Just output in text format.",
         // we're disabling markdown for now until we can figure out a way to stream markdown text with proper formatting: https://github.com/steven-tey/novel/discussions/7
         // "Use Markdown formatting when appropriate.",
       },

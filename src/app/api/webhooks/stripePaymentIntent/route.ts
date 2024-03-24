@@ -55,7 +55,7 @@ export async function POST(request: Request) {
       where: {
         id: userId,
       },
-      data: { count: 50 },
+      data: { count: 30 },
     });
   }
 
