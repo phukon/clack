@@ -5,7 +5,7 @@ import { getUserData } from "./_getData";
 import { DataStruct } from "@/types";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { themes } from "@/lib/graph";
-import { toast } from "../ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
 // import useNotes from '@/context/NotesContext';
 // import { seedUserData } from './_addData';
 // import jsonData from './mock.json';
