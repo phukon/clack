@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "https://rkph.me/api/og?title=Sync,%20Think,%20and%20Shine&image=/og.png",
+        url: "https://clack.rkph.me/api/og?title=Sync,%20Think,%20and%20Shine&image=/og.png",
         alt: "clack.rkph.me"
       },
     ]

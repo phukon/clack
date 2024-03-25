@@ -73,8 +73,8 @@ Clack syncs your writing activity from Notion and Google Docs, and comes with an
 - [Next.js](https://nextjs.org/) – framework
 - [TypeScript](https://www.typescriptlang.org/) – language
 - [Tailwind](https://tailwindcss.com/) – CSS
-- [Upstash](https://upstash.com/) – redis
-- [Cloudflare Workers KV](https://www.cloudflare.com/en-in/developer-platform/workers-kv/) – Low latency KV store
+- [Vercel KV](https://vercel.com/docs/storage/vercel-kv) – redis
+- [Cloudflare Workers KV](https://www.cloudflare.com/en-in/developer-platform/workers-kv/) – Low latency KV data store
 - [Prisma](https://www.prisma.io/) - orm
 - [Neon](https://neon.tech/) – database
 - [NextAuth.js](https://next-auth.js.org/) – auth
