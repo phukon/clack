@@ -1,0 +1,33 @@
+import mixpanel from 'mixpanel-browser';
+
+const MIXPANEL_TOKEN = 'YOUR_MIXPANEL_TOKEN';
+
+class MixpanelSingleton {
+  constructor() {
+    if (!MixpanelSingleton.instance) {
+            mixpanel.init(process.env.MIXPANEL_PROJECT_ID!, {
+        debug: true,
+        track_pageview: true,
+        persistence: "localStorage",
+      });
+      MixpanelSingleton.instance = this;
+    }
+    return MixpanelSingleton.instance;
+  }
+
+  trackEvent(eventName, properties = {}) {
+    this.mixpanel.track(eventName, properties);
+  }
+
+  identifyUser(userId) {
+    this.mixpanel.identify(userId);
+  }
+
+  aliasUser(alias) {
+    this.mixpanel.alias(alias);
+  }
+}
+
+const mixpanelInstance = new MixpanelSingleton();
+
+export default mixpanelInstance;

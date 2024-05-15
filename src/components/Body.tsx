@@ -14,6 +14,7 @@ import {
   PencilIcon,
 } from "lucide-react";
 import { RiNotionFill, RiGoogleFill } from "react-icons/ri";
+import { MixpanelTracking } from "@/lib/mixpanel";
 const features = [
   // {
   //   name: "Open Source",
@@ -22,7 +23,8 @@ const features = [
   // },
   {
     name: "Secure Document Storage",
-    description: "Your documents are stored encrypted with AES-256-CBC encryption for maximum security.",
+    description:
+      "Your documents are stored encrypted with AES-256-CBC encryption for maximum security.",
     icon: LockClosedIcon,
   },
   {
@@ -37,7 +39,8 @@ const features = [
   },
   {
     name: "Notion-style WYSIWYG editor",
-    description: "Write and format your documents with a modern, intuitive WYSIWYG editor similar to Notion's.",
+    description:
+      "Write and format your documents with a modern, intuitive WYSIWYG editor similar to Notion's.",
     icon: PencilIcon,
   },
   {
@@ -59,14 +62,19 @@ const Body: React.FC = (): JSX.Element => {
         <h1 className="m-0 text-center text-6xl md:text-[80px] font-normal overflow-hidden pb-3 --local-ebgaramond">
           <span className=" ml-4 first:ml-0 inline-block">Track</span>
           <span className=" ml-4 first:ml-0 inline-block">your</span> <br />
-          <span className="text-[#1722BE] dark:text-yellow ml-4 first:ml-0 inline-block">writing</span>
-          <span className="text-[#1722BE] dark:text-yellow ml-4 first:ml-0 inline-block">progress</span>
+          <span className="text-[#1722BE] dark:text-yellow ml-4 first:ml-0 inline-block">
+            writing
+          </span>
+          <span className="text-[#1722BE] dark:text-yellow ml-4 first:ml-0 inline-block">
+            progress
+          </span>
           <span className="text-[#1722BE] dark:text-yellow ml-4 mt-2 md:mt-0 first:ml-0 inline-block  animate-pulse">
             effortlessly
           </span>
         </h1>
         <h2 className="m-0 text-center text-[18px] xl:text-2xl leading-tight font-normal mt-5 md:px-28 xl:px-96 md:mt-3 text-gray-500 mb-6">
-          Sync your writing activity from Google Docs and Notion, and track your progress on a calendar.
+          Sync your writing activity from Google Docs and Notion, and track your progress on a
+          calendar.
         </h2>
         <div className="flex justify-center items-center mt-11 -mb-11 md:-mb-6 gap-5">
           <motion.div
@@ -74,7 +82,14 @@ const Body: React.FC = (): JSX.Element => {
             whileTap={{ scale: 0.9 }}
             className="bg-black border-[1.5px] relative top-[2px] rounded-[8px] w-auto text-primary inline-block border-button text-center group disabled:opacity-50 disabled:cursor-not-allowed  group"
           >
-            <span className="relative text-center w-auto bg-[#323DD6] text-white border-black rounded-[8px] text-[15px] font-bold border-[1.5px] px-5 py-2 -translate-y-1 hover:-translate-y-1.5 active:-translate-y-0.5 mx-[-1.5px] group-disabled:hover:!-translate-y-1 block active:transition-all active:duration-100 select-none ">
+            <span
+              onClick={() =>
+                MixpanelTracking.getInstance().trackEvent("Sign Up", {
+                  "Signup Type": "Referral",
+                })
+              }
+              className="relative text-center w-auto bg-[#323DD6] text-white border-black rounded-[8px] text-[15px] font-bold border-[1.5px] px-5 py-2 -translate-y-1 hover:-translate-y-1.5 active:-translate-y-0.5 mx-[-1.5px] group-disabled:hover:!-translate-y-1 block active:transition-all active:duration-100 select-none "
+            >
               <LoginButton mode="modal">Get started - free</LoginButton>
             </span>
           </motion.div>
