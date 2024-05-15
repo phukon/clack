@@ -5,25 +5,31 @@ import { getUserData } from "./_getData";
 import { DataStruct } from "@/types";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { themes } from "@/lib/graph";
-import { toast } from "../ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import SelectTheme from "@/components/select-theme";
 // import useNotes from '@/context/NotesContext';
 // import { seedUserData } from './_addData';
 // import jsonData from './mock.json';
 
 type GraphProps = {
   isPreview: boolean;
-  themeName: keyof typeof themes;
 };
 
 export default function Graph(props: GraphProps) {
   // const {wordCount} = useNotes()
-  const { isPreview, themeName } = props;
+  const [selectedTheme, setSelectedTheme] = useState<keyof typeof themes>("solarizedDark");
+  const { isPreview } = props;
   const canvasRef = useRef(null);
   const [userData, setUserData] = useState<DataStruct>();
   const currentYear = new Date().getFullYear();
   const user = useCurrentUser();
   const username = user?.name;
   const userId = user?.id;
+
+  const handleThemeChange = (value: string) => {
+    setSelectedTheme(value as keyof typeof themes);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +45,7 @@ export default function Graph(props: GraphProps) {
     };
 
     fetchData();
+    console.log(canvasRef.current)
   }, [userId]);
 
   useEffect(() => {
@@ -53,12 +60,12 @@ export default function Graph(props: GraphProps) {
       drawContributions(canvasRef.current, {
         data: isPreview ? filteredData : userData,
         username: username ?? "", // Provide a default value for username
-        themeName: themeName,
+        themeName: selectedTheme,
         footerText: "Clack ©2024",
         wordCount: 0, // might use later
       });
     }
-  }, [userData, username, currentYear, isPreview, themeName]);
+  }, [userData, username, currentYear, isPreview, selectedTheme]);
 
   // const handlePostClick = () => {
   //   seedUserData(userId);
@@ -66,25 +73,33 @@ export default function Graph(props: GraphProps) {
 
   return (
     <div
-      className="border-gray-200 border-2 max-w-[325px] md:max-w-full px-1 md:p-10"
+      className="border-gray-200 border-2 rounded max-w-[325px] md:max-w-full p-1 md:p-10"
       style={{ overflowX: "auto" }}
     >
       {/* <button onClick={handlePostClick}>POST Data</button> */}
-      <button
-        onClick={() => {
-          navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_APP_URL}/embed/${user?.id}`);
-          toast({
-            title: "🎊 Copied embed link to clipboard! 🎊",
-            description:
-              "You can use this widget in your Notion pages!",
-            variant:"success",
-          });
-        }}
-        className=" border-2 text-gray-500 border-gray-300 px-2 rounded-md"
-      >
-        copy 🔗
-      </button>
-      <canvas className="max-w-none md:w-full h-auto" ref={canvasRef}></canvas>
+      <div className="w-full flex justify-between">
+        <Button
+          onClick={() => {
+            navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_APP_URL}/embed/${user?.id}`);
+            toast({
+              title: "🎊 Copied embed link to clipboard! 🎊",
+              description: "You can use this widget in your Notion pages!",
+              variant: "success",
+            });
+          }}
+          variant="outline"
+          className="mb-2"
+        >
+          copy 🔗
+        </Button>
+        <SelectTheme handleThemeChange={handleThemeChange} />
+      </div>
+      <div className="relative w-[400px] md:w-[900px]">
+      <canvas className="max-w-none md:w-full rounded" ref={canvasRef}></canvas>
+      {!canvasRef.current && (
+        <div className="absolute top-0 left-0 w-[400px] md:w-[900px] h-full animate-pulse rounded bg-gray-400"></div>
+      )}
+      </div>
     </div>
   );
 }

@@ -1,13 +1,16 @@
 "use client";
 
 import Graph from "./page";
-import { themes } from "@/lib/graph";
 
-const GraphLayout = ({ isPreview, themeName }: { isPreview: boolean; themeName: keyof typeof themes }) => {
+interface GraphLayoutProps {
+  isPreview: boolean;
+}
+
+const GraphLayout = ({ isPreview }: GraphLayoutProps) => {
   return (
-    <div>
-      <Graph isPreview={isPreview} themeName={themeName} />
-    </div>
+    <>
+      <Graph isPreview={isPreview} />
+    </>
   );
 };
 
